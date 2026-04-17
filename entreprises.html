@@ -39,8 +39,12 @@
   .section-label::after { content: ''; flex: 1; height: 1px; background: var(--light); max-width: 120px; }
   .section-intro { font-size: 13px; color: var(--gray); line-height: 1.9; margin-bottom: 64px; max-width: 560px; }
   .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; margin-bottom: 80px; }
-  .service-card { background: var(--light); padding: 48px 40px; transition: background 0.3s, transform 0.3s; }
+  .service-card { background: var(--light); padding: 48px 40px 64px; transition: background 0.3s, transform 0.3s; cursor: pointer; position: relative; }
   .service-card:hover { background: var(--black); color: var(--white); transform: translateY(-4px); }
+  .service-card::after { content: 'Nous contacter →'; position: absolute; bottom: 20px; right: 28px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s; color: rgba(255,255,255,0.5); }
+  .service-card:hover::after { opacity: 1; }
+  .service-card::after { content: 'Nous contacter →'; position: absolute; bottom: 20px; right: 28px; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0; transition: opacity 0.3s; color: rgba(255,255,255,0.5); }
+  .service-card:hover::after { opacity: 1; }
   .service-icon { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: rgba(0,0,0,0.07); line-height: 1; margin-bottom: 20px; transition: color 0.3s; }
   .service-card:hover .service-icon { color: rgba(255,255,255,0.07); }
   .service-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; margin-bottom: 12px; }
@@ -98,6 +102,10 @@
   .modal-role-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 300; font-style: italic; }
   .modal-body { padding: 48px; }
 
+
+  .modal-overlay-e { display: none; position: fixed; inset: 0; z-index: 250; background: rgba(10,10,10,0.65); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; }
+  .modal-overlay-e.open { display: flex; }
+  .modal-entreprise { background: var(--white); width: 100%; max-width: 680px; max-height: 92vh; overflow-y: auto; position: relative; animation: modalIn 0.3s ease; }
   /* COOKIE */
   .cookie-banner { position: fixed; bottom: 0; left: 0; right: 0; z-index: 500; background: var(--black); color: var(--white); padding: 20px 60px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
   .cookie-banner p { font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.65); max-width: 700px; }
@@ -152,32 +160,32 @@
   <p class="section-label reveal">Ce que nous proposons</p>
   <p class="section-intro reveal">Tous types de missions, tous secteurs. Nous adaptons notre recherche à votre réalité opérationnelle.</p>
   <div class="services-grid">
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('CDI / CDD')">
       <div class="service-icon">01</div>
       <h3 class="service-title">CDI & CDD</h3>
       <p class="service-desc">Placement durable d'une assistante intégrée à votre équipe, sélectionnée pour s'inscrire dans votre culture d'entreprise.</p>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('Intérim')">
       <div class="service-icon">02</div>
       <h3 class="service-title">Intérim</h3>
       <p class="service-desc">Remplacement rapide et fiable pour pallier une absence ou une surcharge temporaire, sans compromis sur la qualité.</p>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('Freelance / Mission ponctuelle')">
       <div class="service-icon">03</div>
       <h3 class="service-title">Freelance & Mission</h3>
       <p class="service-desc">Une assistante indépendante pour une mission ponctuelle, un projet ou un pic d'activité, disponible rapidement.</p>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('Alternance / Stage')">
       <div class="service-icon">04</div>
       <h3 class="service-title">Alternance & Stage</h3>
       <p class="service-desc">Accueillez un profil en formation et participez à la construction de la prochaine génération d'assistantes qualifiées.</p>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('Assistante virtuelle (remote)')">
       <div class="service-icon">05</div>
       <h3 class="service-title">Assistante virtuelle</h3>
       <p class="service-desc">Externalisation administrative à distance : gestion d'agenda, emails, coordination, sans contrainte géographique.</p>
     </div>
-    <div class="service-card reveal">
+    <div class="service-card reveal" onclick="openModal('Placement sur-mesure')">
       <div class="service-icon">06</div>
       <h3 class="service-title">Placement sur-mesure</h3>
       <p class="service-desc">Besoin atypique, profil rare ou environnement exigeant ? Nous construisons une recherche entièrement personnalisée.</p>
@@ -213,7 +221,7 @@
 </section>
 
 <!-- FORM -->
-<section class="form-section" id="contact">
+<section class="form-section" id="contact" style="display:none;">
   <h2 class="form-title reveal">Votre<br><em>besoin.</em></h2>
   <p class="form-intro reveal">Décrivez votre recherche. Gaëlle prend personnellement connaissance de chaque demande et vous recontacte sous 48h.</p>
 
@@ -308,6 +316,64 @@
   </div>
 </section>
 
+
+<div class="modal-overlay-e" id="entrepriseModalOverlay" onclick="if(event.target===this)closeEntrepriseModal()">
+  <div class="modal-entreprise">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeEntrepriseModal()">&#x2715;</button>
+      <p class="modal-role-label">Votre besoin</p>
+      <h2 class="modal-role-title" id="modalMissionTitle">&#8212;</h2>
+    </div>
+    <div class="modal-body" style="padding:40px 48px;">
+      <form id="entrepriseModalForm">
+        <div class="form-row">
+          <div class="form-group"><label>Prénom *</label><input type="text" required placeholder="Marie"></div>
+          <div class="form-group"><label>Nom *</label><input type="text" required placeholder="Dupont"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email *</label><input type="email" required placeholder="marie@entreprise.com"></div>
+          <div class="form-group"><label>Téléphone *</label><input type="tel" required placeholder="06 12 34 56 78"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Entreprise *</label><input type="text" required placeholder="Nom de votre société"></div>
+          <div class="form-group"><label>Secteur d'activité</label><input type="text" placeholder="Ex. cabinet juridique, startup..."></div>
+        </div>
+        <div class="form-group">
+          <label>Poste recherché *</label>
+          <select required>
+            <option value="" disabled selected>Sélectionnez...</option>
+            <option>Assistante de direction</option><option>Assistante juridique</option><option>Assistante notariale</option><option>Assistante médicale</option><option>Assistante vétérinaire</option><option>Assistante administrative</option><option>Assistante comptable</option><option>Assistante commerciale</option><option>Assistante RH</option><option>Assistante formation</option><option>Assistante marketing</option><option>Assistante de communication</option><option>Assistante événementiel</option><option>Assistante chef de projet</option><option>Assistante virtuelle</option><option>Assistante services généraux</option><option>Coordinatrice</option><option>Agent d'accueil</option><option>Autre</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Disponibilité souhaitée</label>
+            <select><option value="" disabled selected>Sélectionnez...</option><option>Dès que possible</option><option>Dans 1 mois</option><option>Dans 3 mois</option><option>À définir</option></select>
+          </div>
+          <div class="form-group">
+            <label>Taille de l'entreprise</label>
+            <select><option value="" disabled selected>Sélectionnez...</option><option>1 personne (solopreneur)</option><option>2 à 10 personnes</option><option>11 à 50 personnes</option><option>Plus de 50 personnes</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Décrivez votre besoin *</label>
+          <textarea required placeholder="Missions attendues, niveau d'expérience souhaité, contexte de l'entreprise, contraintes éventuelles..." style="height:110px;"></textarea>
+        </div>
+        <div class="consent-group">
+          <input type="checkbox" required>
+          <span class="consent-label">J'accepte que mes données soient utilisées par Apogée Consulting conformément à la <a href="#" onclick="openLegal('confidentialiteOverlay');return false;">politique de confidentialité</a>.</span>
+        </div>
+        <button type="submit" class="submit-btn">Envoyer ma demande &#x2192;</button>
+      </form>
+      <div class="success-msg" id="entrepriseSuccessMsg" style="display:none;padding:60px 0;">
+        <div class="success-icon">&#x2736;</div>
+        <h3>Demande reçue.</h3>
+        <p>Gaëlle prend personnellement connaissance de votre besoin<br>et vous recontacte sous 48h pour un premier échange.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL MENTIONS LÉGALES -->
 <div class="modal-overlay" id="mentionsOverlay" onclick="if(event.target===this)closeLegal('mentionsOverlay')" style="z-index:300;">
   <div class="modal">
@@ -377,6 +443,25 @@
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
 
+
+  function openModal(mission) {
+    document.getElementById('modalMissionTitle').textContent = mission;
+    document.getElementById('entrepriseModalOverlay').classList.add('open');
+    document.getElementById('entrepriseModalForm').style.display = 'block';
+    document.getElementById('entrepriseSuccessMsg').style.display = 'none';
+    document.getElementById('entrepriseModalForm').reset();
+    document.body.style.overflow = 'hidden';
+  }
+  function closeEntrepriseModal() {
+    document.getElementById('entrepriseModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('entrepriseModalForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    this.style.display = 'none';
+    document.getElementById('entrepriseSuccessMsg').style.display = 'block';
+  });
+
   // Legal modals
   function openLegal(id) {
     document.getElementById(id).classList.add('open');
@@ -387,6 +472,7 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeEntrepriseModal(); }
     if (e.key === 'Escape') {
       ['mentionsOverlay','confidentialiteOverlay'].forEach(id => {
         document.getElementById(id).classList.remove('open');
