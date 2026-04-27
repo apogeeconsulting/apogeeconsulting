@@ -160,73 +160,84 @@
     .newsletter-form { flex-direction: column; }
     footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
   }
-</style>
+
+  .lang-btn { background: none; border: 1px solid rgba(0,0,0,0.15); padding: 5px 12px; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); border-radius: 2px; transition: all 0.2s; margin-left: 20px; }
+  .lang-btn:hover { border-color: var(--black); color: var(--black); }
+  /* Langue par défaut : français visible, anglais caché */
+  [lang="en"] { display: none !important; }
+  [lang="fr"] { display: inline !important; }
+  /* Mode anglais : inverse */
+  body.en [lang="en"] { display: inline !important; }
+  body.en [lang="fr"] { display: none !important; }
+
+  </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html" class="nav-logo" style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.15em;color:#6b4c3b;text-decoration:none;">Apogée Consulting</a>
   <div class="nav-links">
-    <a href="index.html">Accueil</a>
+    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
     <a href="recrutement.html">Recrutement</a>
-    <a href="entreprises.html">Entreprises</a>
-    <a href="ressources.html" class="active">Espace assistantes</a>
+    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
+    <a href="ressources.html" class="active"><span lang="fr">Espace assistantes</span><span lang="en">Executive Assistants Hub</span></a>
   </div>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
 </nav>
 
 <div class="ancres" id="ancres">
-  <a href="#offres" class="ancre-btn">Offres du jour</a>
-  <a href="#actualites" class="ancre-btn">Actualités</a>
-  <a href="#lexique" class="ancre-btn">Le lexique</a>
-  <a href="#portraits" class="ancre-btn">Portraits</a>
-  <a href="#guide" class="ancre-btn">Guide</a>
-  <a href="#chiffres" class="ancre-btn">Chiffres</a>
-  <a href="#newsletter" class="ancre-btn">Newsletter</a>
+  <a href="#offres" class="ancre-btn"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></a>
+  <a href="#actualites" class="ancre-btn"><span lang="fr">Actualités</span><span lang="en">News</span></a>
+  <a href="#lexique" class="ancre-btn"><span lang="fr">Le lexique</span><span lang="en">The glossary</span></a>
+  <a href="#portraits" class="ancre-btn"><span lang="fr">Portraits</span><span lang="en">Portraits</span></a>
+  <a href="#guide" class="ancre-btn"><span lang="fr">Guide</span><span lang="en">Guide</span></a>
+  <a href="#chiffres" class="ancre-btn"><span lang="fr">Chiffres</span><span lang="en">Figures</span></a>
+  <a href="#newsletter" class="ancre-btn"><span lang="fr">Newsletter</span><span lang="en">Newsletter</span></a>
 </div>
 
 <section class="hero">
-  <p class="hero-tag">Espace assistantes, Apogée Consulting</p>
+  <p class="hero-tag"><span lang="fr">Espace assistantes, Apogée Consulting</span><span lang="en">Executive Assistants Hub, Apogée Consulting</span></p>
   <div class="manifeste">
-    <p class="manifeste-line">Assistante de direction.</p>
-    <p class="manifeste-line">Pas secrétaire. Pas exécutante.</p>
+    <p class="manifeste-line"><span lang="fr">Assistante de direction.</span><span lang="en">Executive assistant.</span></p>
+    <p class="manifeste-line"><span lang="fr">Pas secrétaire. Pas exécutante.</span><span lang="en">Not a secretary. Not an executor.</span></p>
     <p class="manifeste-line">Celle qui voit tout, anticipe tout, <em>tient tout.</em></p>
-    <p class="manifeste-line">Le pilier stratégique que peu d'organisations savent vraiment valoriser.</p>
+    <p class="manifeste-line"><span lang="fr">Le pilier stratégique que peu d'organisations savent vraiment valoriser.</span><span lang="en">The strategic asset that few organisations truly know how to value.</span></p>
   </div>
-  <p class="manifeste-conclusion">Nous, si.</p>
+  <p class="manifeste-conclusion"><span lang="fr">Nous, si.</span><span lang="en">We do.</span></p>
 </section>
 
 <div class="band">
   <div class="band-inner">
-    <span>Pilier stratégique</span><span>Vision</span><span>Anticipation</span><span>Excellence</span><span>Évolution</span><span>Reconnaissance</span><span>Paris et IDF</span><span>Remote</span><span>Pilier stratégique</span><span>Vision</span><span>Anticipation</span><span>Excellence</span><span>Évolution</span><span>Reconnaissance</span><span>Paris et IDF</span><span>Remote</span>
+    <span><span lang="fr">Pilier stratégique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Évolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span><span><span lang="fr">Pilier stratégique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Évolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span>
   </div>
 </div>
 
 <section class="phrase reveal">
-  <p class="phrase-text">Vous gérez. Vous anticipez. Vous tenez.<br><em>Le reste, c'est notre travail.</em></p>
+  <p class="phrase-text"><span lang="fr">Vous gérez. Vous anticipez. Vous tenez.</span><span lang="en">You manage. You anticipate. You hold it together.</span><br><em><span lang="fr">Le reste, c'est notre travail.</span><span lang="en">The rest is our job.</span></em></p>
 </section>
 
 <!-- OFFRES -->
 <section class="section" id="offres">
   <div class="section-inner">
-    <p class="section-label">Offres du jour</p>
-    <h2 class="section-title">Postes<br><em>disponibles.</em></h2>
+    <p class="section-label"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></p>
+    <h2 class="section-title"><span lang="fr">Postes</span><span lang="en">Positions</span><br><em><span lang="fr">disponibles.</span><span lang="en">available.</span></em></h2>
     <div class="filters">
-      <button class="filter-btn active" onclick="filter('all',this)">Toutes</button>
-      <button class="filter-btn" onclick="filter('exclusive',this)">Exclusives Apogée</button>
-      <button class="filter-btn" onclick="filter('direction',this)">Direction</button>
-      <button class="filter-btn" onclick="filter('juridique',this)">Juridique</button>
-      <button class="filter-btn" onclick="filter('medical',this)">Médical</button>
-      <button class="filter-btn" onclick="filter('finance',this)">Finance</button>
-      <button class="filter-btn" onclick="filter('remote',this)">Remote</button>
+      <button class="filter-btn active" onclick="filter('all',this)"><span lang="fr">Toutes</span><span lang="en">All</span></button>
+      <button class="filter-btn" onclick="filter('exclusive',this)"><span lang="fr">Exclusives Apogée</span><span lang="en">Apogée Exclusives</span></button>
+      <button class="filter-btn" onclick="filter('direction',this)"><span lang="fr">Direction</span><span lang="en">Management</span></button>
+      <button class="filter-btn" onclick="filter('juridique',this)"><span lang="fr">Juridique</span><span lang="en">Legal</span></button>
+      <button class="filter-btn" onclick="filter('medical',this)"><span lang="fr">Médical</span><span lang="en">Medical</span></button>
+      <button class="filter-btn" onclick="filter('finance',this)"><span lang="fr">Finance</span><span lang="en">Finance</span></button>
+      <button class="filter-btn" onclick="filter('remote',this)"><span lang="fr">Remote</span><span lang="en">Remote</span></button>
     </div>
     <div class="offres-grid">
-      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive"><span class="offre-badge badge-exclusive">Exclusif Apogée</span><div class="offre-title">Assistante de direction</div><div class="offre-meta">Cabinet de conseil, Paris 8e<br>CDI, 35 à 42K</div><div class="offre-footer"><span class="offre-date">Aujourd'hui</span><span class="offre-cta">Postuler →</span></div></a>
-      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive"><span class="offre-badge badge-exclusive">Exclusif Apogée</span><div class="offre-title">Office Manager</div><div class="offre-meta">Startup tech, Paris 11e<br>CDI, 38 à 45K</div><div class="offre-footer"><span class="offre-date">Aujourd'hui</span><span class="offre-cta">Postuler →</span></div></a>
-      <a href="recrutement.html" class="offre-card" data-cat="remote" data-type="exclusive"><span class="offre-badge badge-exclusive">Exclusif Apogée</span><div class="offre-title">Assistante virtuelle</div><div class="offre-meta">Dirigeant indépendant, Remote<br>Freelance</div><div class="offre-footer"><span class="offre-date">Cette semaine</span><span class="offre-cta">Postuler →</span></div></a>
-      <a href="https://www.cadremploi.fr/emploi/liste_offres.html?k=assistante+de+direction&l=paris" target="_blank" class="offre-card" data-cat="direction" data-type="externe"><span class="offre-badge badge-externe">Cadremploi</span><div class="offre-title">Assistante de direction bilingue</div><div class="offre-meta">Groupe international, Paris 16e<br>CDI</div><div class="offre-footer"><span class="offre-date">Aujourd'hui</span><span class="offre-cta">Voir →</span></div></a>
-      <a href="https://www.francetravail.fr/emploi/nos-offres-d-emploi.html?motsCles=assistante+juridique&lieux=75" target="_blank" class="offre-card" data-cat="juridique" data-type="externe"><span class="offre-badge badge-externe">France Travail</span><div class="offre-title">Assistante juridique</div><div class="offre-meta">Cabinet d'avocats, Paris 2e<br>CDD 6 mois</div><div class="offre-footer"><span class="offre-date">Hier</span><span class="offre-cta">Voir →</span></div></a>
-      <a href="https://www.cadremploi.fr/emploi/liste_offres.html?k=assistante+comptable&l=paris" target="_blank" class="offre-card" data-cat="finance" data-type="externe"><span class="offre-badge badge-externe">Cadremploi</span><div class="offre-title">Assistante comptable</div><div class="offre-meta">Cabinet comptable, Paris<br>CDI</div><div class="offre-footer"><span class="offre-date">Cette semaine</span><span class="offre-cta">Voir →</span></div></a>
-      <a href="https://www.welcometothejungle.com/fr/jobs?query=assistante+virtuelle" target="_blank" class="offre-card" data-cat="remote" data-type="externe"><span class="offre-badge badge-externe">Welcome to the Jungle</span><div class="offre-title">Assistante virtuelle RH</div><div class="offre-meta">Scale-up, Full remote<br>Freelance</div><div class="offre-footer"><span class="offre-date">Cette semaine</span><span class="offre-cta">Voir →</span></div></a>
+      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr"><span lang="fr">Exclusif Apogée</span><span lang="en">Apogée Exclusive</span></span><span lang="en">Apogée Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris 8e</span><span lang="en">Consulting firm, Paris 8th</span><br><span lang="fr">CDI, 35 à 42K</span><span lang="en">Permanent, 35 to 42K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
+      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr"><span lang="fr">Exclusif Apogée</span><span lang="en">Apogée Exclusive</span></span><span lang="en">Apogée Exclusive</span></span><div class="offre-title">Office Manager</div><div class="offre-meta"><span lang="fr">Startup tech, Paris 11e</span><span lang="en">Tech startup, Paris 11th</span><br><span lang="fr">CDI, 38 à 45K</span><span lang="en">Permanent, 38 to 45K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
+      <a href="recrutement.html" class="offre-card" data-cat="remote" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr"><span lang="fr">Exclusif Apogée</span><span lang="en">Apogée Exclusive</span></span><span lang="en">Apogée Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Dirigeant indépendant, Remote</span><span lang="en">Independent executive, Remote</span><br>Freelance</div><div class="offre-footer"><span class="offre-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
+      <a href="https://www.cadremploi.fr/emploi/liste_offres.html?k=assistante+de+direction&l=paris" target="_blank" class="offre-card" data-cat="direction" data-type="externe"><span class="offre-badge badge-externe">Cadremploi</span><div class="offre-title"><span lang="fr">Assistante de direction bilingue</span><span lang="en">Bilingual Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Groupe international, Paris 16e</span><span lang="en">International group, Paris 16th</span><br>CDI</div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://www.francetravail.fr/emploi/nos-offres-d-emploi.html?motsCles=assistante+juridique&lieux=75" target="_blank" class="offre-card" data-cat="juridique" data-type="externe"><span class="offre-badge badge-externe">France Travail</span><div class="offre-title"><span lang="fr">Assistante juridique</span><span lang="en">Legal Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet d'avocats, Paris 2e</span><span lang="en">Law firm, Paris 2nd</span><br>CDD 6 mois</div><div class="offre-footer"><span class="offre-date"><span lang="fr"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span><span lang="en">Yesterday</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://www.cadremploi.fr/emploi/liste_offres.html?k=assistante+comptable&l=paris" target="_blank" class="offre-card" data-cat="finance" data-type="externe"><span class="offre-badge badge-externe">Cadremploi</span><div class="offre-title"><span lang="fr">Assistante comptable</span><span lang="en">Accounting Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet comptable, Paris</span><span lang="en">Accounting firm, Paris</span><br>CDI</div><div class="offre-footer"><span class="offre-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://www.welcometothejungle.com/fr/jobs?query=assistante+virtuelle" target="_blank" class="offre-card" data-cat="remote" data-type="externe"><span class="offre-badge badge-externe">Welcome to the Jungle</span><div class="offre-title"><span lang="fr">Assistante virtuelle RH</span><span lang="en">HR Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Scale-up, Full remote</span><span lang="en">Scale-up, Full remote</span><br>Freelance</div><div class="offre-footer"><span class="offre-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
     </div>
   </div>
 </section>
@@ -234,15 +245,15 @@
 <!-- ACTUALITÉS -->
 <section class="section section-light" id="actualites">
   <div class="section-inner">
-    <p class="section-label">Actualités, mis à jour régulièrement</p>
-    <h2 class="section-title">Pour avancer<br><em>plus loin.</em></h2>
+    <p class="section-label"><span lang="fr">Actualités, mis à jour régulièrement</span><span lang="en">News, updated regularly</span></p>
+    <h2 class="section-title"><span lang="fr">Pour avancer</span><span lang="en">To move forward</span><br><em><span lang="fr">plus loin.</span><span lang="en">further.</span></em></h2>
     <div class="actu-grid">
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag">Évolution de carrière</p><h3 class="actu-title">Comment passer d'assistante à Office Manager ?</h3><p class="actu-desc">Les compétences à développer, les signaux à envoyer, le bon timing pour en parler à votre direction.</p><p class="actu-date">Cette semaine</p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-entretien" target="_blank" class="actu-card"><p class="actu-tag">Entretien</p><h3 class="actu-title">5 questions pièges en entretien d'assistante de direction</h3><p class="actu-desc">Comment répondre avec assurance sur la confidentialité, la gestion du stress et les priorités contradictoires.</p><p class="actu-date">Cette semaine</p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Salaires 2026</p><h3 class="actu-title">Grille de salaires : assistantes à Paris</h3><p class="actu-desc">Junior, confirmée, senior, les fourchettes actuelles par spécialité et par secteur d'activité.</p><p class="actu-date">Ce mois</p></a>
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag">Outils 2026</p><h3 class="actu-title">Les outils IA que les assistantes doivent maîtriser</h3><p class="actu-desc">Notion AI, outils de gestion d'agenda, automatisation : ce que les dirigeants attendent désormais.</p><p class="actu-date">Ce mois</p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-carriere" target="_blank" class="actu-card"><p class="actu-tag">Négociation</p><h3 class="actu-title">Comment négocier son salaire en tant qu'assistante ?</h3><p class="actu-desc">Les arguments qui fonctionnent, le bon timing, les erreurs classiques à éviter absolument.</p><p class="actu-date">Ce mois</p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Formation</p><h3 class="actu-title">Les certifications qui font la différence sur un CV</h3><p class="actu-desc">TOSA, Excel avancé, outils de gestion de projet : lesquelles prioriser selon votre spécialité.</p><p class="actu-date">Ce mois</p></a>
+      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag"><span lang="fr">Évolution de carrière</span><span lang="en">Career development</span></p><h3 class="actu-title"><span lang="fr">Comment passer d'assistante à Office Manager ?</span><span lang="en">How to move from assistant to Office Manager?</span></h3><p class="actu-desc"><span lang="fr">Les compétences à développer, les signaux à envoyer, le bon timing pour en parler à votre direction.</span><span lang="en">The skills to develop, signals to send, and the right timing to bring it up with management.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
+      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-entretien" target="_blank" class="actu-card"><p class="actu-tag">Entretien</p><h3 class="actu-title"><span lang="fr">5 questions pièges en entretien d'assistante de direction</span><span lang="en">5 tricky interview questions for executive assistants</span></h3><p class="actu-desc"><span lang="fr">Comment répondre avec assurance sur la confidentialité, la gestion du stress et les priorités contradictoires.</span><span lang="en">How to answer confidently on confidentiality, stress management and conflicting priorities.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
+      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Salaires 2026</p><h3 class="actu-title"><span lang="fr">Grille de salaires : assistantes à Paris</span><span lang="en">Salary guide: assistants in Paris</span></h3><p class="actu-desc"><span lang="fr">Junior, confirmée, senior, les fourchettes actuelles par spécialité et par secteur d'activité.</span><span lang="en">Junior, confirmed, senior, current salary ranges by speciality and sector.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
+      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag">Outils 2026</p><h3 class="actu-title"><span lang="fr">Les outils IA que les assistantes doivent maîtriser</span><span lang="en">AI tools every assistant needs to master</span></h3><p class="actu-desc"><span lang="fr">Notion AI, outils de gestion d'agenda, automatisation : ce que les dirigeants attendent désormais.</span><span lang="en">Notion AI, diary management tools, automation: what executives now expect.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
+      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-carriere" target="_blank" class="actu-card"><p class="actu-tag">Négociation</p><h3 class="actu-title"><span lang="fr">Comment négocier son salaire en tant qu'assistante ?</span><span lang="en">How to negotiate your salary as an assistant?</span></h3><p class="actu-desc"><span lang="fr">Les arguments qui fonctionnent, le bon timing, les erreurs classiques à éviter absolument.</span><span lang="en">Arguments that work, the right timing, classic mistakes to absolutely avoid.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
+      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Formation</p><h3 class="actu-title"><span lang="fr">Les certifications qui font la différence sur un CV</span><span lang="en">Certifications that make a difference on a CV</span></h3><p class="actu-desc"><span lang="fr">TOSA, Excel avancé, outils de gestion de projet : lesquelles prioriser selon votre spécialité.</span><span lang="en">TOSA, advanced Excel, project management tools: which to prioritise by speciality.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
     </div>
   </div>
 </section>
@@ -250,15 +261,15 @@
 <!-- LEXIQUE -->
 <section class="section section-dark" id="lexique">
   <div class="section-inner">
-    <p class="section-label">Le lexique, mis à jour chaque semaine</p>
-    <h2 class="section-title" style="color:var(--white);">Les mots du métier.<br><em>Redéfinis.</em></h2>
+    <p class="section-label"><span lang="fr">Le lexique, mis à jour chaque semaine</span><span lang="en">The glossary, updated weekly</span></p>
+    <h2 class="section-title" style="color:var(--white);"><span lang="fr">Les mots du métier.</span><span lang="en">The words of the profession.</span><br><em><span lang="fr">Redéfinis.</span><span lang="en">Redefined.</span></em></h2>
     <div class="lexique-grid">
-      <div class="lexique-card"><p class="lexique-mot">Secrétaire</p><p class="lexique-def-officielle">"Personne chargée de la correspondance et des tâches administratives."</p><p class="lexique-def-vraie">La mémoire de l'entreprise, le filtre de l'information, la gardienne du temps de ceux qui décident.</p></div>
-      <div class="lexique-card"><p class="lexique-mot">Disponible</p><p class="lexique-def-officielle">"Qui peut être mobilisé à tout moment."</p><p class="lexique-def-vraie">Réactive, oui. Mais avec des limites qui sont la condition même de votre efficacité.</p></div>
-      <div class="lexique-card"><p class="lexique-mot">Support</p><p class="lexique-def-officielle">"Fonction d'aide et d'assistance."</p><p class="lexique-def-vraie">Une fonction stratégique sans laquelle aucune décision ne se prend correctement.</p></div>
-      <div class="lexique-card"><p class="lexique-mot">Polyvalente</p><p class="lexique-def-officielle">"Capable de s'adapter à diverses tâches."</p><p class="lexique-def-vraie">Une professionnelle qui maîtrise des domaines qu'il faudrait trois personnes pour couvrir ailleurs.</p></div>
-      <div class="lexique-card"><p class="lexique-mot">Discrète</p><p class="lexique-def-officielle">"Qui évite de se faire remarquer."</p><p class="lexique-def-vraie">Une confidente de haut niveau, dépositaire d'informations que peu partagent dans l'entreprise.</p></div>
-      <div class="lexique-card"><p class="lexique-mot">Assistante</p><p class="lexique-def-officielle">"Celle qui assiste, qui aide."</p><p class="lexique-def-vraie">Celle sans qui les dirigeants ne pourraient ni avancer vite, ni avancer bien.</p></div>
+      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Secrétaire</span><span lang="en">Secretary</span></p><p class="lexique-def-officielle"><span lang="fr">"Personne chargée de la correspondance et des tâches administratives."</span><span lang="en">"Person responsible for correspondence and administrative tasks."</span></p><p class="lexique-def-vraie"><span lang="fr">La mémoire de l'entreprise, le filtre de l'information, la gardienne du temps de ceux qui décident.</span><span lang="en">The company's memory, the information filter, the guardian of decision-makers' time.</span></p></div>
+      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Disponible</span><span lang="en">Available</span></p><p class="lexique-def-officielle"><span lang="fr">"Qui peut être mobilisé à tout moment."</span><span lang="en">"Who can be mobilised at any time."</span></p><p class="lexique-def-vraie"><span lang="fr">Réactive, oui. Mais avec des limites qui sont la condition même de votre efficacité.</span><span lang="en">Responsive, yes. But with boundaries that are the very condition of your effectiveness.</span></p></div>
+      <div class="lexique-card"><p class="lexique-mot">Support</p><p class="lexique-def-officielle"><span lang="fr">"Fonction d'aide et d'assistance."</span><span lang="en">"Support and assistance function."</span></p><p class="lexique-def-vraie"><span lang="fr">Une fonction stratégique sans laquelle aucune décision ne se prend correctement.</span><span lang="en">A strategic function without which no decision can be properly made.</span></p></div>
+      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Polyvalente</span><span lang="en">Versatile</span></p><p class="lexique-def-officielle"><span lang="fr">"Capable de s'adapter à diverses tâches."</span><span lang="en">"Able to adapt to various tasks."</span></p><p class="lexique-def-vraie"><span lang="fr">Une professionnelle qui maîtrise des domaines qu'il faudrait trois personnes pour couvrir ailleurs.</span><span lang="en">A professional who masters domains that would take three people to cover elsewhere.</span></p></div>
+      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Discrète</span><span lang="en">Discreet</span></p><p class="lexique-def-officielle"><span lang="fr">"Qui évite de se faire remarquer."</span><span lang="en">"Who avoids drawing attention."</span></p><p class="lexique-def-vraie"><span lang="fr">Une confidente de haut niveau, dépositaire d'informations que peu partagent dans l'entreprise.</span><span lang="en">A high-level confidante, entrusted with information that few in the company share.</span></p></div>
+      <div class="lexique-card"><p class="lexique-mot">Assistante</p><p class="lexique-def-officielle"><span lang="fr">"Celle qui assiste, qui aide."</span><span lang="en">"The one who assists, who helps."</span></p><p class="lexique-def-vraie"><span lang="fr">Celle sans qui les dirigeants ne pourraient ni avancer vite, ni avancer bien.</span><span lang="en">The one without whom executives could neither move fast nor move well.</span></p></div>
     </div>
   </div>
 </section>
@@ -266,12 +277,12 @@
 <!-- PORTRAITS -->
 <section class="section" id="portraits">
   <div class="section-inner">
-    <p class="section-label">Portraits, mis à jour chaque semaine</p>
-    <h2 class="section-title">Trois femmes.<br><em>Trois chemins.</em></h2>
+    <p class="section-label"><span lang="fr">Portraits, mis à jour chaque semaine</span><span lang="en">Portraits, updated weekly</span></p>
+    <h2 class="section-title"><span lang="fr">Trois femmes.</span><span lang="en">Three women.</span><br><em><span lang="fr">Trois chemins.</span><span lang="en">Three paths.</span></em></h2>
     <div class="portraits-grid">
-      <div class="portrait-card"><div class="portrait-initiales">S.</div><h3 class="portrait-prenom">Sophie</h3><p class="portrait-metier">Assistante de direction, 12 ans</p><p class="portrait-texte">Elle a commencé comme standardiste. Aujourd'hui, elle gère les déplacements internationaux d'un PDG, coordonne trois équipes et prépare les conseils d'administration. Personne ne lui a donné un titre à la hauteur. Elle a arrêté d'attendre qu'on le fasse.</p><p class="portrait-detail">Aujourd'hui chez un client Apogée, Paris 8e.</p></div>
-      <div class="portrait-card"><div class="portrait-initiales">M.</div><h3 class="portrait-prenom">Myriam</h3><p class="portrait-metier">Office Manager, reconvertie</p><p class="portrait-texte">Ancienne agent d'accueil dans un hôtel, elle a compris que ses compétences valaient bien plus que son poste. Six mois de formation. Un CV retravaillé. Un entretien où elle a enfin parlé de ce qu'elle savait faire.</p><p class="portrait-detail">Placée par Apogée il y a 8 mois. En CDI.</p></div>
-      <div class="portrait-card"><div class="portrait-initiales">L.</div><h3 class="portrait-prenom">Laura</h3><p class="portrait-metier">Assistante juridique, cabinet d'avocats</p><p class="portrait-texte">Elle connaît les dossiers mieux que certains associés. Elle anticipe les délais, prépare les plaidoiries, gère les clients difficiles. Ce qu'elle a changé récemment : elle a négocié. Pour la première fois. Et ça a marché.</p><p class="portrait-detail">En poste depuis 3 ans. Vient de décrocher une promotion.</p></div>
+      <div class="portrait-card"><div class="portrait-initiales">S.</div><h3 class="portrait-prenom">Sophie</h3><p class="portrait-metier"><span lang="fr">Assistante de direction, 12 ans</span><span lang="en">Executive Assistant, 12 years</span></p><p class="portrait-texte"><span lang="fr">Elle a commencé comme standardiste. Aujourd'hui, elle gère les déplacements internationaux d'un PDG, coordonne trois équipes et prépare les conseils d'administration. Personne ne lui a donné un titre à la hauteur. Elle a arrêté d'attendre qu'on le fasse.</span><span lang="en">She started as a switchboard operator. Today, she manages a CEO's international travel, coordinates three teams and prepares board meetings. No one gave her a title to match. She stopped waiting for someone to do it.</span></p><p class="portrait-detail"><span lang="fr">Aujourd'hui chez un client Apogée, Paris 8e.</span><span lang="en">Now with an Apogée client, Paris 8th.</span></p></div>
+      <div class="portrait-card"><div class="portrait-initiales">M.</div><h3 class="portrait-prenom">Myriam</h3><p class="portrait-metier"><span lang="fr">Office Manager, reconvertie</span><span lang="en">Office Manager, career changer</span></p><p class="portrait-texte"><span lang="fr">Ancienne agent d'accueil dans un hôtel, elle a compris que ses compétences valaient bien plus que son poste. Six mois de formation. Un CV retravaillé. Un entretien où elle a enfin parlé de ce qu'elle savait faire.</span><span lang="en">A former hotel receptionist, she realised her skills were worth far more than her role. Six months of training. A reworked CV. An interview where she finally talked about what she knew how to do.</span></p><p class="portrait-detail"><span lang="fr">Placée par Apogée il y a 8 mois. En CDI.</span><span lang="en">Placed by Apogée 8 months ago. Permanent contract.</span></p></div>
+      <div class="portrait-card"><div class="portrait-initiales">L.</div><h3 class="portrait-prenom">Laura</h3><p class="portrait-metier"><span lang="fr">Assistante juridique, cabinet d'avocats</span><span lang="en">Legal Assistant, law firm</span></p><p class="portrait-texte"><span lang="fr">Elle connaît les dossiers mieux que certains associés. Elle anticipe les délais, prépare les plaidoiries, gère les clients difficiles. Ce qu'elle a changé récemment : elle a négocié. Pour la première fois. Et ça a marché.</span><span lang="en">She knows the files better than some partners. She anticipates deadlines, prepares pleadings, handles difficult clients. What she changed recently: she negotiated. For the first time. And it worked.</span></p><p class="portrait-detail"><span lang="fr">En poste depuis 3 ans. Vient de décrocher une promotion.</span><span lang="en">In post for 3 years. Just landed a promotion.</span></p></div>
     </div>
   </div>
 </section>
@@ -279,12 +290,12 @@
 <!-- GUIDE -->
 <section class="section section-light" id="guide">
   <div class="section-inner">
-    <p class="section-label">Guide de survie, mis à jour chaque semaine</p>
-    <h2 class="section-title">Situations réelles.<br><em>Réponses concrètes.</em></h2>
+    <p class="section-label"><span lang="fr">Guide de survie, mis à jour chaque semaine</span><span lang="en">Survival guide, updated weekly</span></p>
+    <h2 class="section-title"><span lang="fr">Situations réelles.</span><span lang="en">Real situations.</span><br><em><span lang="fr">Réponses concrètes.</span><span lang="en">Concrete answers.</span></em></h2>
     <div class="guide-grid">
-      <div class="guide-card"><div class="guide-num">01</div><p class="guide-situation">La priorité impossible</p><h3 class="guide-title">Tout est urgent en même temps</h3><p class="guide-conseil">Nommez-les à voix haute. "J'ai trois urgences simultanées, laquelle est la plus critique pour vous ?" Cela force une décision et vous protège.</p></div>
-      <div class="guide-card"><div class="guide-num">02</div><p class="guide-situation">Le changement d'avis</p><h3 class="guide-title">Il voulait X, maintenant il veut Y</h3><p class="guide-conseil">Confirmez par écrit, même en une ligne. "Comme convenu, je modifie en Y." Pas pour vous couvrir, pour clarifier et éviter la prochaine fois.</p></div>
-      <div class="guide-card"><div class="guide-num">03</div><p class="guide-situation">La reconnaissance absente</p><h3 class="guide-title">Votre travail disparaît dans le résultat</h3><p class="guide-conseil">Rendez visible ce qui est invisible : un bref point hebdomadaire sur ce que vous avez géré. Pas pour vous vanter, pour ancrer votre valeur.</p></div>
+      <div class="guide-card"><div class="guide-num">01</div><p class="guide-situation"><span lang="fr">La priorité impossible</span><span lang="en">The impossible priority</span></p><h3 class="guide-title"><span lang="fr">Tout est urgent en même temps</span><span lang="en">Everything is urgent at once</span></h3><p class="guide-conseil"><span lang="fr">Nommez-les à voix haute. "J'ai trois urgences simultanées, laquelle est la plus critique pour vous ?" Cela force une décision et vous protège.</span><span lang="en">Name them out loud. "I have three simultaneous urgencies, which is most critical for you?" This forces a decision and protects you.</span></p></div>
+      <div class="guide-card"><div class="guide-num">02</div><p class="guide-situation"><span lang="fr">Le changement d'avis</span><span lang="en">The change of mind</span></p><h3 class="guide-title"><span lang="fr">Il voulait X, maintenant il veut Y</span><span lang="en">He wanted X, now he wants Y</span></h3><p class="guide-conseil"><span lang="fr">Confirmez par écrit, même en une ligne. "Comme convenu, je modifie en Y." Pas pour vous couvrir, pour clarifier et éviter la prochaine fois.</span><span lang="en">Confirm in writing, even in one line. "As agreed, I am changing to Y." Not to cover yourself, to clarify and prevent next time.</span></p></div>
+      <div class="guide-card"><div class="guide-num">03</div><p class="guide-situation"><span lang="fr">La reconnaissance absente</span><span lang="en">The absent recognition</span></p><h3 class="guide-title"><span lang="fr">Votre travail disparaît dans le résultat</span><span lang="en">Your work disappears into the result</span></h3><p class="guide-conseil"><span lang="fr">Rendez visible ce qui est invisible : un bref point hebdomadaire sur ce que vous avez géré. Pas pour vous vanter, pour ancrer votre valeur.</span><span lang="en">Make visible what is invisible: a brief weekly update on what you have managed. Not to boast, to anchor your value.</span></p></div>
     </div>
   </div>
 </section>
@@ -292,37 +303,37 @@
 <!-- CHIFFRES -->
 <section class="section" id="chiffres">
   <div class="section-inner">
-    <p class="section-label">Le métier en chiffres</p>
-    <h2 class="section-title">Ce que les données<br><em>révèlent.</em></h2>
+    <p class="section-label"><span lang="fr">Le métier en chiffres</span><span lang="en">The profession in numbers</span></p>
+    <h2 class="section-title"><span lang="fr">Ce que les données</span><span lang="en">What the data</span><br><em><span lang="fr">révèlent.</span><span lang="en">reveals.</span></em></h2>
     <div class="chiffres-grid">
-      <div class="chiffre-card"><div class="chiffre-val">28K</div><p class="chiffre-label">Salaire médian junior à Paris</p><p class="chiffre-source">Apec, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">52K</div><p class="chiffre-label">Salaire médian senior, secteur juridique ou financier</p><p class="chiffre-source">Cadremploi, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">78%</div><p class="chiffre-label">Des assistantes estiment leur poste sous-évalué</p><p class="chiffre-source">MyRHLine, 2024</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">+34%</div><p class="chiffre-label">D'augmentation lors d'un changement de poste bien négocié</p><p class="chiffre-source">Regionsjob, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">3 ans</div><p class="chiffre-label">Avant qu'une assistante confirmée accède à Office Manager</p><p class="chiffre-source">LinkedIn, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">92%</div><p class="chiffre-label">Des dirigeants jugent leur assistante indispensable</p><p class="chiffre-source">Focusrh, 2024</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">28K</div><p class="chiffre-label"><span lang="fr">Salaire médian junior à Paris</span><span lang="en">Median junior salary in Paris</span></p><p class="chiffre-source">Apec, 2025</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">52K</div><p class="chiffre-label"><span lang="fr">Salaire médian senior, secteur juridique ou financier</span><span lang="en">Median senior salary, legal or financial sector</span></p><p class="chiffre-source">Cadremploi, 2025</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">78%</div><p class="chiffre-label"><span lang="fr">Des assistantes estiment leur poste sous-évalué</span><span lang="en">Of assistants consider their role undervalued</span></p><p class="chiffre-source">MyRHLine, 2024</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">+34%</div><p class="chiffre-label"><span lang="fr">D'augmentation lors d'un changement de poste bien négocié</span><span lang="en">Salary increase when changing jobs with good negotiation</span></p><p class="chiffre-source">Regionsjob, 2025</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">3 ans</div><p class="chiffre-label"><span lang="fr">Avant qu'une assistante confirmée accède à Office Manager</span><span lang="en">Before a confirmed assistant becomes Office Manager</span></p><p class="chiffre-source">LinkedIn, 2025</p></div>
+      <div class="chiffre-card"><div class="chiffre-val">92%</div><p class="chiffre-label"><span lang="fr">Des dirigeants jugent leur assistante indispensable</span><span lang="en">Of executives consider their assistant indispensable</span></p><p class="chiffre-source">Focusrh, 2024</p></div>
     </div>
   </div>
 </section>
 
 <!-- NEWSLETTER -->
 <section class="newsletter-section reveal" id="newsletter">
-  <h2 class="newsletter-title">Rejoignez<br><em>la communauté.</em></h2>
-  <p class="newsletter-sub">Portraits, lexique, offres exclusives et actualités, une fois par semaine.</p>
+  <h2 class="newsletter-title"><span lang="fr">Rejoignez</span><span lang="en">Join</span><br><em><span lang="fr">la communauté.</span><span lang="en">the community.</span></em></h2>
+  <p class="newsletter-sub"><span lang="fr">Portraits, lexique, offres exclusives et actualités, une fois par semaine.</span><span lang="en">Portraits, glossary, exclusive offers and news, once a week.</span></p>
   <div id="nlForm">
     <form class="newsletter-form" onsubmit="handleNl(event)">
-      <input type="email" placeholder="Votre adresse email" required>
-      <button type="submit">S'inscrire</button>
+      <input type="email" id="nlEmail" placeholder="Votre adresse email" required>
+      <button type="submit"><span lang="fr">S'inscrire</span><span lang="en">Subscribe</span></button>
     </form>
   </div>
 </section>
 
 <footer>
-  <span>© 2026 Apogée Consulting</span>
+  <span><span lang="fr">© 2026 Apogée Consulting</span><span lang="en">© 2026 Apogée Consulting</span></span>
   <div class="footer-links">
     <a href="recrutement.html">Recrutement</a>
-    <a href="entreprises.html">Entreprises</a>
-    <a href="index.html">Accueil</a>
+    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
+    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
   </div>
 </footer>
 
@@ -346,7 +357,7 @@
 
   function handleNl(e) {
     e.preventDefault();
-    document.getElementById('nlForm').innerHTML='<p class="nl-success">Bienvenue dans la communauté Apogée.</p>';
+    document.getElementById('nlForm').innerHTML='<p class="nl-success"><span lang="fr">Bienvenue dans la communauté Apogée.</span><span lang="en">Welcome to the Apogée community.</span></p>';
   }
 
   // Ancres actives au scroll
@@ -362,5 +373,29 @@
     });
   });
 </script>
+
+<script>
+  function toggleLang() {
+    const btn = document.getElementById('langBtn');
+    const isEn = document.body.classList.contains('en');
+    if (isEn) {
+      document.body.classList.remove('en');
+      btn.textContent = 'EN';
+      updatePlaceholders(false);
+    } else {
+      document.body.classList.add('en');
+      btn.textContent = 'FR';
+      updatePlaceholders(true);
+    }
+  }
+  function updatePlaceholders(isEn) {
+    const nl = document.getElementById('nlEmail');
+    if (nl) nl.placeholder = isEn ? 'Your email address' : 'Votre adresse email';
+  }
+  document.addEventListener('DOMContentLoaded', function() {
+    updatePlaceholders(document.body.classList.contains('en'));
+  });
+</script>
+
 </body>
 </html>
