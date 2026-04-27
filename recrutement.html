@@ -474,10 +474,12 @@
     if (isEn) {
       document.body.classList.remove('en');
       btn.textContent = 'EN';
+      localStorage.setItem('lang', 'fr');
       updateSelects(false);
     } else {
       document.body.classList.add('en');
       btn.textContent = 'FR';
+      localStorage.setItem('lang', 'en');
       updateSelects(true);
     }
   }
@@ -496,8 +498,16 @@
       zone.placeholder = isEn ? 'Paris, Lyon, remote...' : 'Paris et Île-de-France';
     }
   }
+  
   document.addEventListener('DOMContentLoaded', function() {
-    updateSelects(document.body.classList.contains('en'));
+    const saved = localStorage.getItem('lang');
+    const isEn = saved === 'en';
+    if (isEn) {
+      document.body.classList.add('en');
+      const btn = document.getElementById('langBtn');
+      if (btn) btn.textContent = 'FR';
+    }
+    updateSelects(isEn);
   });
 </script>
 
