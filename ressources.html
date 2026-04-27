@@ -183,7 +183,7 @@
   .fiche-modal.open { display:flex; }
   @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
 
-  /* COLONNE GAUCHE â contenu */
+  /* COLONNE GAUCHE Ã¢ÂÂ contenu */
   .fm-left { flex:1; overflow-y:auto; padding:60px 80px; }
   .fm-back { display:inline-flex; align-items:center; gap:8px; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:#b0b0b0; background:none; border:none; cursor:pointer; margin-bottom:40px; transition:color .2s; font-family:'Montserrat',sans-serif; }
   .fm-back:hover { color:#0d0d0d; }
@@ -204,7 +204,7 @@
   .fm-bloc ul li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#b0b0b0; border-radius:50%; }
   .fm-bloc ul li:last-child { border-bottom:none; }
 
-  /* COLONNE DROITE â formulaire */
+  /* COLONNE DROITE Ã¢ÂÂ formulaire */
   .fm-right { width:380px; flex-shrink:0; background:#0d0d0d; display:flex; flex-direction:column; overflow-y:auto; }
   .fm-right-header { padding:28px 28px 20px; border-bottom:0.5px solid rgba(255,255,255,.08); text-align:center; }
   .fm-right-ref { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:6px; }
@@ -321,18 +321,18 @@
       <button class="filter-btn" onclick="filter('remote',this)"><span lang="fr">Remote</span><span lang="en">Remote</span></button>
     </div>
     <div class="offres-grid">
-      <div class="offre-card" data-cat="direction" data-type="exclusive" onclick="openFiche('fiche-ad')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 32 a 40K</span><span lang="en">Fixed-term, 32 to 40K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler â</span><span lang="en">Apply â</span></span></div></div>
-      <div class="offre-card" data-cat="finance" data-type="exclusive" onclick="openFiche('fiche-fin')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 28 a 36K</span><span lang="en">Fixed-term, 28 to 36K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler â</span><span lang="en">Apply â</span></span></div></div>
-      <div class="offre-card" data-cat="remote" data-type="exclusive" onclick="openFiche('fiche-virt')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler â</span><span lang="en">Apply â</span></span></div></div>
-      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir â</span><span lang="en">View â</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir â</span><span lang="en">View â</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, Paris</span><span lang="en">Permanent, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir â</span><span lang="en">View â</span></span></div></a>
-      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe">LinkedIn</span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir â</span><span lang="en">View â</span></span></div></a>
+      <div class="offre-card" data-cat="direction" data-type="exclusive" onclick="openFiche('fiche-ad')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 32 a 40K</span><span lang="en">Fixed-term, 32 to 40K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler Ã¢ÂÂ</span><span lang="en">Apply Ã¢ÂÂ</span></span></div></div>
+      <div class="offre-card" data-cat="finance" data-type="exclusive" onclick="openFiche('fiche-fin')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 28 a 36K</span><span lang="en">Fixed-term, 28 to 36K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler Ã¢ÂÂ</span><span lang="en">Apply Ã¢ÂÂ</span></span></div></div>
+      <div class="offre-card" data-cat="remote" data-type="exclusive" onclick="openFiche('fiche-virt')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler Ã¢ÂÂ</span><span lang="en">Apply Ã¢ÂÂ</span></span></div></div>
+      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir Ã¢ÂÂ</span><span lang="en">View Ã¢ÂÂ</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir Ã¢ÂÂ</span><span lang="en">View Ã¢ÂÂ</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, Paris</span><span lang="en">Permanent, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir Ã¢ÂÂ</span><span lang="en">View Ã¢ÂÂ</span></span></div></a>
+      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe">LinkedIn</span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir Ã¢ÂÂ</span><span lang="en">View Ã¢ÂÂ</span></span></div></a>
     </div>
   </div>
 </section>
 
-<!-- ACTUALITÃS -->
+<!-- ACTUALITÃÂS -->
 <section class="section section-light" id="actualites">
   <div class="section-inner">
     <p class="section-label"><span lang="fr">Actualites, mis a jour regulierement</span><span lang="en">News, updated regularly</span></p>
@@ -344,7 +344,7 @@
         <p class="actu-desc"><span lang="fr">Les competences a developper, les signaux a envoyer, le bon timing pour en parler a votre direction.</span><span lang="en">The skills to develop, signals to send, and the right timing to bring it up with management.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span>
-          <span class="actu-source">Fed Group â</span>
+          <span class="actu-source">Fed Group Ã¢ÂÂ</span>
         </div>
       </a>
       <a href="https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant" class="actu-card" target="_blank">
@@ -353,7 +353,7 @@
         <p class="actu-desc"><span lang="fr">Comment repondre avec assurance sur la confidentialite, la gestion du stress et les priorites contradictoires.</span><span lang="en">How to answer confidently on confidentiality, stress management and conflicting priorities.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span>
-          <span class="actu-source">AssessFirst â</span>
+          <span class="actu-source">AssessFirst Ã¢ÂÂ</span>
         </div>
       </a>
       <a href="https://www.ifocop.fr/assistante-de-direction-quel-salaire/" class="actu-card" target="_blank">
@@ -362,7 +362,7 @@
         <p class="actu-desc"><span lang="fr">Junior, confirmee, senior, les fourchettes actuelles par specialite et par secteur d activite.</span><span lang="en">Junior, confirmed, senior, current salary ranges by speciality and sector.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span>
-          <span class="actu-source">Ifocop â</span>
+          <span class="actu-source">Ifocop Ã¢ÂÂ</span>
         </div>
       </a>
       <a href="https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/" class="actu-card" target="_blank">
@@ -371,7 +371,7 @@
         <p class="actu-desc"><span lang="fr">Notion AI, outils de gestion d agenda, automatisation : ce que les dirigeants attendent desormais.</span><span lang="en">Notion AI, diary management tools, automation: what executives now expect.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span>
-          <span class="actu-source">Business InfoMedia â</span>
+          <span class="actu-source">Business InfoMedia Ã¢ÂÂ</span>
         </div>
       </a>
       <a href="https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction" class="actu-card" target="_blank">
@@ -380,7 +380,7 @@
         <p class="actu-desc"><span lang="fr">Les arguments qui fonctionnent, le bon timing, les erreurs classiques a eviter absolument.</span><span lang="en">Arguments that work, the right timing, classic mistakes to absolutely avoid.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span>
-          <span class="actu-source">Page Personnel â</span>
+          <span class="actu-source">Page Personnel Ã¢ÂÂ</span>
         </div>
       </a>
       <a href="https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html" class="actu-card" target="_blank">
@@ -389,7 +389,7 @@
         <p class="actu-desc"><span lang="fr">TOSA, Excel avance, outils de gestion de projet : lesquelles prioriser selon votre specialite.</span><span lang="en">TOSA, advanced Excel, project management tools: which to prioritise by speciality.</span></p>
         <div class="actu-footer">
           <span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span>
-          <span class="actu-source">Hellowork â</span>
+          <span class="actu-source">Hellowork Ã¢ÂÂ</span>
         </div>
       </a>
     </div>
@@ -467,7 +467,7 @@
 </section>
 
 <footer>
-  <span><span lang="fr">Â© 2026 Apogee Consulting</span><span lang="en">Â© 2026 Apogee Consulting</span></span>
+  <span><span lang="fr">ÃÂ© 2026 Apogee Consulting</span><span lang="en">ÃÂ© 2026 Apogee Consulting</span></span>
   <div class="footer-links">
     <a href="recrutement.html">Recrutement</a>
     <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
@@ -561,7 +561,7 @@
 <div class="fiche-modal" id="fiche-ad">
   <!-- GAUCHE -->
   <div class="fm-left">
-    <button class="fm-back" onclick="closeFiche('fiche-ad')">â <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <button class="fm-back" onclick="closeFiche('fiche-ad')">Ã¢ÂÂ <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
     <p class="fm-ref">Ref. APG-AD-001</p>
     <h2 class="fm-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></h2>
     <div class="fm-details">
@@ -607,7 +607,7 @@
       </div>
     </div>
     <div class="fm-footer" id="footer-fiche-ad">
-      <button class="fm-submit" onclick="document.getElementById('form-fiche-ad').requestSubmit()"><span lang="fr">Envoyer ma candidature â</span><span lang="en">Submit my application â</span></button>
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-ad').requestSubmit()"><span lang="fr">Envoyer ma candidature Ã¢ÂÂ</span><span lang="en">Submit my application Ã¢ÂÂ</span></button>
       <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
@@ -615,7 +615,7 @@
 <div class="fiche-modal" id="fiche-fin">
   <!-- GAUCHE -->
   <div class="fm-left">
-    <button class="fm-back" onclick="closeFiche('fiche-fin')">â <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <button class="fm-back" onclick="closeFiche('fiche-fin')">Ã¢ÂÂ <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
     <p class="fm-ref">Ref. APG-FIN-001</p>
     <h2 class="fm-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></h2>
     <div class="fm-details">
@@ -661,7 +661,7 @@
       </div>
     </div>
     <div class="fm-footer" id="footer-fiche-fin">
-      <button class="fm-submit" onclick="document.getElementById('form-fiche-fin').requestSubmit()"><span lang="fr">Envoyer ma candidature â</span><span lang="en">Submit my application â</span></button>
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-fin').requestSubmit()"><span lang="fr">Envoyer ma candidature Ã¢ÂÂ</span><span lang="en">Submit my application Ã¢ÂÂ</span></button>
       <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
@@ -669,7 +669,7 @@
 <div class="fiche-modal" id="fiche-virt">
   <!-- GAUCHE -->
   <div class="fm-left">
-    <button class="fm-back" onclick="closeFiche('fiche-virt')">â <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <button class="fm-back" onclick="closeFiche('fiche-virt')">Ã¢ÂÂ <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
     <p class="fm-ref">Ref. APG-VIRT-001</p>
     <h2 class="fm-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></h2>
     <div class="fm-details">
@@ -715,7 +715,7 @@
       </div>
     </div>
     <div class="fm-footer" id="footer-fiche-virt">
-      <button class="fm-submit" onclick="document.getElementById('form-fiche-virt').requestSubmit()"><span lang="fr">Envoyer ma candidature â</span><span lang="en">Submit my application â</span></button>
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-virt').requestSubmit()"><span lang="fr">Envoyer ma candidature Ã¢ÂÂ</span><span lang="en">Submit my application Ã¢ÂÂ</span></button>
       <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
@@ -742,7 +742,7 @@
 <div class="reader-overlay" id="readerOverlay" onclick="closeReader()"></div>
 <div class="reader-modal" id="readerModal">
   <div class="reader-header">
-    <button class="reader-close" onclick="closeReader()">â</button>
+    <button class="reader-close" onclick="closeReader()">Ã¢ÂÂ</button>
     <p class="reader-cat" id="readerCat"></p>
     <p class="reader-title" id="readerTitle"></p>
     <p class="reader-meta" id="readerMeta"></p>
@@ -750,7 +750,7 @@
   <div class="reader-body" id="readerBody"></div>
   <div class="reader-footer">
     <span class="reader-footer-title">Apogee Consulting</span>
-    <button class="reader-share" onclick="closeReader()">Fermer â</button>
+    <button class="reader-share" onclick="closeReader()">Fermer Ã¢ÂÂ</button>
   </div>
 </div>
 
@@ -772,5 +772,6 @@
 </script>
 
 </body>
-</html><div class="actu-card" onclick="openReader({"cat":"Actualite","title":"Les outils qui facilitent la productivité","meta":"Aujourd'hui - Apogee Consulting","body":"Au-delà des méthodes et des outils, l’organisation repose surtout sur des habitudes quotidiennes. Prendre quelques minutes en début ou en fin de journée pour planifier ses actions peut faire toute la différence sur le long terme."})" style="cursor:pointer;"><span class="actu-cat">Actualite</span><p class="actu-title">Les outils qui facilitent la productivité</p><p class="actu-desc">Aujourd’hui, de nombreux outils numériques permettent d’optimiser son organisation. Ils offrent une meilleure visibilité sur les tâches et favorisent la collaboration en équipe.</p><div class="actu-footer"><span class="actu-date">Aujourd'hui</span><span class="actu-source">Apogee →</span></div></div>
+</html><div class="actu-card" onclick="openReader({"cat":"Actualite","title":"Les outils qui facilitent la productivitÃ©","meta":"Aujourd'hui - Apogee Consulting","body":"Au-delÃ  des mÃ©thodes et des outils, lâorganisation repose surtout sur des habitudes quotidiennes. Prendre quelques minutes en dÃ©but ou en fin de journÃ©e pour planifier ses actions peut faire toute la diffÃ©rence sur le long terme."})" style="cursor:pointer;"><span class="actu-cat">Actualite</span><p class="actu-title">Les outils qui facilitent la productivitÃ©</p><p class="actu-desc">Aujourdâhui, de nombreux outils numÃ©riques permettent dâoptimiser son organisation. Ils offrent une meilleure visibilitÃ© sur les tÃ¢ches et favorisent la collaboration en Ã©quipe.</p><div class="actu-footer"><span class="actu-date">Aujourd'hui</span><span class="actu-source">Apogee â</span></div></div>
+<div class="actu-card" onclick="openReader({"cat":"Organisation","title":"Les outils qui facilitent la productivité","meta":"Aujourd'hui - Apogee Consulting","body":"Au-delà des méthodes et des outils, l’organisation repose surtout sur des habitudes quotidiennes. Prendre quelques minutes en début ou en fin de journée pour planifier ses actions peut faire toute la différence sur le long terme.Au-delà des méthodes et des outils, l’organisation repose surtout sur des habitudes quotidiennes. Prendre quelques minutes en début ou en fin de journée pour planifier ses actions peut faire toute la différence sur le long terme."})" style="cursor:pointer;"><span class="actu-cat">Organisation</span><p class="actu-title">Les outils qui facilitent la productivité</p><p class="actu-desc">Aujourd’hui, de nombreux outils numériques permettent d’optimiser son organisation. Ils offrent une meilleure visibilité sur les tâches et favorisent la collaboration en équipe.</p><div class="actu-footer"><span class="actu-date">Aujourd'hui</span><span class="actu-source">Apogee →</span></div></div>
 
