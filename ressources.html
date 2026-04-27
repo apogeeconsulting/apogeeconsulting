@@ -165,6 +165,8 @@
   .lang-btn:hover { border-color: var(--black); color: var(--black); }
   /* Langue par défaut : français visible, anglais caché */
   [lang="en"] { display: none !important; }
+  .en-pending [lang="en"] { display: inline !important; }
+  .en-pending [lang="fr"] { display: none !important; }
   [lang="fr"] { display: inline !important; }
   /* Mode anglais : inverse */
   body.en [lang="en"] { display: inline !important; }
@@ -375,6 +377,13 @@
 </script>
 
 <script>
+  // Apply saved language immediately before render
+  (function() {
+    if (localStorage.getItem('lang') === 'en') {
+      document.documentElement.classList.add('en-pending');
+    }
+  })();
+
   function toggleLang() {
     const btn = document.getElementById('langBtn');
     const isEn = document.body.classList.contains('en');
@@ -390,11 +399,12 @@
       updatePlaceholders(true);
     }
   }
+
   function updatePlaceholders(isEn) {
     const nl = document.getElementById('nlEmail');
     if (nl) nl.placeholder = isEn ? 'Your email address' : 'Votre adresse email';
   }
-  
+
   document.addEventListener('DOMContentLoaded', function() {
     const saved = localStorage.getItem('lang');
     const isEn = saved === 'en';
@@ -402,8 +412,8 @@
       document.body.classList.add('en');
       const btn = document.getElementById('langBtn');
       if (btn) btn.textContent = 'FR';
+      updatePlaceholders(true);
     }
-    updatePlaceholders(isEn);
   });
 </script>
 
