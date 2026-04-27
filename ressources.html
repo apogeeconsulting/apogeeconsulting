@@ -381,10 +381,12 @@
     if (isEn) {
       document.body.classList.remove('en');
       btn.textContent = 'EN';
+      localStorage.setItem('lang', 'fr');
       updatePlaceholders(false);
     } else {
       document.body.classList.add('en');
       btn.textContent = 'FR';
+      localStorage.setItem('lang', 'en');
       updatePlaceholders(true);
     }
   }
@@ -392,8 +394,16 @@
     const nl = document.getElementById('nlEmail');
     if (nl) nl.placeholder = isEn ? 'Your email address' : 'Votre adresse email';
   }
+  
   document.addEventListener('DOMContentLoaded', function() {
-    updatePlaceholders(document.body.classList.contains('en'));
+    const saved = localStorage.getItem('lang');
+    const isEn = saved === 'en';
+    if (isEn) {
+      document.body.classList.add('en');
+      const btn = document.getElementById('langBtn');
+      if (btn) btn.textContent = 'FR';
+    }
+    updatePlaceholders(isEn);
   });
 </script>
 
