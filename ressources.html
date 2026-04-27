@@ -232,6 +232,34 @@
     .fm-right { width:100%; }
   }
 
+  
+  /* ARTICLE READER MODAL */
+  .reader-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:500; opacity:0; pointer-events:none; transition:opacity .3s; backdrop-filter:blur(4px); }
+  .reader-overlay.open { opacity:1; pointer-events:all; }
+  .reader-modal { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.96); width:min(760px,92vw); max-height:85vh; background:#fff; z-index:501; display:flex; flex-direction:column; border-radius:2px; box-shadow:0 32px 80px rgba(0,0,0,0.25); opacity:0; pointer-events:none; transition:all .3s cubic-bezier(.4,0,.2,1); overflow:hidden; }
+  .reader-modal.open { opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+  .reader-header { padding:32px 40px 24px; border-bottom:0.5px solid #f0f0f0; flex-shrink:0; position:relative; }
+  .reader-cat { font-size:9px; letter-spacing:.25em; text-transform:uppercase; color:#b0b0b0; margin-bottom:10px; }
+  .reader-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:300; line-height:1.2; color:#0d0d0d; margin-bottom:12px; }
+  .reader-meta { font-size:10px; color:#b0b0b0; letter-spacing:.05em; }
+  .reader-close { position:absolute; top:24px; right:28px; background:none; border:none; cursor:pointer; font-size:20px; color:#b0b0b0; line-height:1; transition:color .2s; }
+  .reader-close:hover { color:#0d0d0d; }
+  .reader-body { padding:32px 40px 40px; overflow-y:auto; flex:1; }
+  .reader-body p { font-size:14px; line-height:2; color:#4a4a4a; margin-bottom:20px; }
+  .reader-body h3 { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:400; color:#0d0d0d; margin:28px 0 12px; }
+  .reader-body ul { list-style:none; margin-bottom:20px; }
+  .reader-body ul li { font-size:13px; line-height:1.8; color:#4a4a4a; padding:6px 0 6px 16px; position:relative; border-bottom:0.5px solid #f8f8f8; }
+  .reader-body ul li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#b0b0b0; border-radius:50%; }
+  .reader-body ul li:last-child { border-bottom:none; }
+  .reader-body blockquote { border-left:2px solid #0d0d0d; padding:12px 20px; margin:20px 0; background:#fafafa; }
+  .reader-body blockquote p { font-family:'Cormorant Garamond',serif; font-size:18px; font-style:italic; color:#0d0d0d; margin:0; }
+  .reader-footer { padding:16px 40px; border-top:0.5px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:#fafafa; }
+  .reader-footer-title { font-size:10px; color:#b0b0b0; }
+  .reader-share { font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:#b0b0b0; background:none; border:none; cursor:pointer; }
+
+  /* ACTU CARD update for source display */
+  .actu-source { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#b0b0b0; }
+
   </style>
 </head>
 <body>
@@ -309,13 +337,61 @@
   <div class="section-inner">
     <p class="section-label"><span lang="fr">Actualites, mis a jour regulierement</span><span lang="en">News, updated regularly</span></p>
     <h2 class="section-title"><span lang="fr">Pour avancer</span><span lang="en">To move forward</span><br><em><span lang="fr">plus loin.</span><span lang="en">further.</span></em></h2>
-    <div class="actu-grid">
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag"><span lang="fr">Evolution de carriere</span><span lang="en">Career development</span></p><h3 class="actu-title"><span lang="fr">Comment passer d'assistante a Office Manager ?</span><span lang="en">How to move from assistant to Office Manager?</span></h3><p class="actu-desc"><span lang="fr">Les competences a developper, les signaux a envoyer, le bon timing pour en parler a votre direction.</span><span lang="en">The skills to develop, signals to send, and the right timing to bring it up with management.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-entretien" target="_blank" class="actu-card"><p class="actu-tag">Entretien</p><h3 class="actu-title"><span lang="fr">5 questions pieges en entretien d'assistante de direction</span><span lang="en">5 tricky interview questions for executive assistants</span></h3><p class="actu-desc"><span lang="fr">Comment repondre avec assurance sur la confidentialite, la gestion du stress et les priorites contradictoires.</span><span lang="en">How to answer confidently on confidentiality, stress management and conflicting priorities.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Salaires 2026</p><h3 class="actu-title"><span lang="fr">Grille de salaires : assistantes a Paris</span><span lang="en">Salary guide: assistants in Paris</span></h3><p class="actu-desc"><span lang="fr">Junior, confirmee, senior, les fourchettes actuelles par specialite et par secteur d'activite.</span><span lang="en">Junior, confirmed, senior, current salary ranges by speciality and sector.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag">Outils 2026</p><h3 class="actu-title"><span lang="fr">Les outils IA que les assistantes doivent maitriser</span><span lang="en">AI tools every assistant needs to master</span></h3><p class="actu-desc"><span lang="fr">Notion AI, outils de gestion d'agenda, automatisation : ce que les dirigeants attendent desormais.</span><span lang="en">Notion AI, diary management tools, automation: what executives now expect.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-carriere" target="_blank" class="actu-card"><p class="actu-tag">Negociation</p><h3 class="actu-title"><span lang="fr">Comment negocier son salaire en tant qu'assistante ?</span><span lang="en">How to negotiate your salary as an assistant?</span></h3><p class="actu-desc"><span lang="fr">Les arguments qui fonctionnent, le bon timing, les erreurs classiques a eviter absolument.</span><span lang="en">Arguments that work, the right timing, classic mistakes to absolutely avoid.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Formation</p><h3 class="actu-title"><span lang="fr">Les certifications qui font la difference sur un CV</span><span lang="en">Certifications that make a difference on a CV</span></h3><p class="actu-desc"><span lang="fr">TOSA, Excel avance, outils de gestion de projet : lesquelles prioriser selon votre specialite.</span><span lang="en">TOSA, advanced Excel, project management tools: which to prioritise by speciality.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
+    <div class="actu-grid" id="actuGrid">
+      <a href="https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Evolution de carriere</span><span lang="en">Evolution de carriere</span></span>
+        <p class="actu-title"><span lang="fr">Comment passer d assistante a Office Manager ?</span><span lang="en">How to move from assistant to Office Manager?</span></p>
+        <p class="actu-desc"><span lang="fr">Les competences a developper, les signaux a envoyer, le bon timing pour en parler a votre direction.</span><span lang="en">The skills to develop, signals to send, and the right timing to bring it up with management.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span>
+          <span class="actu-source">Fed Group →</span>
+        </div>
+      </a>
+      <a href="https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Entretien</span><span lang="en">Entretien</span></span>
+        <p class="actu-title"><span lang="fr">5 questions pieges en entretien d assistante de direction</span><span lang="en">5 tricky interview questions for executive assistants</span></p>
+        <p class="actu-desc"><span lang="fr">Comment repondre avec assurance sur la confidentialite, la gestion du stress et les priorites contradictoires.</span><span lang="en">How to answer confidently on confidentiality, stress management and conflicting priorities.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span>
+          <span class="actu-source">AssessFirst →</span>
+        </div>
+      </a>
+      <a href="https://www.ifocop.fr/assistante-de-direction-quel-salaire/" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Salaires</span><span lang="en">Salaires</span></span>
+        <p class="actu-title"><span lang="fr">Grille de salaires : assistantes a Paris</span><span lang="en">Salary guide: assistants in Paris</span></p>
+        <p class="actu-desc"><span lang="fr">Junior, confirmee, senior, les fourchettes actuelles par specialite et par secteur d activite.</span><span lang="en">Junior, confirmed, senior, current salary ranges by speciality and sector.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span>
+          <span class="actu-source">Ifocop →</span>
+        </div>
+      </a>
+      <a href="https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Outils & IA</span><span lang="en">Outils & IA</span></span>
+        <p class="actu-title"><span lang="fr">Les outils IA que les assistantes doivent maitriser</span><span lang="en">AI tools every assistant needs to master</span></p>
+        <p class="actu-desc"><span lang="fr">Notion AI, outils de gestion d agenda, automatisation : ce que les dirigeants attendent desormais.</span><span lang="en">Notion AI, diary management tools, automation: what executives now expect.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span>
+          <span class="actu-source">Business InfoMedia →</span>
+        </div>
+      </a>
+      <a href="https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Salaires</span><span lang="en">Salaires</span></span>
+        <p class="actu-title"><span lang="fr">Comment negocier son salaire en tant qu assistante ?</span><span lang="en">How to negotiate your salary as an assistant?</span></p>
+        <p class="actu-desc"><span lang="fr">Les arguments qui fonctionnent, le bon timing, les erreurs classiques a eviter absolument.</span><span lang="en">Arguments that work, the right timing, classic mistakes to absolutely avoid.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span>
+          <span class="actu-source">Page Personnel →</span>
+        </div>
+      </a>
+      <a href="https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html" class="actu-card" target="_blank">
+        <span class="actu-cat"><span lang="fr">Formation</span><span lang="en">Formation</span></span>
+        <p class="actu-title"><span lang="fr">Les certifications qui font la difference sur un CV</span><span lang="en">Certifications that make a difference on a CV</span></p>
+        <p class="actu-desc"><span lang="fr">TOSA, Excel avance, outils de gestion de projet : lesquelles prioriser selon votre specialite.</span><span lang="en">TOSA, advanced Excel, project management tools: which to prioritise by speciality.</span></p>
+        <div class="actu-footer">
+          <span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span>
+          <span class="actu-source">Hellowork →</span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -658,6 +734,40 @@
     document.getElementById('form-' + id).style.display = 'none';
     document.getElementById('footer-' + id).style.display = 'none';
     document.getElementById('success-' + id).style.display = 'block';
+  }
+</script>
+
+
+<!-- ARTICLE READER -->
+<div class="reader-overlay" id="readerOverlay" onclick="closeReader()"></div>
+<div class="reader-modal" id="readerModal">
+  <div class="reader-header">
+    <button class="reader-close" onclick="closeReader()">✕</button>
+    <p class="reader-cat" id="readerCat"></p>
+    <p class="reader-title" id="readerTitle"></p>
+    <p class="reader-meta" id="readerMeta"></p>
+  </div>
+  <div class="reader-body" id="readerBody"></div>
+  <div class="reader-footer">
+    <span class="reader-footer-title">Apogee Consulting</span>
+    <button class="reader-share" onclick="closeReader()">Fermer ✕</button>
+  </div>
+</div>
+
+<script>
+  function openReader(data) {
+    document.getElementById('readerCat').innerHTML = data.cat || '';
+    document.getElementById('readerTitle').innerHTML = data.title || '';
+    document.getElementById('readerMeta').innerHTML = data.meta || '';
+    document.getElementById('readerBody').innerHTML = data.body || '';
+    document.getElementById('readerOverlay').classList.add('open');
+    document.getElementById('readerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeReader() {
+    document.getElementById('readerOverlay').classList.remove('open');
+    document.getElementById('readerModal').classList.remove('open');
+    document.body.style.overflow = '';
   }
 </script>
 
