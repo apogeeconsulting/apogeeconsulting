@@ -165,45 +165,74 @@
   .lang-btn:hover { border-color: var(--black); color: var(--black); }
   /* Langue par defaut : francais visible, anglais cache */
   [lang="en"] { display: none !important; }
-  .en-pending [lang="en"] { display: inline !important; }
-  .en-pending [lang="fr"] { display: none !important; }
-  [lang="fr"] { display: inline !important; }
-  /* Mode anglais : inverse */
-  body.en [lang="en"] { display: inline !important; }
+  [lang="fr"] { display: revert !important; }
+  body.en [lang="en"] { display: revert !important; }
   body.en [lang="fr"] { display: none !important; }
+  .en-pending [lang="en"] { display: revert !important; }
+  .en-pending [lang="fr"] { display: none !important; }
 
   
-  /* TIROIR FICHE */
-  .fiche-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;}
-  .fiche-overlay.open{opacity:1;pointer-events:all;}
-  .fiche-drawer{position:fixed;top:0;right:-520px;width:480px;height:100vh;background:#fff;z-index:301;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-4px 0 32px rgba(0,0,0,0.1);overflow:hidden;}
-  .fiche-drawer.open{right:0;}
-  .fd-header{padding:28px;border-bottom:0.5px solid #f0ede8;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;background:#0d0d0d;color:#fff;}
-  .fd-ref{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px;}
-  .fd-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;}
-  .fd-close{background:none;border:none;cursor:pointer;font-size:20px;color:rgba(255,255,255,.5);padding:0;line-height:1;}
-  .fd-close:hover{color:#fff;}
-  .fd-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
-  .fd-badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border:0.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
-  .fd-body{padding:28px;overflow-y:auto;flex:1;}
-  .fd-section{margin-bottom:28px;}
-  .fd-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid #f4f4f4;}
-  .fd-text{font-size:12px;line-height:1.9;color:#6b6b6b;}
-  .fd-list{list-style:none;}
-  .fd-list li{font-size:12px;line-height:1.7;color:#6b6b6b;padding:7px 0 7px 12px;border-bottom:0.5px solid #f4f4f4;position:relative;}
-  .fd-list li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:3px;background:#b0b0b0;border-radius:50%;}
-  .fd-list li:last-child{border-bottom:none;}
-  .fd-footer{padding:20px 28px;border-top:0.5px solid #f4f4f4;flex-shrink:0;}
-  .fd-form .fg{margin-bottom:14px;}
-  .fd-form .fg label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#b0b0b0;display:block;margin-bottom:4px;}
-  .fd-form .fg input,.fd-form .fg select,.fd-form .fg textarea{width:100%;border:none;border-bottom:0.5px solid #b0b0b0;background:transparent;padding:6px 0;font-family:'Montserrat',sans-serif;font-size:12px;color:#0d0d0d;outline:none;}
-  .fd-form .fg textarea{resize:none;min-height:60px;}
-  .fd-submit{width:100%;background:#0d0d0d;color:#fff;border:none;padding:12px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;margin-top:8px;}
-  .fd-consent{font-size:9px;color:#b0b0b0;margin-top:8px;line-height:1.6;}
-  .fd-success{display:none;text-align:center;padding:32px 0;}
-  .fd-success p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d;line-height:1.6;}
+  
 
-</style>
+
+  
+
+  
+  /* FICHE MODALE PLEIN ECRAN */
+  .fiche-modal { display:none; position:fixed; inset:0; z-index:400; background:#fff; animation:fadeIn .25s ease; }
+  .fiche-modal.open { display:flex; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+  /* COLONNE GAUCHE — contenu */
+  .fm-left { flex:1; overflow-y:auto; padding:60px 80px; }
+  .fm-back { display:inline-flex; align-items:center; gap:8px; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:#b0b0b0; background:none; border:none; cursor:pointer; margin-bottom:40px; transition:color .2s; font-family:'Montserrat',sans-serif; }
+  .fm-back:hover { color:#0d0d0d; }
+  .fm-ref { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#b0b0b0; margin-bottom:10px; }
+  .fm-title { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,4vw,56px); font-weight:300; line-height:1.05; margin-bottom:20px; }
+  .fm-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px; }
+  .fm-badge { font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border:0.5px solid #b0b0b0; color:#6b6b6b; }
+  .fm-badge.filled { background:#0d0d0d; color:#fff; border-color:#0d0d0d; }
+  .fm-details { background:#f4f4f4; padding:20px 24px; display:flex; gap:32px; flex-wrap:wrap; margin-bottom:48px; }
+  .fm-detail { display:flex; flex-direction:column; gap:3px; }
+  .fm-detail-lbl { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#b0b0b0; }
+  .fm-detail-val { font-size:12px; color:#0d0d0d; font-weight:400; }
+  .fm-bloc { margin-bottom:40px; }
+  .fm-bloc-label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#b0b0b0; margin-bottom:12px; padding-bottom:8px; border-bottom:0.5px solid #f0f0f0; }
+  .fm-bloc p { font-size:13px; line-height:2; color:#6b6b6b; }
+  .fm-bloc ul { list-style:none; }
+  .fm-bloc ul li { font-size:12px; line-height:1.7; color:#6b6b6b; padding:9px 0 9px 14px; border-bottom:0.5px solid #f4f4f4; position:relative; }
+  .fm-bloc ul li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#b0b0b0; border-radius:50%; }
+  .fm-bloc ul li:last-child { border-bottom:none; }
+
+  /* COLONNE DROITE — formulaire */
+  .fm-right { width:380px; flex-shrink:0; background:#0d0d0d; display:flex; flex-direction:column; overflow-y:auto; }
+  .fm-right-header { padding:28px 28px 20px; border-bottom:0.5px solid rgba(255,255,255,.08); text-align:center; }
+  .fm-right-ref { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:6px; }
+  .fm-right-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#fff; font-style:italic; }
+  .fm-form { padding:28px 28px; flex:1; }
+  .fm-form .fg { margin-bottom:18px; }
+  .fm-form .fg label { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.4); display:block; margin-bottom:5px; }
+  .fm-form .fg input, .fm-form .fg select, .fm-form .fg textarea { width:100%; border:none; border-bottom:0.5px solid rgba(255,255,255,.15); background:transparent; padding:7px 0; font-family:'Montserrat',sans-serif; font-size:12px; color:#fff; outline:none; transition:border-color .2s; }
+  .fm-form .fg input:focus, .fm-form .fg textarea:focus { border-bottom-color:rgba(255,255,255,.5); }
+  .fm-form .fg input::placeholder, .fm-form .fg textarea::placeholder { color:rgba(255,255,255,.2); }
+  .fm-form .fg textarea { resize:none; min-height:70px; }
+  .fm-form .fg select { cursor:pointer; appearance:none; }
+  .fm-form .fg select option { background:#1a1a1a; }
+  .fm-divider { height:0.5px; background:rgba(255,255,255,.08); margin:16px 0; }
+  .fm-submit { width:100%; background:#fff; color:#0d0d0d; border:none; padding:13px; font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; transition:opacity .2s; }
+  .fm-submit:hover { opacity:.85; }
+  .fm-consent { font-size:9px; color:rgba(255,255,255,.25); margin-top:10px; line-height:1.7; }
+  .fm-footer { padding:20px 28px; border-top:0.5px solid rgba(255,255,255,.08); flex-shrink:0; }
+  .fm-success { display:none; padding:40px 28px; text-align:center; }
+  .fm-success p { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:#fff; line-height:1.6; }
+
+  @media(max-width:900px) {
+    .fiche-modal { flex-direction:column; }
+    .fm-left { padding:40px 24px; }
+    .fm-right { width:100%; }
+  }
+
+  </style>
 </head>
 <body>
 
@@ -449,171 +478,185 @@
 </script>
 
 
-<!-- FICHE OVERLAY -->
-<div class="fiche-overlay" id="ficheOverlay" onclick="closeFiche()"></div>
 
-<!-- FICHE AD -->
-<div class="fiche-drawer" id="fiche-ad">
-  <div class="fd-header">
-    <div>
-      <p class="fd-ref">Ref. APG-AD-001</p>
-      <p class="fd-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></p>
-      <div class="fd-badges">
-        <span class="fd-badge">CDD</span>
-        <span class="fd-badge">Paris, IDF</span>
-        <span class="fd-badge">32 a 40K</span>
-      </div>
+
+
+
+<div class="fiche-modal" id="fiche-ad">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-ad')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-AD-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">CDD</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Paris, IDF</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">32 a 40K</span></div>
+      
     </div>
-    <button class="fd-close" onclick="closeFiche()">✕</button>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante de Direction rigoureuse et proactive pour accompagner un dirigeant dans la gestion quotidienne de son activite.</span><span lang="en">Apogee Consulting is recruiting a rigorous and proactive Executive Assistant to support an executive in daily management.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Gestion des agendas complexes et organisation des deplacements</span><span lang="en">Complex diary management and travel organisation</span></li><li><span lang="fr">Preparation des reunions, comptes rendus et suivi des actions</span><span lang="en">Meeting preparation, minutes and action follow-up</span></li><li><span lang="fr">Interface avec les partenaires, clients et equipes internes</span><span lang="en">Interface with partners, clients and internal teams</span></li><li><span lang="fr">Gestion des notes de frais et suivi administratif (Lucca)</span><span lang="en">Expense management and administrative tracking (Lucca)</span></li><li><span lang="fr">Redaction de courriers, emails et documents professionnels</span><span lang="en">Drafting correspondence, emails and professional documents</span></li><li><span lang="fr">Coordination des priorites et anticipation des besoins</span><span lang="en">Priority coordination and anticipation of needs</span></li></ul>
+    </div>
+    <div class="fm-bloc"><p class="fm-bloc-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p><ul><li><span lang="fr">Experience confirmee en assistanat de direction (2 ans minimum)</span><span lang="en">Confirmed executive assistant experience (minimum 2 years)</span></li><li><span lang="fr">Maitrise des outils bureautiques (Pack Office, Notion, Asana)</span><span lang="en">Proficiency in office tools (MS Office, Notion, Asana)</span></li><li><span lang="fr">Aisance redactionnelle en francais, anglais apprecie</span><span lang="en">Strong written French, English appreciated</span></li><li><span lang="fr">Grande discretion et sens de la confidentialite</span><span lang="en">Discretion and confidentiality</span></li><li><span lang="fr">Autonomie, reactivite et esprit d initiative</span><span lang="en">Autonomy, responsiveness and initiative</span></li></ul></div>
   </div>
-  <div class="fd-body">
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
-      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante de Direction rigoureuse et proactive pour accompagner un dirigeant dans la gestion quotidienne de son activite. Poste en CDD a Paris, disponibilite immediate souhaitee.</span><span lang="en">Apogee Consulting is recruiting a rigorous and proactive Executive Assistant to support an executive in the daily management of their activity. Fixed-term position in Paris.</span></p>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></p>
     </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
-      <ul class="fd-list">
-        <li><span lang="fr">Gestion des agendas complexes et organisation des deplacements</span><span lang="en">Complex diary management and travel organisation</span></li>
-        <li><span lang="fr">Preparation des reunions, comptes rendus et suivi des actions</span><span lang="en">Meeting preparation, minutes and action follow-up</span></li>
-        <li><span lang="fr">Interface avec les partenaires, clients et equipes internes</span><span lang="en">Interface with partners, clients and internal teams</span></li>
-        <li><span lang="fr">Gestion des notes de frais et suivi administratif (Lucca)</span><span lang="en">Expense management and administrative tracking (Lucca)</span></li>
-        <li><span lang="fr">Redaction de courriers, emails et documents professionnels</span><span lang="en">Drafting correspondence, emails and professional documents</span></li>
-        <li><span lang="fr">Coordination des priorites et anticipation des besoins</span><span lang="en">Priority coordination and anticipation of needs</span></li>
-      </ul>
-    </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p>
-      <ul class="fd-list">
-        <li><span lang="fr">Experience confirmee en assistanat de direction (2 ans minimum)</span><span lang="en">Confirmed executive assistant experience (minimum 2 years)</span></li>
-        <li><span lang="fr">Maitrise des outils bureautiques (Pack Office, Notion, Asana)</span><span lang="en">Proficiency in office tools (MS Office, Notion, Asana)</span></li>
-        <li><span lang="fr">Aisance redactionnelle en francais, anglais apprecie</span><span lang="en">Strong written French, English appreciated</span></li>
-        <li><span lang="fr">Grande discretion et sens de la confidentialite</span><span lang="en">Discretion and confidentiality</span></li>
-        <li><span lang="fr">Autonomie, reactivite et esprit d initiative</span><span lang="en">Autonomy, responsiveness and initiative</span></li>
-      </ul>
-    </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
-      <form class="fd-form" id="form-ad" onsubmit="submitFiche(event,'ad')">
+    <div class="fm-form">
+      <form id="form-fiche-ad" onsubmit="submitFiche(event,'fiche-ad')">
         <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
         <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
         <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
         <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
-          <select><option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option><option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option><option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option><option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option><option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option></select>
+          <select>
+            <option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option>
+            <option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option>
+            <option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option>
+            <option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option>
+            <option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option>
+          </select>
         </div>
-        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
-        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
-        <p class="fd-consent"><span lang="fr">J accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
       </form>
-      <div class="fd-success" id="success-ad"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+      <div class="fm-success" id="success-fiche-ad">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-ad">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-ad').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
 </div>
-
-<!-- FICHE FIN -->
-<div class="fiche-drawer" id="fiche-fin">
-  <div class="fd-header">
-    <div>
-      <p class="fd-ref">Ref. APG-FIN-001</p>
-      <p class="fd-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></p>
-      <div class="fd-badges">
-        <span class="fd-badge">CDD</span>
-        <span class="fd-badge">Paris, IDF</span>
-        <span class="fd-badge">28 a 36K</span>
-      </div>
+<div class="fiche-modal" id="fiche-fin">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-fin')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-FIN-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">CDD</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Paris, IDF</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">28 a 36K</span></div>
+      
     </div>
-    <button class="fd-close" onclick="closeFiche()">✕</button>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante en Finance pour accompagner une equipe financiere dans la gestion administrative, comptable et operationnelle.</span><span lang="en">Apogee Consulting is recruiting a Finance Assistant to support a finance team in administrative, accounting and operational management.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Saisie et suivi des factures fournisseurs et clients</span><span lang="en">Invoice entry and tracking (suppliers and clients)</span></li><li><span lang="fr">Gestion des notes de frais et controle de conformite (Lucca, Ciel, Sage)</span><span lang="en">Expense management and compliance control (Lucca, Ciel, Sage)</span></li><li><span lang="fr">Preparation des reportings mensuels et tableaux de bord</span><span lang="en">Monthly reporting and dashboard preparation</span></li><li><span lang="fr">Support a la cloture comptable mensuelle</span><span lang="en">Support for monthly accounting close</span></li><li><span lang="fr">Suivi des contrats et referencement des dossiers</span><span lang="en">Contract tracking and file referencing</span></li><li><span lang="fr">Interface avec les prestataires comptables et auditeurs</span><span lang="en">Interface with accounting providers and auditors</span></li></ul>
+    </div>
+    <div class="fm-bloc"><p class="fm-bloc-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p><ul><li><span lang="fr">Formation en comptabilite, gestion ou finance (BTS, Licence)</span><span lang="en">Training in accounting, management or finance</span></li><li><span lang="fr">Maitrise d Excel et outils de gestion (Sage, Ciel, Dolibarr, Lucca)</span><span lang="en">Proficiency in Excel and management tools (Sage, Ciel, Dolibarr, Lucca)</span></li><li><span lang="fr">Rigueur, organisation et sens du detail</span><span lang="en">Rigour, organisation and attention to detail</span></li><li><span lang="fr">Discretion et respect de la confidentialite des donnees</span><span lang="en">Discretion and data confidentiality</span></li><li><span lang="fr">Experience en cabinet comptable ou service financier appreciee</span><span lang="en">Experience in accounting firm or finance department appreciated</span></li></ul></div>
   </div>
-  <div class="fd-body">
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
-      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante en Finance pour accompagner une equipe financiere dans la gestion administrative, comptable et operationnelle.</span><span lang="en">Apogee Consulting is recruiting a Finance Assistant to support a finance team in administrative, accounting and operational management.</span></p>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></p>
     </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
-      <ul class="fd-list">
-        <li><span lang="fr">Saisie et suivi des factures fournisseurs et clients</span><span lang="en">Invoice entry and tracking (suppliers and clients)</span></li>
-        <li><span lang="fr">Gestion des notes de frais et controle de conformite (Lucca, Ciel, Sage)</span><span lang="en">Expense management and compliance control (Lucca, Ciel, Sage)</span></li>
-        <li><span lang="fr">Preparation des reportings mensuels et tableaux de bord</span><span lang="en">Monthly reporting and dashboard preparation</span></li>
-        <li><span lang="fr">Support a la cloture comptable mensuelle</span><span lang="en">Support for monthly accounting close</span></li>
-        <li><span lang="fr">Suivi des contrats et referencement des dossiers</span><span lang="en">Contract tracking and file referencing</span></li>
-        <li><span lang="fr">Interface avec les prestataires comptables et auditeurs</span><span lang="en">Interface with accounting providers and auditors</span></li>
-      </ul>
-    </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p>
-      <ul class="fd-list">
-        <li><span lang="fr">Formation en comptabilite, gestion ou finance (BTS, Licence)</span><span lang="en">Training in accounting, management or finance</span></li>
-        <li><span lang="fr">Maitrise d Excel et outils de gestion (Sage, Ciel, Dolibarr, Lucca)</span><span lang="en">Proficiency in Excel and management tools (Sage, Ciel, Dolibarr, Lucca)</span></li>
-        <li><span lang="fr">Rigueur, organisation et sens du detail</span><span lang="en">Rigour, organisation and attention to detail</span></li>
-        <li><span lang="fr">Discretion et respect de la confidentialite des donnees</span><span lang="en">Discretion and data confidentiality</span></li>
-        <li><span lang="fr">Experience en cabinet comptable ou service financier appreciee</span><span lang="en">Experience in accounting firm or finance department appreciated</span></li>
-      </ul>
-    </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
-      <form class="fd-form" id="form-fin" onsubmit="submitFiche(event,'fin')">
+    <div class="fm-form">
+      <form id="form-fiche-fin" onsubmit="submitFiche(event,'fiche-fin')">
         <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
         <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
         <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
         <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
-          <select><option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option><option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option><option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option><option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option><option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option></select>
+          <select>
+            <option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option>
+            <option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option>
+            <option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option>
+            <option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option>
+            <option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option>
+          </select>
         </div>
-        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
-        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
-        <p class="fd-consent"><span lang="fr">J accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
       </form>
-      <div class="fd-success" id="success-fin"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+      <div class="fm-success" id="success-fiche-fin">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-fin">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-fin').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
 </div>
-
-<!-- FICHE VIRTUELLE -->
-<div class="fiche-drawer" id="fiche-virt">
-  <div class="fd-header">
-    <div>
-      <p class="fd-ref">Ref. APG-VIRT-001</p>
-      <p class="fd-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></p>
-      <div class="fd-badges">
-        <span class="fd-badge">Freelance</span>
-        <span class="fd-badge">Remote</span>
-      </div>
+<div class="fiche-modal" id="fiche-virt">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-virt')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-VIRT-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">Freelance</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Remote</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">A definir</span></div>
+      
     </div>
-    <button class="fd-close" onclick="closeFiche()">✕</button>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante virtuelle pour accompagner des dirigeants independants a distance. Mission freelance, 100% remote.</span><span lang="en">Apogee Consulting is recruiting a Virtual Assistant to support independent executives remotely. Freelance, 100% remote.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Gestion d agenda et coordination a distance</span><span lang="en">Remote diary management and coordination</span></li><li><span lang="fr">Traitement des emails et redaction de courriers</span><span lang="en">Email management and correspondence drafting</span></li><li><span lang="fr">Suivi de dossiers et organisation administrative</span><span lang="en">File tracking and administrative organisation</span></li><li><span lang="fr">Interface avec les prestataires et partenaires</span><span lang="en">Interface with service providers and partners</span></li></ul>
+    </div>
+    
   </div>
-  <div class="fd-body">
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
-      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante virtuelle pour accompagner des dirigeants independants a distance. Mission freelance, 100% remote.</span><span lang="en">Apogee Consulting is recruiting a Virtual Assistant to support independent executives remotely. Freelance mission, 100% remote.</span></p>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></p>
     </div>
-    <div class="fd-section">
-      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
-      <form class="fd-form" id="form-virt" onsubmit="submitFiche(event,'virt')">
+    <div class="fm-form">
+      <form id="form-fiche-virt" onsubmit="submitFiche(event,'fiche-virt')">
         <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
         <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
         <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
-        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
-        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select>
+            <option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option>
+            <option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option>
+            <option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option>
+            <option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option>
+            <option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option>
+          </select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
       </form>
-      <div class="fd-success" id="success-virt"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+      <div class="fm-success" id="success-fiche-virt">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-virt">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-virt').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
     </div>
   </div>
 </div>
-
 <script>
   function openFiche(id) {
-    document.getElementById('ficheOverlay').classList.add('open');
     document.getElementById(id).classList.add('open');
     document.body.style.overflow = 'hidden';
   }
-  function closeFiche() {
-    document.getElementById('ficheOverlay').classList.remove('open');
-    document.querySelectorAll('.fiche-drawer').forEach(d => d.classList.remove('open'));
+  function closeFiche(id) {
+    document.getElementById(id).classList.remove('open');
     document.body.style.overflow = '';
   }
   function submitFiche(e, id) {
     e.preventDefault();
     document.getElementById('form-' + id).style.display = 'none';
+    document.getElementById('footer-' + id).style.display = 'none';
     document.getElementById('success-' + id).style.display = 'block';
   }
 </script>
