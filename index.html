@@ -99,7 +99,17 @@
     .valeurs-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 16px; text-align: center; padding: 28px 20px; }
   }
-</style>
+
+  .lang-btn { background: none; border: 1px solid rgba(0,0,0,0.15); padding: 5px 12px; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); border-radius: 2px; transition: all 0.2s; margin-left: 20px; }
+  .lang-btn:hover { border-color: var(--black); color: var(--black); }
+  [lang="en"] { display: none; }
+  body.en [lang="fr"] { display: none; }
+  body.en [lang="en"] { display: inline; }
+  p[lang], span[lang], h1[lang], h2[lang], h3[lang], h4[lang], div[lang], a[lang] { display: inherit; }
+  body.en p[lang="fr"], body.en span[lang="fr"], body.en h1[lang="fr"], body.en h2[lang="fr"], body.en h3[lang="fr"], body.en div[lang="fr"], body.en a[lang="fr"] { display: none; }
+  body.en p[lang="en"], body.en span[lang="en"], body.en h1[lang="en"], body.en h2[lang="en"], body.en h3[lang="en"], body.en div[lang="en"], body.en a[lang="en"] { display: inherit; }
+
+  </style>
 </head>
 <body>
 
@@ -110,6 +120,7 @@
     <a href="entreprises.html">Entreprises</a>
     <a href="https://www.apogee-consulting.fr">Notre site</a>
   </div>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
 </nav>
 
 <!-- HERO -->
@@ -230,7 +241,7 @@
     <a href="ressources.html" class="porte reveal" style="text-decoration:none;">
       <p class="porte-tag">Manifeste</p>
       <h3 class="porte-title" style="font-size:28px;">Pas secrétaire.<br><em>Pilier stratégique.</em></h3>
-      <p class="porte-desc">Notre vision du métier d'assistante de direction — et pourquoi ça change tout.</p>
+      <p class="porte-desc">Notre vision du métier d'assistante de direction, et pourquoi ça change tout.</p>
       <span class="porte-cta">Découvrir</span>
     </a>
   </div>
@@ -257,5 +268,19 @@
   }, { threshold: 0.08 });
   reveals.forEach(el => observer.observe(el));
 </script>
+
+<script>
+  function toggleLang() {
+    const btn = document.getElementById('langBtn');
+    if (document.body.classList.contains('en')) {
+      document.body.classList.remove('en');
+      btn.textContent = 'EN';
+    } else {
+      document.body.classList.add('en');
+      btn.textContent = 'FR';
+    }
+  }
+</script>
+
 </body>
 </html>
