@@ -3,419 +3,1822 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Espace Assistantes, Apogee Consulting</title>
+<title>Administration — Apogée Consulting</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root { --black: #6b4c3b; --white: #f7f5f0; --gray: #9a9088; --light: #e8ddd6; --accent: #b0a898; --terra: #a85c3a; --dark: #3d2b1f; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--white); color: var(--black); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{--dark:#3d2b1f;--brown:#6b4c3b;--terra:#a85c3a;--cream:#f7f5f0;--light:#e8ddd6;--gray:#9a9088;--accent:#b0a898;--white:#ffffff;}
+  body{background:var(--cream);color:var(--brown);font-family:'Montserrat',sans-serif;font-weight:300;min-height:100vh;}
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: var(--white); border-bottom: 1px solid rgba(107,76,59,0.12); overflow: visible; }
-  .nav-logo img { height: 64px; width: auto; opacity: 0.35; }
-  .nav-links { display: flex; gap: 40px; }
-  .nav-links a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
-  .nav-links a:hover, .nav-links a.active { color: var(--black); }
-  .nav-links a.active { border-bottom: 1px solid var(--black); padding-bottom: 2px; }
+  header{background:var(--dark);color:#fff;padding:20px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--terra);}
+  header h1{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
+  .header-sub{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);}
 
-  /* MENU ANCRES */
-  .ancres { position: fixed; top: 89px; left: 0; right: 0; z-index: 150; background: var(--dark); padding: 0 60px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
-  .ancres::-webkit-scrollbar { display: none; }
-  .ancre-btn { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; padding: 14px 20px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; flex-shrink: 0; }
-  .ancre-btn:hover { color: var(--white); }
-  .ancre-btn.active { color: var(--terra); border-bottom-color: var(--terra); }
+  .tabs{display:flex;gap:0;border-bottom:2px solid var(--light);padding:0 48px;background:var(--white);}
+  .tab{padding:14px 24px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--gray);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s;}
+  .tab.active{color:var(--terra);border-bottom-color:var(--terra);}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
 
-  /* HERO */
-  .hero { min-height: 100vh; background: var(--dark); color: var(--white); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 160px 60px 80px; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--terra); }
-  .hero-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terra); margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
-  .manifeste { font-family: 'Cormorant Garamond', serif; max-width: 800px; }
-  .manifeste-line { font-size: clamp(28px,5.5vw,68px); font-weight: 300; line-height: 1.1; opacity: 0; }
-  .manifeste-line em { font-style: italic; color: var(--terra); }
-  .manifeste-line:nth-child(1) { animation: fadeUp 0.9s ease forwards 0.3s; }
-  .manifeste-line:nth-child(2) { animation: fadeUp 0.9s ease forwards 0.55s; color: rgba(255,255,255,0.5); font-size: clamp(22px,4vw,52px); }
-  .manifeste-line:nth-child(3) { animation: fadeUp 0.9s ease forwards 0.8s; color: rgba(255,255,255,0.5); font-size: clamp(22px,4vw,52px); }
-  .manifeste-line:nth-child(4) { animation: fadeUp 0.9s ease forwards 1.05s; font-size: clamp(24px,4.5vw,56px); }
-  .manifeste-conclusion { font-size: clamp(26px,4.5vw,56px); font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; color: var(--terra); margin-top: 8px; opacity: 0; animation: fadeUp 0.9s ease forwards 1.3s; }
+  .container{max-width:960px;margin:0 auto;padding:40px 24px;}
 
-  /* BAND */
-  .band { background: var(--terra); padding: 16px 0; overflow: hidden; }
-  .band-inner { display: flex; animation: scrollBand 40s linear infinite; white-space: nowrap; width: max-content; }
-  .band span { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; color: var(--white); }
-  @keyframes scrollBand { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .config-box{background:var(--dark);color:#fff;padding:24px 28px;margin-bottom:32px;border-left:3px solid var(--terra);}
+  .config-box h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:16px;}
+  .config-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .cg{display:flex;flex-direction:column;gap:4px;}
+  .cg label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);}
+  .cg input{border:none;border-bottom:1px solid rgba(255,255,255,0.2);background:transparent;padding:6px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:#fff;outline:none;}
+  .cg input:focus{border-bottom-color:var(--terra);}
+  .cg input::placeholder{color:rgba(255,255,255,.3);}
+  .config-note{font-size:10px;color:rgba(255,255,255,.4);margin-top:12px;line-height:1.6;}
 
-  /* PHRASE FORTE */
-  .phrase { padding: 100px 60px; text-align: center; scroll-margin-top: 130px; }
-  .phrase-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px,5vw,64px); font-weight: 300; line-height: 1.2; }
-  .phrase-text em { font-style: italic; color: var(--terra); }
+  .section-hdr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;}
+  .section-sub{font-size:10px;color:var(--gray);}
 
-  /* SECTIONS */
-  .section { padding: 100px 60px; scroll-margin-top: 130px; }
-  .section-dark { background: var(--dark); color: var(--white); }
-  .section-light { background: var(--light); }
-  .section-inner { max-width: 1100px; margin: 0 auto; }
-  .section-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
-  .section-dark .section-label { color: var(--terra); }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,5vw,56px); font-weight: 300; line-height: 1.1; margin-bottom: 56px; }
-  .section-title em { font-style: italic; }
+  /* OFFRES LIST */
+  .offres-list{display:flex;flex-direction:column;gap:2px;margin-bottom:32px;}
+  .offre-row{background:#fff;padding:14px 18px;display:grid;grid-template-columns:190px 1fr 120px 90px auto;gap:10px;align-items:center;border-left:3px solid transparent;}
+  .offre-row.exclusive{border-left-color:var(--terra);}
+  .offre-row.externe{border-left-color:var(--accent);}
+  .offre-info{display:flex;flex-direction:column;gap:2px;}
+  .offre-titre{font-family:'Cormorant Garamond',serif;font-size:14px;}
+  .offre-badge{font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;display:inline-block;width:fit-content;}
+  .badge-exclusive{background:var(--terra);color:#fff;}
+  .badge-externe{background:var(--light);color:var(--gray);border:.5px solid var(--accent);}
+  .offre-url input,.offre-date input,.offre-cat select{width:100%;border:none;border-bottom:.5px solid var(--accent);background:transparent;padding:5px 0;font-family:'Montserrat',sans-serif;font-size:10px;color:var(--brown);outline:none;}
+  .offre-actions{display:flex;gap:6px;align-items:center;}
+  .btn-test{background:none;border:1px solid var(--accent);padding:4px 10px;font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--gray);text-decoration:none;transition:all .2s;}
+  .btn-test:hover{border-color:var(--brown);color:var(--brown);}
+  .btn-del{background:none;border:none;color:var(--accent);font-size:14px;cursor:pointer;padding:2px 6px;transition:color .2s;}
+  .btn-del:hover{color:#c44;}
 
-  /* OFFRES */
-  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
-  .filter-btn { background: transparent; border: 1px solid var(--accent); padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); transition: all 0.2s; }
-  .filter-btn:hover, .filter-btn.active { background: var(--terra); border-color: var(--terra); color: var(--white); }
-  .offres-grid { display: flex; gap: 2px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
-  .offres-grid::-webkit-scrollbar { height: 2px; }
-  .offres-grid::-webkit-scrollbar-thumb { background: var(--terra); }
-  .offre-card { background: var(--white); border: 0.5px solid rgba(107,76,59,0.1); padding: 28px; min-width: 280px; max-width: 300px; flex-shrink: 0; scroll-snap-align: start; text-decoration: none; color: var(--black); display: block; transition: background 0.2s, transform 0.2s; }
-  .offre-card:hover { background: var(--light); transform: translateY(-2px); }
-  .offre-card.hidden { display: none; }
-  .offre-badge { display: inline-block; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 14px; }
-  .badge-exclusive { background: var(--terra); color: var(--white); }
-  .badge-externe { background: var(--light); color: var(--gray); border: 0.5px solid var(--accent); }
-  .offre-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 8px; line-height: 1.2; }
-  .offre-meta { font-size: 11px; color: var(--gray); line-height: 2; }
-  .offre-footer { margin-top: 16px; padding-top: 12px; border-top: 0.5px solid var(--light); display: flex; justify-content: space-between; }
-  .offre-date { font-size: 10px; color: var(--terra); }
-  .offre-cta { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+  /* ADD FORM */
+  .add-box{background:var(--light);padding:24px;margin-bottom:32px;}
+  .add-box h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:18px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px;}
+  .form-full{grid-column:1/-1;}
+  .fg{display:flex;flex-direction:column;gap:4px;}
+  .fg label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);}
+  .fg input,.fg select{border:none;border-bottom:.5px solid var(--accent);background:transparent;padding:7px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;}
 
-  /* ACTU */
-  .actu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
-  .actu-card { background: var(--white); border: 0.5px solid rgba(107,76,59,0.08); padding: 28px; text-decoration: none; color: var(--black); display: block; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
-  .actu-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--terra); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
-  .actu-card:hover { transform: translateY(-2px); }
-  .actu-card:hover::before { transform: scaleX(1); }
-  .actu-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
-  .actu-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; line-height: 1.3; margin-bottom: 10px; }
-  .actu-desc { font-size: 11px; line-height: 1.8; color: var(--gray); }
-  .actu-date { font-size: 10px; color: var(--accent); margin-top: 12px; }
+  /* FICHES EDIT */
+  .fiche-edit{background:#fff;padding:28px;margin-bottom:2px;}
+  .fiche-edit h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;margin-bottom:6px;}
+  .fiche-ref{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);margin-bottom:20px;}
+  .fiche-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+  .fiche-full{grid-column:1/-1;}
+  .fg textarea{border:none;border-bottom:.5px solid var(--accent);background:transparent;padding:7px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;resize:vertical;min-height:80px;width:100%;}
+  .missions-area{width:100%;border:.5px solid var(--accent);background:transparent;padding:10px;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;resize:vertical;min-height:120px;line-height:2;}
 
-  /* LEXIQUE */
-  .lexique-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2px; }
-  .lexique-card { background: rgba(255,255,255,0.06); padding: 40px 36px; border-top: 2px solid var(--terra); transition: background 0.3s; }
-  .lexique-card:hover { background: rgba(255,255,255,0.12); }
-  .lexique-mot { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; color: var(--terra); margin-bottom: 12px; }
-  .lexique-def-officielle { font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 16px; font-style: italic; }
-  .lexique-def-vraie { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,0.75); }
+  /* BUTTONS */
+  .btn-primary{background:var(--terra);color:#fff;border:none;padding:10px 24px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;}
+  .btn-primary:hover{opacity:.85;}
+  .btn-github{background:var(--dark);color:#fff;border:none;padding:10px 24px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;margin-left:8px;}
+  .btn-github:hover{opacity:.85;}
 
-  /* PORTRAITS */
-  .portraits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
-  .portrait-card { background: var(--white); padding: 48px 40px; position: relative; overflow: hidden; transition: transform 0.3s; }
-  .portrait-card:hover { transform: translateY(-4px); }
-  .portrait-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--terra); }
-  .portrait-initiales { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--terra); opacity: 0.25; line-height: 1; margin-bottom: 20px; }
-  .portrait-prenom { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; margin-bottom: 4px; }
-  .portrait-metier { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 20px; }
-  .portrait-texte { font-size: 13px; line-height: 1.9; color: var(--gray); }
-  .portrait-detail { font-size: 11px; color: var(--accent); margin-top: 16px; font-style: italic; }
+  .status-bar{padding:12px 18px;font-size:11px;margin:16px 0;display:none;}
+  .status-bar.success{background:#e8f5e9;color:#2e7d32;border-left:3px solid #4caf50;display:block;}
+  .status-bar.error{background:#fce4ec;color:#c62828;border-left:3px solid #e53935;display:block;}
+  .status-bar.loading{background:var(--light);color:var(--brown);border-left:3px solid var(--terra);display:block;}
 
-  /* GUIDE */
-  .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
-  .guide-card { background: var(--white); padding: 40px 36px 52px; position: relative; transition: background 0.3s, transform 0.3s; }
-  .guide-card:hover { background: var(--dark); color: var(--white); transform: translateY(-4px); }
-  .guide-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--terra); opacity: 0.3; line-height: 1; margin-bottom: 16px; }
-  .guide-situation { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
-  .guide-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 12px; line-height: 1.3; }
-  .guide-conseil { font-size: 12px; line-height: 1.9; color: var(--gray); transition: color 0.3s; }
-  .guide-card:hover .guide-conseil { color: rgba(255,255,255,0.6); }
-
-  /* CHIFFRES */
-  .chiffres-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 2px; }
-  .chiffre-card { background: var(--white); padding: 40px 32px; text-align: center; transition: transform 0.2s; }
-  .chiffre-card:hover { transform: translateY(-3px); }
-  .chiffre-val { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--terra); line-height: 1; margin-bottom: 8px; }
-  .chiffre-label { font-size: 11px; line-height: 1.7; color: var(--gray); }
-  .chiffre-source { font-size: 9px; color: var(--accent); margin-top: 8px; letter-spacing: 0.1em; }
-
-  /* NEWSLETTER */
-  .newsletter-section { background: var(--dark); color: var(--white); padding: 100px 60px; text-align: center; border-top: 3px solid var(--terra); scroll-margin-top: 130px; }
-  .newsletter-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,5vw,60px); font-weight: 300; margin-bottom: 12px; }
-  .newsletter-title em { font-style: italic; color: var(--terra); }
-  .newsletter-sub { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto; }
-  .newsletter-form { display: flex; gap: 2px; max-width: 480px; margin: 0 auto; }
-  .newsletter-form input { flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); background: transparent; padding: 14px 0; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--white); outline: none; }
-  .newsletter-form input:focus { border-bottom-color: var(--terra); }
-  .newsletter-form input::placeholder { color: rgba(255,255,255,0.25); }
-  .newsletter-form button { background: var(--terra); color: var(--white); border: none; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
-  .newsletter-form button:hover { opacity: 0.85; }
-  .nl-success { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--terra); }
-
-  footer { border-top: 1px solid var(--light); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; }
-  footer span { font-size: 11px; color: var(--gray); }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 11px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--black); }
-
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 768px) {
-    nav { padding: 16px 20px; }
-    .nav-links { display: none; }
-    .ancres { padding: 0 20px; top: 76px; }
-    .section { padding: 60px 24px; }
-    .phrase { padding: 60px 24px; }
-    .newsletter-section { padding: 60px 24px; }
-    .newsletter-form { flex-direction: column; }
-    footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
-  }
-
-  .lang-btn { background: none; border: 1px solid rgba(0,0,0,0.15); padding: 5px 12px; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); border-radius: 2px; transition: all 0.2s; margin-left: 20px; }
-  .lang-btn:hover { border-color: var(--black); color: var(--black); }
-  /* Langue par defaut : francais visible, anglais cache */
-  [lang="en"] { display: none !important; }
-  .en-pending [lang="en"] { display: inline !important; }
-  .en-pending [lang="fr"] { display: none !important; }
-  [lang="fr"] { display: inline !important; }
-  /* Mode anglais : inverse */
-  body.en [lang="en"] { display: inline !important; }
-  body.en [lang="fr"] { display: none !important; }
-
-  </style>
+  .actions-bar{display:flex;align-items:center;gap:8px;margin-top:24px;padding-top:20px;border-top:1px solid var(--light);}
+  .actions-note{font-size:10px;color:var(--gray);}
+</style>
 </head>
 <body>
 
+<header>
+  <h1>Apogée Consulting <span style="color:var(--terra)">·</span> Administration</h1>
+  <span class="header-sub">Gestion du site</span>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('offres')">Offres du jour</div>
+  <div class="tab" onclick="switchTab('fiches')">Fiches exclusives</div>
+  <div class="tab" onclick="switchTab('articles')">Articles</div>
+  <div class="tab" onclick="switchTab('config')">Configuration GitHub</div>
+</div>
+
+<!-- TAB 1 — OFFRES -->
+<div class="tab-content active" id="tab-offres">
+<div class="container">
+  <div class="section-hdr">
+    <span class="section-title">Offres affichées sur le site</span>
+    <span class="section-sub">Modifiez les liens et dates, puis publiez</span>
+  </div>
+
+  <div class="offres-list" id="offresList"></div>
+
+  <div class="add-box">
+    <h3>Ajouter une offre externe</h3>
+    <div class="form-grid">
+      <div class="fg"><label>Titre (FR)</label><input type="text" id="nTitreFr" placeholder="Assistante juridique, Paris 2e"></div>
+      <div class="fg"><label>Titre (EN)</label><input type="text" id="nTitreEn" placeholder="Legal Assistant, Paris 2nd"></div>
+      <div class="fg"><label>Source</label><input type="text" id="nSource" placeholder="Indeed, LinkedIn..."></div>
+      <div class="fg"><label>Contrat</label><input type="text" id="nContrat" placeholder="CDI, CDD, Freelance..."></div>
+      <div class="fg"><label>Catégorie</label>
+        <select id="nCat">
+          <option value="direction">Direction</option>
+          <option value="juridique">Juridique</option>
+          <option value="medical">Médical</option>
+          <option value="finance">Finance</option>
+          <option value="remote">Remote</option>
+        </select>
+      </div>
+      <div class="fg"><label>Date affichée</label><input type="text" id="nDate" placeholder="Aujourd'hui, Cette semaine..."></div>
+      <div class="fg form-full"><label>Lien vers l'offre</label><input type="url" id="nUrl" placeholder="https://fr.indeed.com/jobs/view/..."></div>
+    </div>
+    <button class="btn-primary" onclick="addOffre()">+ Ajouter</button>
+  </div>
+
+  <div class="status-bar" id="statusOffres"></div>
+  <div class="actions-bar">
+    <button class="btn-github" onclick="publishOffres()">Publier sur GitHub →</button>
+    <span class="actions-note">Met à jour la section offres de ressources.html</span>
+  </div>
+</div>
+</div>
+
+<!-- TAB 2 — FICHES -->
+<div class="tab-content" id="tab-fiches">
+<div class="container">
+  <div class="section-hdr">
+    <span class="section-title">Fiches offres exclusives</span>
+    <span class="section-sub">Créez et publiez autant de fiches que vous souhaitez</span>
+  </div>
+
+  <div id="fichesList"></div>
+
+  <div class="add-box" style="margin-top:2px;">
+    <h3>Nouvelle fiche</h3>
+    <div class="form-grid">
+      <div class="fg"><label>Titre (FR)</label><input type="text" id="nf-titre-fr" placeholder="Assistante de direction"></div>
+      <div class="fg"><label>Titre (EN)</label><input type="text" id="nf-titre-en" placeholder="Executive Assistant"></div>
+      <div class="fg"><label>Référence</label><input type="text" id="nf-ref" placeholder="APG-XX-001"></div>
+      <div class="fg"><label>Contrat</label><input type="text" id="nf-contrat" placeholder="CDD, CDI..."></div>
+      <div class="fg"><label>Lieu</label><input type="text" id="nf-lieu" placeholder="Paris, IDF"></div>
+      <div class="fg"><label>Salaire</label><input type="text" id="nf-salaire" placeholder="32 à 40K"></div>
+      <div class="fg form-full"><label>Description</label><textarea id="nf-desc" style="width:100%;border:none;border-bottom:.5px solid var(--accent);background:transparent;padding:7px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;resize:vertical;min-height:60px;" placeholder="Description du poste..."></textarea></div>
+      <div class="fg form-full"><label>Missions (une par ligne)</label><textarea id="nf-missions" class="missions-area" placeholder="Mission 1&#10;Mission 2&#10;Mission 3"></textarea></div>
+      <div class="fg form-full"><label>Profil (une ligne par critère)</label><textarea id="nf-profil" class="missions-area" placeholder="Critère 1&#10;Critère 2&#10;Critère 3"></textarea></div>
+    </div>
+    <button class="btn-primary" onclick="addFiche()">+ Créer la fiche</button>
+  </div>
+
+  <div class="status-bar" id="statusFiches"></div>
+  <div class="actions-bar">
+    <button class="btn-github" onclick="publishFiches()">Publier toutes les fiches sur GitHub →</button>
+    <span class="actions-note">Génère et publie chaque fiche comme page HTML indépendante</span>
+  </div>
+</div>
+</div>
+
+
+<!-- TAB 3 — ARTICLES -->
+<div class="tab-content" id="tab-articles">
+<div class="container">
+  <div class="section-hdr">
+    <span class="section-title">Articles perso</span>
+    <span class="section-sub">Rediger un article qui s affichera dans la modale de lecture sur ressources.html</span>
+  </div>
+
+  <div class="section-hdr" style="margin-top:0;">
+    <span class="section-title" style="font-size:18px;">Articles externes en ligne</span>
+    <span class="section-sub">Modifiez les liens, titres et dates</span>
+  </div>
+  <div id="existingArticlesList" style="display:flex;flex-direction:column;gap:2px;margin-bottom:32px;"></div>
+
+  <div class="section-hdr" style="margin-top:24px;">
+    <span class="section-title" style="font-size:18px;">Articles perso crees</span>
+    <span class="section-sub">Articles rediges depuis l admin</span>
+  </div>
+  <div id="articlesList" style="display:flex;flex-direction:column;gap:2px;margin-bottom:32px;"></div>
+
+  <div class="add-box">
+    <h3>Nouvel article</h3>
+    <div class="form-grid">
+      <div class="fg"><label>Categorie</label><input type="text" id="na-cat" placeholder="Evolution, Salaires, Entretien..."></div>
+      <div class="fg"><label>Date affichee</label><input type="text" id="na-date" placeholder="Aujourd hui, Cette semaine..."></div>
+      <div class="fg form-full"><label>Titre</label><input type="text" id="na-title" placeholder="Comment negocier son salaire..."></div>
+      <div class="fg form-full"><label>Description courte (apercu sur la carte)</label><input type="text" id="na-desc" placeholder="Les arguments qui fonctionnent..."></div>
+      <div class="fg form-full">
+        <label>Contenu de l article</label>
+        <p style="font-size:9px;color:var(--gray);margin-bottom:8px;">Utilisez les boutons pour formater le texte. Le contenu s affichera dans une belle fenetre de lecture.</p>
+        <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;">
+          <button type="button" onclick="insertTag('h3')" style="padding:4px 10px;border:1px solid var(--accent);background:transparent;font-size:9px;letter-spacing:.1em;cursor:pointer;font-family:'Montserrat',sans-serif;">Titre H3</button>
+          <button type="button" onclick="insertTag('p')" style="padding:4px 10px;border:1px solid var(--accent);background:transparent;font-size:9px;letter-spacing:.1em;cursor:pointer;font-family:'Montserrat',sans-serif;">Paragraphe</button>
+          <button type="button" onclick="insertTag('li')" style="padding:4px 10px;border:1px solid var(--accent);background:transparent;font-size:9px;letter-spacing:.1em;cursor:pointer;font-family:'Montserrat',sans-serif;">Liste</button>
+          <button type="button" onclick="insertTag('bq')" style="padding:4px 10px;border:1px solid var(--accent);background:transparent;font-size:9px;letter-spacing:.1em;cursor:pointer;font-family:'Montserrat',sans-serif;">Citation</button>
+        </div>
+        <textarea id="na-body" style="width:100%;min-height:200px;border:1px solid var(--accent);background:transparent;padding:12px;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;resize:vertical;line-height:1.8;" placeholder="<h3>Introduction</h3>&#10;<p>Votre texte ici...</p>&#10;<ul>&#10;<li>Point 1</li>&#10;<li>Point 2</li>&#10;</ul>"></textarea>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="addArticle()">+ Ajouter l article</button>
+  </div>
+
+  <div class="status-bar" id="statusArticles"></div>
+  <div class="actions-bar">
+    <button class="btn-github" onclick="publishAllArticles()">Publier tous les articles sur GitHub →</button>
+    <span class="actions-note">Met a jour la section articles de ressources.html</span>
+  </div>
+</div>
+</div>
+
+<!-- TAB 4 — CONFIG -->
+<div class="tab-content" id="tab-config">
+<div class="container">
+  <div class="config-box">
+    <h3>Configuration GitHub</h3>
+    <div class="config-grid">
+      <div class="cg"><label>Token GitHub</label><input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"></div>
+      <div class="cg"><label>Utilisateur</label><input type="text" id="ghUser" placeholder="votre-username"></div>
+      <div class="cg"><label>Nom du dépôt</label><input type="text" id="ghRepo" placeholder="apogee-consulting"></div>
+    </div>
+    <p class="config-note">⚠️ Token stocké uniquement dans votre navigateur. Créez-le sur github.com → Settings → Developer settings → Personal access tokens → permission <strong>repo</strong>.</p>
+  </div>
+  <button class="btn-primary" onclick="saveConfig()">Sauvegarder</button>
+  <div class="status-bar" id="statusConfig"></div>
+</div>
+</div>
+
+<script>
+// ── TABS ─────────────────────────────────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['offres','fiches','articles','config'][i]===name));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id==='tab-'+name));
+}
+
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+function loadConfig() {
+  document.getElementById('ghToken').value = localStorage.getItem('gh_token')||'';
+  document.getElementById('ghUser').value  = localStorage.getItem('gh_user') ||'';
+  document.getElementById('ghRepo').value  = localStorage.getItem('gh_repo') ||'';
+}
+function saveConfig() {
+  localStorage.setItem('gh_token', document.getElementById('ghToken').value.trim());
+  localStorage.setItem('gh_user',  document.getElementById('ghUser').value.trim());
+  localStorage.setItem('gh_repo',  document.getElementById('ghRepo').value.trim());
+  setStatus('statusConfig','success','✓ Configuration sauvegardee.');
+}
+
+// ── OFFRES ────────────────────────────────────────────────────────────────────
+let offres = [
+  {id:1,type:'exclusive',cat:'direction',titreFr:'Assistante de direction',titreEn:'Executive Assistant',source:'Exclusif Apogee',contrat:'CDI, 35 a 42K',contratEn:'Permanent, 35 to 42K',url:'offre-assistante-direction.html',date:"Aujourd'hui",dateEn:'Today'},
+  {id:2,type:'exclusive',cat:'direction',titreFr:'Office Manager',titreEn:'Office Manager',source:'Exclusif Apogee',contrat:'CDI, 38 a 45K',contratEn:'Permanent, 38 to 45K',url:'recrutement.html',date:"Aujourd'hui",dateEn:'Today'},
+  {id:3,type:'exclusive',cat:'remote',titreFr:'Assistante virtuelle',titreEn:'Virtual Assistant',source:'Exclusif Apogee',contrat:'Freelance',contratEn:'Freelance',url:'recrutement.html',date:'Cette semaine',dateEn:'This week'},
+  {id:4,type:'externe',cat:'direction',titreFr:'Assistante de direction, Paris',titreEn:'Executive Assistant, Paris',source:'Indeed',contrat:'CDI, Paris',contratEn:'Permanent, Paris',url:'https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris',date:'Mis a jour',dateEn:'Updated'},
+  {id:5,type:'externe',cat:'juridique',titreFr:'Assistante juridique, Paris',titreEn:'Legal Assistant, Paris',source:'Indeed',contrat:'CDI, CDD',contratEn:'Permanent, Fixed-term',url:'https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris',date:'Mis a jour',dateEn:'Updated'},
+  {id:6,type:'externe',cat:'medical',titreFr:'Assistante medicale, Paris',titreEn:'Medical Assistant, Paris',source:'Indeed',contrat:'CDI, Paris',contratEn:'Permanent, Paris',url:'https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris',date:'Mis a jour',dateEn:'Updated'},
+  {id:7,type:'externe',cat:'remote',titreFr:'Assistante virtuelle, Remote',titreEn:'Virtual Assistant, Remote',source:'LinkedIn',contrat:'Freelance, Remote',contratEn:'Freelance, Remote',url:'https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris',date:'Mis a jour',dateEn:'Updated'},
+];
+let nextId = 8;
+
+function render() {
+  const list = document.getElementById('offresList');
+  list.innerHTML = '';
+  offres.forEach(o => {
+    const row = document.createElement('div');
+    row.className = `offre-row ${o.type}`;
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-${o.type}">${o.type==='exclusive'?'Exclusif':o.source}</span>
+        <span class="offre-titre">${o.titreFr}</span>
+        <span style="font-size:9px;color:var(--gray)">${o.cat} · ${o.contrat}</span>
+      </div>
+      <div class="offre-url"><input type="url" value="${o.url}" placeholder="https://..." onchange="offres.find(x=>x.id===${o.id}).url=this.value;document.getElementById('test-${o.id}').href=this.value;"></div>
+      <div class="offre-date"><input value="${o.date}" onchange="offres.find(x=>x.id===${o.id}).date=this.value;"></div>
+      <div class="offre-cat"><select onchange="offres.find(x=>x.id===${o.id}).cat=this.value;">${['direction','juridique','medical','finance','remote'].map(c=>`<option value="${c}"${o.cat===c?' selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="offre-actions">
+        <a id="test-${o.id}" class="btn-test" href="${o.url}" target="_blank">Tester</a>
+        ${o.type==='externe'?`<button class="btn-del" onclick="removeOffre(${o.id})">✕</button>`:'<span style="width:20px"></span>'}
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeOffre(id) { offres=offres.filter(x=>x.id!==id); render(); }
+
+function addOffre() {
+  const titreFr=document.getElementById('nTitreFr').value.trim();
+  const url=document.getElementById('nUrl').value.trim();
+  if(!titreFr||!url){setStatus('statusOffres','error','Titre et lien requis.');return;}
+  offres.push({id:nextId++,type:'externe',cat:document.getElementById('nCat').value,titreFr,titreEn:document.getElementById('nTitreEn').value.trim()||titreFr,source:document.getElementById('nSource').value.trim()||'Externe',contrat:document.getElementById('nContrat').value.trim(),contratEn:document.getElementById('nContrat').value.trim(),url,date:document.getElementById('nDate').value.trim()||"Aujourd'hui",dateEn:document.getElementById('nDate').value.trim()||'Today'});
+  ['nTitreFr','nTitreEn','nSource','nContrat','nDate','nUrl'].forEach(id=>document.getElementById(id).value='');
+  render();
+  setStatus('statusOffres','success','Offre ajoutee. Publiez pour mettre a jour le site.');
+}
+
+function b(fr,en){return `<span lang="fr">${fr}</span><span lang="en">${en}`+'</span>';}
+
+function generateGridCode() {
+  let code='<div class="offres-grid">\n';
+  offres.forEach(o=>{
+    const target=o.type==='externe'?' target="_blank"':'';
+    const badge=o.type==='exclusive'?'Exclusif Apogee':o.source;
+    const badgeEn=o.type==='exclusive'?'Apogee Exclusive':o.source;
+    const cta=o.type==='exclusive'?['Postuler →','Apply →']:['Voir →','View →'];
+    code+=`      <a href="${o.url}" class="offre-card" data-cat="${o.cat}" data-type="${o.type}"${target}>`;
+    code+=`<span class="offre-badge badge-${o.type}">${b(badge,badgeEn)}</span>`;
+    code+=`<div class="offre-title">${b(o.titreFr,o.titreEn)}</div>`;
+    code+=`<div class="offre-meta">${b(o.source,o.source)}<br>${b(o.contrat,o.contratEn||o.contrat)}</div>`;
+    code+=`<div class="offre-footer"><span class="offre-date">${b(o.date,o.dateEn||o.date)}</span><span class="offre-cta">${b(cta[0],cta[1])}</span></div>`;
+    code+=`</a>\n`;
+  });
+  code+='    </div>';
+  return code;
+}
+
+// ── GITHUB ────────────────────────────────────────────────────────────────────
+function getConfig() {
+  return {
+    token: localStorage.getItem('gh_token'),
+    user:  localStorage.getItem('gh_user'),
+    repo:  localStorage.getItem('gh_repo'),
+  };
+}
+
+async function getFileSha(token, user, repo, path) {
+  const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`, {
+    headers: {'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}
+  });
+  if(!res.ok) throw new Error(`Fichier introuvable: ${path} (${res.status})`);
+  const data = await res.json();
+  return {sha: data.sha, content: atob(data.content.replace(/\n/g,''))};
+}
+
+async function pushFile(token, user, repo, path, content, sha, message) {
+  const encoded = btoa(unescape(encodeURIComponent(content)));
+  const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`, {
+    method:'PUT',
+    headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    body: JSON.stringify({message, content:encoded, sha})
+  });
+  if(!res.ok){const e=await res.json();throw new Error(e.message||`Erreur ${res.status}`);}
+}
+
+async function publishOffres() {
+  const {token,user,repo}=getConfig();
+  if(!token||!user||!repo){setStatus('statusOffres','error','Configurez GitHub dans l\'onglet Configuration.');return;}
+  setStatus('statusOffres','loading','Connexion a GitHub...');
+  try {
+    const {sha,content}=await getFileSha(token,user,repo,'ressources.html');
+    const newGrid=generateGridCode();
+    let i=content.indexOf('<div class="offres-grid">'), depth=0, end=-1;
+    if(i===-1) throw new Error('Section offres-grid introuvable.');
+    let j=i;
+    while(j<content.length){
+      if(content.substr(j,4)==='<div') depth++;
+      else if(content.substr(j,6)==='</div>'){depth--;if(depth===0){end=j+6;break;}}
+      j++;
+    }
+    const newContent=content.slice(0,i)+newGrid+content.slice(end);
+    setStatus('statusOffres','loading','Publication...');
+    await pushFile(token,user,repo,'ressources.html',newContent,sha,'Mise a jour des offres d\'emploi');
+    setStatus('statusOffres','success','✓ Offres mises a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e){setStatus('statusOffres','error','Erreur : '+e.message);}
+}
+
+// ── FICHES DYNAMIQUES ─────────────────────────────────────────────────────────
+let fiches = [
+  {id:1, titreFr:'Assistante de Direction', titreEn:'Executive Assistant', ref:'APG-AD-001', contrat:'CDD', lieu:'Paris, IDF', salaire:'32 a 40K', dispo:'Des que possible',
+   desc:'Apogee Consulting recrute une Assistante de Direction rigoureuse et proactive pour accompagner un dirigeant dans la gestion quotidienne de son activite.',
+   missions:['Gestion des agendas complexes et organisation des deplacements','Preparation des reunions, comptes rendus et suivi des actions','Interface avec les partenaires, clients et equipes internes','Gestion des notes de frais et suivi administratif (Lucca)','Redaction de courriers, emails et documents professionnels','Coordination des priorites et anticipation des besoins'],
+   profil:['Experience confirmee en assistanat de direction (2 ans minimum)','Maitrise des outils bureautiques (Pack Office, Notion, Asana)','Aisance redactionnelle en francais, anglais apprecie','Grande discretion et sens de la confidentialite','Autonomie, reactivite et esprit d\'initiative','Disponibilite immediate ou sous 2 semaines']},
+  {id:2, titreFr:'Assistante en Finance', titreEn:'Finance Assistant', ref:'APG-FIN-001', contrat:'CDD', lieu:'Paris, IDF', salaire:'28 a 36K', dispo:'Des que possible',
+   desc:'Apogee Consulting recrute une Assistante en Finance pour accompagner une equipe financiere dans la gestion administrative, comptable et operationnelle.',
+   missions:['Saisie et suivi des factures fournisseurs et clients','Gestion des notes de frais et controle de conformite (Lucca, Ciel, Sage)','Preparation des reportings mensuels et tableaux de bord','Support a la cloture comptable mensuelle','Suivi des contrats et referencement des dossiers','Interface avec les prestataires comptables et auditeurs'],
+   profil:['Formation en comptabilite, gestion ou finance (BTS, Licence)','Maitrise d\'Excel et outils de gestion (Sage, Ciel, Dolibarr, Lucca)','Rigueur, organisation et sens du detail','Discretion et respect de la confidentialite des donnees','Experience en cabinet comptable ou service financier appreciee','Disponibilite immediate ou sous 2 semaines']},
+];
+let nextFicheId = 3;
+
+function slug(titre) {
+  return 'offre-' + titre.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') + '.html';
+}
+
+function renderFiches() {
+  const list = document.getElementById('fichesList');
+  list.innerHTML = '';
+  fiches.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'fiche-edit';
+    div.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <p class="fiche-ref" id="ref-display-${f.id}">${f.ref}</p>
+        <button class="btn-del" onclick="removeFiche(${f.id})" title="Supprimer">✕</button>
+      </div>
+      <h3 id="titre-display-${f.id}" style="margin-bottom:16px;">${f.titreFr}</h3>
+      <div class="fiche-grid">
+        <div class="fg"><label>Titre (FR)</label><input type="text" id="f${f.id}-titre-fr" value="${f.titreFr}" onchange="updateFiche(${f.id},'titreFr',this.value);document.getElementById('titre-display-${f.id}').textContent=this.value;"></div>
+        <div class="fg"><label>Titre (EN)</label><input type="text" id="f${f.id}-titre-en" value="${f.titreEn}" onchange="updateFiche(${f.id},'titreEn',this.value)"></div>
+        <div class="fg"><label>Reference</label><input type="text" id="f${f.id}-ref" value="${f.ref}" onchange="updateFiche(${f.id},'ref',this.value);document.getElementById('ref-display-${f.id}').textContent=this.value;"></div>
+        <div class="fg"><label>Contrat</label><input type="text" id="f${f.id}-contrat" value="${f.contrat}" onchange="updateFiche(${f.id},'contrat',this.value)"></div>
+        <div class="fg"><label>Lieu</label><input type="text" id="f${f.id}-lieu" value="${f.lieu}" onchange="updateFiche(${f.id},'lieu',this.value)"></div>
+        <div class="fg"><label>Salaire</label><input type="text" id="f${f.id}-salaire" value="${f.salaire}" onchange="updateFiche(${f.id},'salaire',this.value)"></div>
+        <div class="fg fiche-full"><label>Description</label><textarea id="f${f.id}-desc" style="width:100%;border:none;border-bottom:.5px solid var(--accent);background:transparent;padding:7px 0;font-family:'Montserrat',sans-serif;font-size:11px;color:var(--brown);outline:none;resize:vertical;min-height:60px;" onchange="updateFiche(${f.id},'desc',this.value)">${f.desc}</textarea></div>
+        <div class="fg fiche-full"><label>Missions (une par ligne)</label><textarea class="missions-area" id="f${f.id}-missions" onchange="updateFiche(${f.id},'missionsRaw',this.value)">${f.missions.join('\n')}</textarea></div>
+        <div class="fg fiche-full"><label>Profil (une ligne par critere)</label><textarea class="missions-area" id="f${f.id}-profil" onchange="updateFiche(${f.id},'profilRaw',this.value)">${f.profil.join('\n')}</textarea></div>
+      </div>
+      <p style="font-size:9px;color:var(--accent);margin-top:8px;">Fichier : ${slug(f.titreFr)}</p>`;
+    list.appendChild(div);
+  });
+}
+
+function updateFiche(id, key, val) {
+  const f = fiches.find(x=>x.id===id);
+  if(!f) return;
+  if(key==='missionsRaw') f.missions = val.trim().split('\n').filter(x=>x.trim());
+  else if(key==='profilRaw') f.profil = val.trim().split('\n').filter(x=>x.trim());
+  else f[key] = val;
+}
+
+function removeFiche(id) {
+  if(!confirm('Supprimer cette fiche ?')) return;
+  fiches = fiches.filter(x=>x.id!==id);
+  renderFiches();
+
+// ── ARTICLES ──────────────────────────────────────────────────────────────────
+let articles = [];
+let nextArticleId = 1;
+
+function renderArticles() {
+  const list = document.getElementById('articlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  if (articles.length === 0) {
+    list.innerHTML = '<p style="font-size:11px;color:var(--gray);padding:16px 0;">Aucun article cree. Utilisez le formulaire ci-dessous.</p>';
+    return;
+  }
+  articles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.cat}</span>
+        <span class="offre-titre">${a.title}</span>
+        <span style="font-size:9px;color:var(--gray)">${a.date}</span>
+      </div>
+      <div style="flex:1;font-size:10px;color:var(--gray);padding:0 8px;">${a.desc.substring(0,80)}...</div>
+      <div class="offre-actions">
+        <button class="btn-test" onclick="previewArticle(${a.id})">Apercu</button>
+        <button class="btn-del" onclick="removeArticle(${a.id})">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function insertTag(type) {
+  const ta = document.getElementById('na-body');
+  const map = {
+    'h3': '<h3>Titre de section</h3>\n',
+    'p': '<p>Votre paragraphe ici...</p>\n',
+    'li': '<ul>\n<li>Element 1</li>\n<li>Element 2</li>\n</ul>\n',
+    'bq': '<blockquote><p>Votre citation marquante ici.</p></blockquote>\n'
+  };
+  const pos = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0, pos) + map[type] + val.slice(pos);
+  ta.focus();
+}
+
+function addArticle() {
+  const title = document.getElementById('na-title').value.trim();
+  const body = document.getElementById('na-body').value.trim();
+  if (!title || !body) { setStatus('statusArticles','error','Titre et contenu requis.'); return; }
+  articles.push({
+    id: nextArticleId++,
+    cat: document.getElementById('na-cat').value.trim() || 'Actualite',
+    date: document.getElementById('na-date').value.trim() || "Aujourd hui",
+    title,
+    desc: document.getElementById('na-desc').value.trim() || title,
+    body
+  });
+  ['na-cat','na-date','na-title','na-desc','na-body'].forEach(id => document.getElementById(id).value = '');
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+  setStatus('statusArticles','success','Article ajoute. Publiez pour le mettre en ligne.');
+}
+
+function removeArticle(id) {
+  articles = articles.filter(x => x.id !== id);
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+}
+
+function previewArticle(id) {
+  const a = articles.find(x => x.id === id);
+  if (!a) return;
+  const win = window.open('', '_blank', 'width=800,height=700');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>body{font-family:'Montserrat',sans-serif;font-weight:300;padding:48px;max-width:680px;margin:0 auto;color:#333;}
+    h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin:24px 0 10px;}
+    p{font-size:14px;line-height:2;margin-bottom:16px;}
+    ul{list-style:none;margin-bottom:16px;}
+    li{font-size:13px;line-height:1.8;padding:6px 0 6px 14px;position:relative;border-bottom:0.5px solid #f0f0f0;}
+    li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:#b0b0b0;border-radius:50%;}
+    blockquote{border-left:2px solid #0d0d0d;padding:12px 20px;margin:20px 0;background:#fafafa;}
+    blockquote p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d;}
+    .cat{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;}
+    .title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.2;margin-bottom:8px;}
+    </style></head><body>
+    <p class="cat">${a.cat} — ${a.date}</p>
+    <p class="title">${a.title}</p>
+    <hr style="border:none;border-top:0.5px solid #f0f0f0;margin:20px 0;">
+    ${a.body}
+    </body></html>`);
+}
+
+function generateArticlesCode() {
+  if (articles.length === 0) return '';
+  let code = '';
+  articles.forEach(a => {
+    const dataObj = JSON.stringify({cat: a.cat, title: a.title, meta: a.date + ' - Apogee Consulting', body: a.body}).replace(/'/g, "\'");
+    code += `<div class="actu-card" onclick="openReader(${dataObj})" style="cursor:pointer;">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<p class="actu-desc">${a.desc}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">Apogee →</span></div>`;
+    code += `</div>\n`;
+  });
+  return code;
+}
+
+async function publishArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  if (articles.length === 0) { setStatus('statusArticles','error','Aucun article a publier.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    const newCards = generateArticlesCode();
+    // Insert before closing </div> of actu-grid
+    const gridEnd = content.lastIndexOf('</div>', content.indexOf('actu-grid') + 2000);
+    const newContent = content.slice(0, gridEnd) + newCards + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Ajout d articles');
+    setStatus('statusArticles','success','✓ Articles publies sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+
+}
+
+function addFiche() {
+  const titreFr = document.getElementById('nf-titre-fr').value.trim();
+  if(!titreFr){setStatus('statusFiches','error','Le titre est requis.');return;}
+  fiches.push({
+    id: nextFicheId++,
+    titreFr,
+    titreEn: document.getElementById('nf-titre-en').value.trim() || titreFr,
+    ref: document.getElementById('nf-ref').value.trim() || 'APG-XXX-001',
+    contrat: document.getElementById('nf-contrat').value.trim() || 'CDD',
+    lieu: document.getElementById('nf-lieu').value.trim() || 'Paris, IDF',
+    salaire: document.getElementById('nf-salaire').value.trim() || 'A definir',
+    dispo: 'Des que possible',
+    desc: document.getElementById('nf-desc').value.trim(),
+    missions: document.getElementById('nf-missions').value.trim().split('\n').filter(x=>x.trim()),
+    profil: document.getElementById('nf-profil').value.trim().split('\n').filter(x=>x.trim()),
+  });
+  ['nf-titre-fr','nf-titre-en','nf-ref','nf-contrat','nf-lieu','nf-salaire','nf-desc','nf-missions','nf-profil'].forEach(id=>document.getElementById(id).value='');
+  renderFiches();
+
+// ── ARTICLES ──────────────────────────────────────────────────────────────────
+let articles = [];
+let nextArticleId = 1;
+
+function renderArticles() {
+  const list = document.getElementById('articlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  if (articles.length === 0) {
+    list.innerHTML = '<p style="font-size:11px;color:var(--gray);padding:16px 0;">Aucun article cree. Utilisez le formulaire ci-dessous.</p>';
+    return;
+  }
+  articles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.cat}</span>
+        <span class="offre-titre">${a.title}</span>
+        <span style="font-size:9px;color:var(--gray)">${a.date}</span>
+      </div>
+      <div style="flex:1;font-size:10px;color:var(--gray);padding:0 8px;">${a.desc.substring(0,80)}...</div>
+      <div class="offre-actions">
+        <button class="btn-test" onclick="previewArticle(${a.id})">Apercu</button>
+        <button class="btn-del" onclick="removeArticle(${a.id})">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function insertTag(type) {
+  const ta = document.getElementById('na-body');
+  const map = {
+    'h3': '<h3>Titre de section</h3>\n',
+    'p': '<p>Votre paragraphe ici...</p>\n',
+    'li': '<ul>\n<li>Element 1</li>\n<li>Element 2</li>\n</ul>\n',
+    'bq': '<blockquote><p>Votre citation marquante ici.</p></blockquote>\n'
+  };
+  const pos = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0, pos) + map[type] + val.slice(pos);
+  ta.focus();
+}
+
+function addArticle() {
+  const title = document.getElementById('na-title').value.trim();
+  const body = document.getElementById('na-body').value.trim();
+  if (!title || !body) { setStatus('statusArticles','error','Titre et contenu requis.'); return; }
+  articles.push({
+    id: nextArticleId++,
+    cat: document.getElementById('na-cat').value.trim() || 'Actualite',
+    date: document.getElementById('na-date').value.trim() || "Aujourd hui",
+    title,
+    desc: document.getElementById('na-desc').value.trim() || title,
+    body
+  });
+  ['na-cat','na-date','na-title','na-desc','na-body'].forEach(id => document.getElementById(id).value = '');
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+  setStatus('statusArticles','success','Article ajoute. Publiez pour le mettre en ligne.');
+}
+
+function removeArticle(id) {
+  articles = articles.filter(x => x.id !== id);
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+}
+
+function previewArticle(id) {
+  const a = articles.find(x => x.id === id);
+  if (!a) return;
+  const win = window.open('', '_blank', 'width=800,height=700');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>body{font-family:'Montserrat',sans-serif;font-weight:300;padding:48px;max-width:680px;margin:0 auto;color:#333;}
+    h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin:24px 0 10px;}
+    p{font-size:14px;line-height:2;margin-bottom:16px;}
+    ul{list-style:none;margin-bottom:16px;}
+    li{font-size:13px;line-height:1.8;padding:6px 0 6px 14px;position:relative;border-bottom:0.5px solid #f0f0f0;}
+    li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:#b0b0b0;border-radius:50%;}
+    blockquote{border-left:2px solid #0d0d0d;padding:12px 20px;margin:20px 0;background:#fafafa;}
+    blockquote p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d;}
+    .cat{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;}
+    .title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.2;margin-bottom:8px;}
+    </style></head><body>
+    <p class="cat">${a.cat} — ${a.date}</p>
+    <p class="title">${a.title}</p>
+    <hr style="border:none;border-top:0.5px solid #f0f0f0;margin:20px 0;">
+    ${a.body}
+    </body></html>`);
+}
+
+function generateArticlesCode() {
+  if (articles.length === 0) return '';
+  let code = '';
+  articles.forEach(a => {
+    const dataObj = JSON.stringify({cat: a.cat, title: a.title, meta: a.date + ' - Apogee Consulting', body: a.body}).replace(/'/g, "\'");
+    code += `<div class="actu-card" onclick="openReader(${dataObj})" style="cursor:pointer;">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<p class="actu-desc">${a.desc}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">Apogee →</span></div>`;
+    code += `</div>\n`;
+  });
+  return code;
+}
+
+async function publishArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  if (articles.length === 0) { setStatus('statusArticles','error','Aucun article a publier.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    const newCards = generateArticlesCode();
+    // Insert before closing </div> of actu-grid
+    const gridEnd = content.lastIndexOf('</div>', content.indexOf('actu-grid') + 2000);
+    const newContent = content.slice(0, gridEnd) + newCards + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Ajout d articles');
+    setStatus('statusArticles','success','✓ Articles publies sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+
+  setStatus('statusFiches','success','Fiche creee. Publiez pour la mettre en ligne.');
+}
+
+function generateFicheHTML(f) {
+  const bfn = (fr,en) => `<span lang="fr">${fr}</span><span lang="en">${en}</span>`;
+  const missions = f.missions.map(m=>`<li>${bfn(m,m)}</li>`).join('');
+  const profil = f.profil.map(p=>`<li>${bfn(p,p)}</li>`).join('');
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${f.titreFr} — Apogee Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--black:#0d0d0d;--white:#ffffff;--gray:#6b6b6b;--light:#f4f4f4;--accent:#b0b0b0;}
+body{background:var(--white);color:var(--black);font-family:'Montserrat',sans-serif;font-weight:300;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 60px;background:var(--white);border-bottom:1px solid rgba(0,0,0,0.08);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);text-decoration:none;}
+.nav-links a:hover{color:var(--black);}
+.lang-btn{background:none;border:1px solid rgba(0,0,0,0.15);padding:5px 12px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--gray);border-radius:2px;margin-left:16px;}
+[lang="en"]{display:none!important;}[lang="fr"]{display:inline!important;}
+body.en [lang="en"]{display:inline!important;}body.en [lang="fr"]{display:none!important;}
+.hero{padding:110px 80px 48px;border-bottom:0.5px solid var(--light);}
+.breadcrumb{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;display:flex;gap:8px;}
+.breadcrumb a{color:var(--accent);text-decoration:none;}
+.breadcrumb a:hover{color:var(--black);}
+.hero-ref{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.05;margin-bottom:20px;}
+.hero-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.badge{font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;border:0.5px solid var(--accent);color:var(--gray);}
+.badge.filled{background:var(--black);color:var(--white);border-color:var(--black);}
+.btn-postuler-hero{margin-left:auto;background:var(--black);color:var(--white);border:none;padding:10px 28px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;}
+.fiche{max-width:860px;margin:0 auto;padding:60px 80px;}
+.details-bar{background:var(--light);padding:20px 28px;display:flex;gap:32px;flex-wrap:wrap;margin-bottom:48px;}
+.detail-item{display:flex;flex-direction:column;gap:3px;}
+.detail-lbl{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);}
+.detail-val{font-size:12px;color:var(--black);font-weight:400;}
+.bloc{margin-bottom:48px;}
+.bloc-label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;padding-bottom:8px;border-bottom:0.5px solid var(--light);}
+.bloc p{font-size:13px;line-height:2;color:var(--gray);}
+.bloc ul{list-style:none;}
+.bloc ul li{font-size:12px;line-height:1.7;color:var(--gray);padding:9px 0 9px 14px;border-bottom:0.5px solid var(--light);position:relative;}
+.bloc ul li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:var(--accent);border-radius:50%;}
+.bloc ul li:last-child{border-bottom:none;}
+.retour{display:inline-flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);text-decoration:none;}
+.retour:hover{color:var(--black);}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.overlay.open{opacity:1;pointer-events:all;}
+.drawer{position:fixed;top:0;right:-440px;width:400px;height:100vh;background:var(--white);z-index:201;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,0.08);}
+.drawer.open{right:0;}
+.drawer-header{padding:28px 28px 20px;border-bottom:0.5px solid var(--light);display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;}
+.drawer-ref{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+.drawer-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;}
+.drawer-close{background:none;border:none;cursor:pointer;font-size:20px;color:var(--accent);padding:0;line-height:1;}
+.drawer-close:hover{color:var(--black);}
+.drawer-body{padding:24px 28px;overflow-y:auto;flex:1;}
+.fg{margin-bottom:18px;}
+.fg label{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:5px;}
+.fg input,.fg textarea,.fg select{width:100%;border:none;border-bottom:0.5px solid var(--accent);background:transparent;padding:7px 0;font-family:'Montserrat',sans-serif;font-size:12px;color:var(--black);outline:none;transition:border-color .2s;}
+.fg input:focus,.fg textarea:focus{border-bottom-color:var(--black);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--accent);}
+.fg textarea{resize:none;min-height:70px;}
+.fg select{cursor:pointer;appearance:none;}
+.drawer-footer{padding:20px 28px;border-top:0.5px solid var(--light);flex-shrink:0;}
+.btn-submit{width:100%;background:var(--black);color:var(--white);border:none;padding:13px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;}
+.consent-txt{font-size:9px;color:var(--accent);margin-top:10px;line-height:1.7;}
+.success-block{display:none;text-align:center;padding:40px 0;}
+.success-block p{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--black);line-height:1.6;}
+@media(max-width:900px){nav{padding:16px 20px;}.hero{padding:90px 24px 40px;}.fiche{padding:40px 24px;}.drawer{width:100%;right:-100%;}}
+</style>
+</head>
+<body>
 <nav>
-  <a href="index.html" class="nav-logo" style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.15em;color:#6b4c3b;text-decoration:none;">Apogee Consulting</a>
+  <a href="index.html" style="text-decoration:none;"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--black);">Apogee Consulting</span></a>
   <div class="nav-links">
-    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
-    <a href="recrutement.html">Recrutement</a>
-    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
-    <a href="ressources.html" class="active"><span lang="fr">Espace assistantes</span><span lang="en">Executive Assistants Hub</span></a>
+    <a href="index.html">${bfn("Accueil","Home")}</a>
+    <a href="recrutement.html">${bfn("Recrutement","Recruitment")}</a>
+    <a href="entreprises.html">${bfn("Entreprises","Companies")}</a>
+    <a href="ressources.html">${bfn("Espace assistantes","Hub")}</a>
+    <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
   </div>
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
 </nav>
-
-<div class="ancres" id="ancres">
-  <a href="#offres" class="ancre-btn"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></a>
-  <a href="#actualites" class="ancre-btn"><span lang="fr">Actualites</span><span lang="en">News</span></a>
-  <a href="#lexique" class="ancre-btn"><span lang="fr">Le lexique</span><span lang="en">The glossary</span></a>
-  <a href="#portraits" class="ancre-btn"><span lang="fr">Portraits</span><span lang="en">Portraits</span></a>
-  <a href="#guide" class="ancre-btn"><span lang="fr">Guide</span><span lang="en">Guide</span></a>
-  <a href="#chiffres" class="ancre-btn"><span lang="fr">Chiffres</span><span lang="en">Figures</span></a>
-  <a href="#newsletter" class="ancre-btn"><span lang="fr">Newsletter</span><span lang="en">Newsletter</span></a>
-</div>
-
-<section class="hero">
-  <p class="hero-tag"><span lang="fr">Espace assistantes, Apogee Consulting</span><span lang="en">Executive Assistants Hub, Apogee Consulting</span></p>
-  <div class="manifeste">
-    <p class="manifeste-line"><span lang="fr">Assistante de direction.</span><span lang="en">Executive assistant.</span></p>
-    <p class="manifeste-line"><span lang="fr">Pas secretaire. Pas executante.</span><span lang="en">Not a secretary. Not an executor.</span></p>
-    <p class="manifeste-line"><span lang="fr">Celle qui voit tout, anticipe tout, <em>tient tout.</em></span><span lang="en">The one who sees everything, anticipates everything, <em>holds everything together.</em></span></p>
-    <p class="manifeste-line"><span lang="fr">Le pilier strategique que peu d'organisations savent vraiment valoriser.</span><span lang="en">The strategic asset that few organisations truly know how to value.</span></p>
+<div class="hero">
+  <div class="breadcrumb">
+    <a href="recrutement.html">${bfn("Recrutement","Recruitment")}</a>
+    <span>›</span>
+    <span>${bfn(f.titreFr, f.titreEn)}</span>
   </div>
-  <p class="manifeste-conclusion"><span lang="fr">Nous, si.</span><span lang="en">We do.</span></p>
-</section>
-
-<div class="band">
-  <div class="band-inner">
-    <span><span lang="fr">Pilier strategique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Evolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span><span><span lang="fr">Pilier strategique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Evolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span>
+  <p class="hero-ref">Ref. ${f.ref}</p>
+  <h1 class="hero-title">${bfn(f.titreFr, f.titreEn)}</h1>
+  <div class="hero-badges">
+    <span class="badge filled">${f.contrat}</span>
+    <span class="badge">${f.lieu}</span>
+    <span class="badge">${f.salaire}</span>
+    <span class="badge">${bfn("Des que possible","ASAP")}</span>
+    <button class="btn-postuler-hero" onclick="openDrawer()">${bfn("Postuler →","Apply →")}</button>
   </div>
 </div>
-
-<section class="phrase reveal">
-  <p class="phrase-text"><span lang="fr">Vous gerez. Vous anticipez. Vous tenez.</span><span lang="en">You manage. You anticipate. You hold it together.</span><br><em><span lang="fr">Le reste, c'est notre travail.</span><span lang="en">The rest is our job.</span></em></p>
-</section>
-
-<!-- OFFRES -->
-<section class="section" id="offres">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></p>
-    <h2 class="section-title"><span lang="fr">Postes</span><span lang="en">Positions</span><br><em><span lang="fr">disponibles.</span><span lang="en">available.</span></em></h2>
-    <div class="filters">
-      <button class="filter-btn active" onclick="filter('all',this)"><span lang="fr">Toutes</span><span lang="en">All</span></button>
-      <button class="filter-btn" onclick="filter('exclusive',this)"><span lang="fr">Exclusives Apogee</span><span lang="en">Apogee Exclusives</span></button>
-      <button class="filter-btn" onclick="filter('direction',this)"><span lang="fr">Direction</span><span lang="en">Management</span></button>
-      <button class="filter-btn" onclick="filter('juridique',this)"><span lang="fr">Juridique</span><span lang="en">Legal</span></button>
-      <button class="filter-btn" onclick="filter('medical',this)"><span lang="fr">Medical</span><span lang="en">Medical</span></button>
-      <button class="filter-btn" onclick="filter('finance',this)"><span lang="fr">Finance</span><span lang="en">Finance</span></button>
-      <button class="filter-btn" onclick="filter('remote',this)"><span lang="fr">Remote</span><span lang="en">Remote</span></button>
-    </div>
-    <div class="offres-grid">
-      <a href="offre-assistante-direction.html" class="offre-card" data-cat="direction" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 32 a 40K</span><span lang="en">Fixed-term, 32 to 40K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="offre-assistante-finance.html" class="offre-card" data-cat="finance" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 28 a 36K</span><span lang="en">Fixed-term, 28 to 36K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="recrutement.html" class="offre-card" data-cat="remote" data-type="exclusive"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, Paris</span><span lang="en">Permanent, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">LinkedIn</span><span lang="en">LinkedIn</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-    </div>
+<div class="fiche">
+  <div class="details-bar">
+    <div class="detail-item"><span class="detail-lbl">${bfn("Contrat","Contract")}</span><span class="detail-val">${f.contrat}</span></div>
+    <div class="detail-item"><span class="detail-lbl">${bfn("Lieu","Location")}</span><span class="detail-val">${f.lieu}</span></div>
+    <div class="detail-item"><span class="detail-lbl">${bfn("Salaire","Salary")}</span><span class="detail-val">${f.salaire}</span></div>
+    <div class="detail-item"><span class="detail-lbl">Ref.</span><span class="detail-val">${f.ref}</span></div>
   </div>
-</section>
-
-<!-- ACTUALITÉS -->
-<section class="section section-light" id="actualites">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr">Actualites, mis a jour regulierement</span><span lang="en">News, updated regularly</span></p>
-    <h2 class="section-title"><span lang="fr">Pour avancer</span><span lang="en">To move forward</span><br><em><span lang="fr">plus loin.</span><span lang="en">further.</span></em></h2>
-    <div class="actu-grid">
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag"><span lang="fr">Evolution de carriere</span><span lang="en">Career development</span></p><h3 class="actu-title"><span lang="fr">Comment passer d'assistante a Office Manager ?</span><span lang="en">How to move from assistant to Office Manager?</span></h3><p class="actu-desc"><span lang="fr">Les competences a developper, les signaux a envoyer, le bon timing pour en parler a votre direction.</span><span lang="en">The skills to develop, signals to send, and the right timing to bring it up with management.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-entretien" target="_blank" class="actu-card"><p class="actu-tag">Entretien</p><h3 class="actu-title"><span lang="fr">5 questions pieges en entretien d'assistante de direction</span><span lang="en">5 tricky interview questions for executive assistants</span></h3><p class="actu-desc"><span lang="fr">Comment repondre avec assurance sur la confidentialite, la gestion du stress et les priorites contradictoires.</span><span lang="en">How to answer confidently on confidentiality, stress management and conflicting priorities.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span lang="en">This week</span></p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Salaires 2026</p><h3 class="actu-title"><span lang="fr">Grille de salaires : assistantes a Paris</span><span lang="en">Salary guide: assistants in Paris</span></h3><p class="actu-desc"><span lang="fr">Junior, confirmee, senior, les fourchettes actuelles par specialite et par secteur d'activite.</span><span lang="en">Junior, confirmed, senior, current salary ranges by speciality and sector.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.myrhline.com" target="_blank" class="actu-card"><p class="actu-tag">Outils 2026</p><h3 class="actu-title"><span lang="fr">Les outils IA que les assistantes doivent maitriser</span><span lang="en">AI tools every assistant needs to master</span></h3><p class="actu-desc"><span lang="fr">Notion AI, outils de gestion d'agenda, automatisation : ce que les dirigeants attendent desormais.</span><span lang="en">Notion AI, diary management tools, automation: what executives now expect.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.cadremploi.fr/editorial/conseils/conseils-carriere" target="_blank" class="actu-card"><p class="actu-tag">Negociation</p><h3 class="actu-title"><span lang="fr">Comment negocier son salaire en tant qu'assistante ?</span><span lang="en">How to negotiate your salary as an assistant?</span></h3><p class="actu-desc"><span lang="fr">Les arguments qui fonctionnent, le bon timing, les erreurs classiques a eviter absolument.</span><span lang="en">Arguments that work, the right timing, classic mistakes to absolutely avoid.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-      <a href="https://www.regionsjob.com" target="_blank" class="actu-card"><p class="actu-tag">Formation</p><h3 class="actu-title"><span lang="fr">Les certifications qui font la difference sur un CV</span><span lang="en">Certifications that make a difference on a CV</span></h3><p class="actu-desc"><span lang="fr">TOSA, Excel avance, outils de gestion de projet : lesquelles prioriser selon votre specialite.</span><span lang="en">TOSA, advanced Excel, project management tools: which to prioritise by speciality.</span></p><p class="actu-date"><span lang="fr"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span lang="en">This month</span></p></a>
-    </div>
+  <div class="bloc"><p class="bloc-label">${bfn("Le poste","The role")}</p><p>${bfn(f.desc, f.desc)}</p></div>
+  <div class="bloc"><p class="bloc-label">${bfn("Vos missions","Your missions")}</p><ul>${missions}</ul></div>
+  <div class="bloc"><p class="bloc-label">${bfn("Profil recherche","Profile sought")}</p><ul>${profil}</ul></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:32px;border-top:0.5px solid var(--light);">
+    <a href="recrutement.html" class="retour">← ${bfn("Toutes les offres","All positions")}</a>
+    <button class="btn-postuler-hero" onclick="openDrawer()">${bfn("Postuler a ce poste →","Apply now →")}</button>
   </div>
-</section>
-
-<!-- LEXIQUE -->
-<section class="section section-dark" id="lexique">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr">Le lexique, mis a jour chaque semaine</span><span lang="en">The glossary, updated weekly</span></p>
-    <h2 class="section-title" style="color:var(--white);"><span lang="fr">Les mots du metier.</span><span lang="en">The words of the profession.</span><br><em><span lang="fr">Redefinis.</span><span lang="en">Redefined.</span></em></h2>
-    <div class="lexique-grid">
-      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Secretaire</span><span lang="en">Secretary</span></p><p class="lexique-def-officielle"><span lang="fr">"Personne chargee de la correspondance et des taches administratives."</span><span lang="en">"Person responsible for correspondence and administrative tasks."</span></p><p class="lexique-def-vraie"><span lang="fr">La memoire de l'entreprise, le filtre de l'information, la gardienne du temps de ceux qui decident.</span><span lang="en">The company's memory, the information filter, the guardian of decision-makers' time.</span></p></div>
-      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Disponible</span><span lang="en">Available</span></p><p class="lexique-def-officielle"><span lang="fr">"Qui peut etre mobilise a tout moment."</span><span lang="en">"Who can be mobilised at any time."</span></p><p class="lexique-def-vraie"><span lang="fr">Reactive, oui. Mais avec des limites qui sont la condition meme de votre efficacite.</span><span lang="en">Responsive, yes. But with boundaries that are the very condition of your effectiveness.</span></p></div>
-      <div class="lexique-card"><p class="lexique-mot">Support</p><p class="lexique-def-officielle"><span lang="fr">"Fonction d'aide et d'assistance."</span><span lang="en">"Support and assistance function."</span></p><p class="lexique-def-vraie"><span lang="fr">Une fonction strategique sans laquelle aucune decision ne se prend correctement.</span><span lang="en">A strategic function without which no decision can be properly made.</span></p></div>
-      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Polyvalente</span><span lang="en">Versatile</span></p><p class="lexique-def-officielle"><span lang="fr">"Capable de s'adapter a diverses taches."</span><span lang="en">"Able to adapt to various tasks."</span></p><p class="lexique-def-vraie"><span lang="fr">Une professionnelle qui maitrise des domaines qu'il faudrait trois personnes pour couvrir ailleurs.</span><span lang="en">A professional who masters domains that would take three people to cover elsewhere.</span></p></div>
-      <div class="lexique-card"><p class="lexique-mot"><span lang="fr">Discrete</span><span lang="en">Discreet</span></p><p class="lexique-def-officielle"><span lang="fr">"Qui evite de se faire remarquer."</span><span lang="en">"Who avoids drawing attention."</span></p><p class="lexique-def-vraie"><span lang="fr">Une confidente de haut niveau, depositaire d'informations que peu partagent dans l'entreprise.</span><span lang="en">A high-level confidante, entrusted with information that few in the company share.</span></p></div>
-      <div class="lexique-card"><p class="lexique-mot">Assistante</p><p class="lexique-def-officielle"><span lang="fr">"Celle qui assiste, qui aide."</span><span lang="en">"The one who assists, who helps."</span></p><p class="lexique-def-vraie"><span lang="fr">Celle sans qui les dirigeants ne pourraient ni avancer vite, ni avancer bien.</span><span lang="en">The one without whom executives could neither move fast nor move well.</span></p></div>
-    </div>
+</div>
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <div><p class="drawer-ref">Ref. ${f.ref}</p><p class="drawer-title">${bfn(f.titreFr, f.titreEn)}</p></div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
   </div>
-</section>
-
-<!-- PORTRAITS -->
-<section class="section" id="portraits">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr">Portraits, mis a jour chaque semaine</span><span lang="en">Portraits, updated weekly</span></p>
-    <h2 class="section-title"><span lang="fr">Trois femmes.</span><span lang="en">Three women.</span><br><em><span lang="fr">Trois chemins.</span><span lang="en">Three paths.</span></em></h2>
-    <div class="portraits-grid">
-      <div class="portrait-card"><div class="portrait-initiales">S.</div><h3 class="portrait-prenom">Sophie</h3><p class="portrait-metier"><span lang="fr">Assistante de direction, 12 ans</span><span lang="en">Executive Assistant, 12 years</span></p><p class="portrait-texte"><span lang="fr">Elle a commence comme standardiste. Aujourd'hui, elle gere les deplacements internationaux d'un PDG, coordonne trois equipes et prepare les conseils d'administration. Personne ne lui a donne un titre a la hauteur. Elle a arrete d'attendre qu'on le fasse.</span><span lang="en">She started as a switchboard operator. Today, she manages a CEO's international travel, coordinates three teams and prepares board meetings. No one gave her a title to match. She stopped waiting for someone to do it.</span></p><p class="portrait-detail"><span lang="fr">Aujourd'hui chez un client Apogee, Paris 8e.</span><span lang="en">Now with an Apogee client, Paris 8th.</span></p></div>
-      <div class="portrait-card"><div class="portrait-initiales">M.</div><h3 class="portrait-prenom">Myriam</h3><p class="portrait-metier"><span lang="fr">Office Manager, reconvertie</span><span lang="en">Office Manager, career changer</span></p><p class="portrait-texte"><span lang="fr">Ancienne agent d'accueil dans un hotel, elle a compris que ses competences valaient bien plus que son poste. Six mois de formation. Un CV retravaille. Un entretien ou elle a enfin parle de ce qu'elle savait faire.</span><span lang="en">A former hotel receptionist, she realised her skills were worth far more than her role. Six months of training. A reworked CV. An interview where she finally talked about what she knew how to do.</span></p><p class="portrait-detail"><span lang="fr">Placee par Apogee il y a 8 mois. En CDI.</span><span lang="en">Placed by Apogee 8 months ago. Permanent contract.</span></p></div>
-      <div class="portrait-card"><div class="portrait-initiales">L.</div><h3 class="portrait-prenom">Laura</h3><p class="portrait-metier"><span lang="fr">Assistante juridique, cabinet d'avocats</span><span lang="en">Legal Assistant, law firm</span></p><p class="portrait-texte"><span lang="fr">Elle connait les dossiers mieux que certains associes. Elle anticipe les delais, prepare les plaidoiries, gere les clients difficiles. Ce qu'elle a change recemment : elle a negocie. Pour la premiere fois. Et ca a marche.</span><span lang="en">She knows the files better than some partners. She anticipates deadlines, prepares pleadings, handles difficult clients. What she changed recently: she negotiated. For the first time. And it worked.</span></p><p class="portrait-detail"><span lang="fr">En poste depuis 3 ans. Vient de decrocher une promotion.</span><span lang="en">In post for 3 years. Just landed a promotion.</span></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- GUIDE -->
-<section class="section section-light" id="guide">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr">Guide de survie, mis a jour chaque semaine</span><span lang="en">Survival guide, updated weekly</span></p>
-    <h2 class="section-title"><span lang="fr">Situations reelles.</span><span lang="en">Real situations.</span><br><em><span lang="fr">Reponses concretes.</span><span lang="en">Concrete answers.</span></em></h2>
-    <div class="guide-grid">
-      <div class="guide-card"><div class="guide-num">01</div><p class="guide-situation"><span lang="fr">La priorite impossible</span><span lang="en">The impossible priority</span></p><h3 class="guide-title"><span lang="fr">Tout est urgent en meme temps</span><span lang="en">Everything is urgent at once</span></h3><p class="guide-conseil"><span lang="fr">Nommez-les a voix haute. "J'ai trois urgences simultanees, laquelle est la plus critique pour vous ?" Cela force une decision et vous protege.</span><span lang="en">Name them out loud. "I have three simultaneous urgencies, which is most critical for you?" This forces a decision and protects you.</span></p></div>
-      <div class="guide-card"><div class="guide-num">02</div><p class="guide-situation"><span lang="fr">Le changement d'avis</span><span lang="en">The change of mind</span></p><h3 class="guide-title"><span lang="fr">Il voulait X, maintenant il veut Y</span><span lang="en">He wanted X, now he wants Y</span></h3><p class="guide-conseil"><span lang="fr">Confirmez par ecrit, meme en une ligne. "Comme convenu, je modifie en Y." Pas pour vous couvrir, pour clarifier et eviter la prochaine fois.</span><span lang="en">Confirm in writing, even in one line. "As agreed, I am changing to Y." Not to cover yourself, to clarify and prevent next time.</span></p></div>
-      <div class="guide-card"><div class="guide-num">03</div><p class="guide-situation"><span lang="fr">La reconnaissance absente</span><span lang="en">The absent recognition</span></p><h3 class="guide-title"><span lang="fr">Votre travail disparait dans le resultat</span><span lang="en">Your work disappears into the result</span></h3><p class="guide-conseil"><span lang="fr">Rendez visible ce qui est invisible : un bref point hebdomadaire sur ce que vous avez gere. Pas pour vous vanter, pour ancrer votre valeur.</span><span lang="en">Make visible what is invisible: a brief weekly update on what you have managed. Not to boast, to anchor your value.</span></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CHIFFRES -->
-<section class="section" id="chiffres">
-  <div class="section-inner">
-    <p class="section-label"><span lang="fr">Le metier en chiffres</span><span lang="en">The profession in numbers</span></p>
-    <h2 class="section-title"><span lang="fr">Ce que les donnees</span><span lang="en">What the data</span><br><em><span lang="fr">revelent.</span><span lang="en">reveals.</span></em></h2>
-    <div class="chiffres-grid">
-      <div class="chiffre-card"><div class="chiffre-val">28K</div><p class="chiffre-label"><span lang="fr">Salaire median junior a Paris</span><span lang="en">Median junior salary in Paris</span></p><p class="chiffre-source">Apec, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">52K</div><p class="chiffre-label"><span lang="fr">Salaire median senior, secteur juridique ou financier</span><span lang="en">Median senior salary, legal or financial sector</span></p><p class="chiffre-source">Cadremploi, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">78%</div><p class="chiffre-label"><span lang="fr">Des assistantes estiment leur poste sous-evalue</span><span lang="en">Of assistants consider their role undervalued</span></p><p class="chiffre-source">MyRHLine, 2024</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">+34%</div><p class="chiffre-label"><span lang="fr">D'augmentation lors d'un changement de poste bien negocie</span><span lang="en">Salary increase when changing jobs with good negotiation</span></p><p class="chiffre-source">Regionsjob, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">3 ans</div><p class="chiffre-label"><span lang="fr">Avant qu'une assistante confirmee accede a Office Manager</span><span lang="en">Before a confirmed assistant becomes Office Manager</span></p><p class="chiffre-source">LinkedIn, 2025</p></div>
-      <div class="chiffre-card"><div class="chiffre-val">92%</div><p class="chiffre-label"><span lang="fr">Des dirigeants jugent leur assistante indispensable</span><span lang="en">Of executives consider their assistant indispensable</span></p><p class="chiffre-source">Focusrh, 2024</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter-section reveal" id="newsletter">
-  <h2 class="newsletter-title"><span lang="fr">Rejoignez</span><span lang="en">Join</span><br><em><span lang="fr">la communaute.</span><span lang="en">the community.</span></em></h2>
-  <p class="newsletter-sub"><span lang="fr">Portraits, lexique, offres exclusives et actualites, une fois par semaine.</span><span lang="en">Portraits, glossary, exclusive offers and news, once a week.</span></p>
-  <div id="nlForm">
-    <form class="newsletter-form" onsubmit="handleNl(event)">
-      <input type="email" id="nlEmail" placeholder="Votre adresse email" required>
-      <button type="submit"><span lang="fr">S'inscrire</span><span lang="en">Subscribe</span></button>
+  <div class="drawer-body">
+    <form id="applyForm" onsubmit="handleSubmit(event)">
+      <div class="fg"><label>${bfn("Prenom & Nom *","First & Last name *")}</label><input type="text" required placeholder="Marie Dupont"></div>
+      <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+      <div class="fg"><label>${bfn("Telephone","Phone")}</label><input type="tel" placeholder="06 12 34 56 78"></div>
+      <div class="fg"><label>${bfn("Experience","Experience")}</label>
+        <select>
+          <option>${bfn("Selectionnez...","Select...")}</option>
+          <option>${bfn("Moins d'1 an","Less than 1 year")}</option>
+          <option>${bfn("1 a 3 ans","1 to 3 years")}</option>
+          <option>${bfn("3 a 7 ans","3 to 7 years")}</option>
+          <option>${bfn("Plus de 7 ans","7+ years")}</option>
+        </select>
+      </div>
+      <div class="fg"><label>${bfn("Quelques mots","A few words")}</label><textarea id="motivationArea" placeholder="Votre parcours, motivations..."></textarea></div>
     </form>
+    <div class="success-block" id="successMsg"><p>${bfn("Candidature recue.","Application received.")}<br>${bfn("Nous vous contacterons tres bientot.","We will contact you very soon.")}</p></div>
   </div>
-</section>
-
-<footer>
-  <span><span lang="fr">© 2026 Apogee Consulting</span><span lang="en">© 2026 Apogee Consulting</span></span>
-  <div class="footer-links">
-    <a href="recrutement.html">Recrutement</a>
-    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
-    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
+  <div class="drawer-footer" id="drawerFooter">
+    <button class="btn-submit" onclick="document.getElementById('applyForm').requestSubmit()">${bfn("Envoyer ma candidature →","Submit my application →")}</button>
+    <p class="consent-txt">${bfn("En soumettant ce formulaire, j'accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.","By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.")}</p>
   </div>
-</footer>
-
+</div>
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e,i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*80); obs.unobserve(e.target); }
-    });
-  }, {threshold:0.05});
-  reveals.forEach(el => obs.observe(el));
+  function openDrawer(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';}
+  function closeDrawer(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
+  function handleSubmit(e){e.preventDefault();document.getElementById('applyForm').style.display='none';document.getElementById('drawerFooter').style.display='none';document.getElementById('successMsg').style.display='block';}
+  function toggleLang(){const btn=document.getElementById('langBtn');const isEn=document.body.classList.contains('en');if(isEn){document.body.classList.remove('en');btn.textContent='EN';localStorage.setItem('lang','fr');}else{document.body.classList.add('en');btn.textContent='FR';localStorage.setItem('lang','en');}}
+  document.addEventListener('DOMContentLoaded',function(){if(localStorage.getItem('lang')==='en'){document.body.classList.add('en');document.getElementById('langBtn').textContent='FR';}});
+<\/script>
+</body>
+</html>`;
+}
 
-  function filter(cat,btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.offre-card').forEach(card => {
-      const match = cat==='all'||(cat==='exclusive'&&card.dataset.type==='exclusive')||card.dataset.cat===cat;
-      card.classList.toggle('hidden',!match);
-    });
-  }
+async function publishFiches() {
+  const {token,user,repo}=getConfig();
+  if(!token||!user||!repo){setStatus('statusFiches','error','Configurez GitHub dans l\'onglet Configuration.');return;}
+  if(fiches.length===0){setStatus('statusFiches','error','Aucune fiche a publier.');return;}
 
-  function handleNl(e) {
-    e.preventDefault();
-    document.getElementById('nlForm').innerHTML='<p class="nl-success"><span lang="fr">Bienvenue dans la communaute Apogee.</span><span lang="en">Welcome to the Apogee community.</span></p>';
-  }
-
-  // Ancres actives au scroll
-  const sections = document.querySelectorAll('section[id], div[id]');
-  const ancreLinks = document.querySelectorAll('.ancre-btn');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 160) current = s.id;
-    });
-    ancreLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+  // Sync textarea values before publishing
+  fiches.forEach(f => {
+    const mEl=document.getElementById(`f${f.id}-missions`);
+    const pEl=document.getElementById(`f${f.id}-profil`);
+    const dEl=document.getElementById(`f${f.id}-desc`);
+    if(mEl) f.missions=mEl.value.trim().split('\n').filter(x=>x.trim());
+    if(pEl) f.profil=pEl.value.trim().split('\n').filter(x=>x.trim());
+    if(dEl) f.desc=dEl.value.trim();
+    ['titre-fr','titre-en','ref','contrat','lieu','salaire'].forEach(key=>{
+      const el=document.getElementById(`f${f.id}-${key}`);
+      if(el) f[key.replace('-','')]=el.value.trim();
     });
   });
-</script>
 
-<script>
-  // Apply saved language immediately before render
-  (function() {
-    if (localStorage.getItem('lang') === 'en') {
-      document.documentElement.classList.add('en-pending');
-    }
-  })();
-
-  function toggleLang() {
-    const btn = document.getElementById('langBtn');
-    const isEn = document.body.classList.contains('en');
-    if (isEn) {
-      document.body.classList.remove('en');
-      btn.textContent = 'EN';
-      localStorage.setItem('lang', 'fr');
-      updatePlaceholders(false);
-    } else {
-      document.body.classList.add('en');
-      btn.textContent = 'FR';
-      localStorage.setItem('lang', 'en');
-      updatePlaceholders(true);
-    }
+  setStatus('statusFiches','loading',`Publication de ${fiches.length} fiche(s)...`);
+  let published=0;
+  for(const f of fiches) {
+    const filename=slug(f.titreFr);
+    const html=generateFicheHTML(f);
+    try {
+      let sha=null;
+      try{const r=await getFileSha(token,user,repo,filename);sha=r.sha;}catch(e){}
+      const encoded=btoa(unescape(encodeURIComponent(html)));
+      const res=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${filename}`,{
+        method:'PUT',
+        headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+        body:JSON.stringify({message:`Fiche offre : ${f.titreFr}`,content:encoded,...(sha?{sha}:{})})
+      });
+      if(!res.ok){const e=await res.json();throw new Error(e.message);}
+      published++;
+      setStatus('statusFiches','loading',`${published}/${fiches.length} fiches publiees...`);
+    } catch(e){setStatus('statusFiches','error',`Erreur sur ${filename} : ${e.message}`);return;}
   }
+  setStatus('statusFiches','success',`✓ ${published} fiche(s) publiee(s) sur GitHub Pages (delai ~1 min).`);
+}
 
-  function updatePlaceholders(isEn) {
-    const nl = document.getElementById('nlEmail');
-    if (nl) nl.placeholder = isEn ? 'Your email address' : 'Votre adresse email';
+function setStatus(id,type,msg){
+  const bar=document.getElementById(id);
+  bar.className=`status-bar ${type}`;
+  bar.textContent=msg;
+}
+
+loadConfig();
+render();
+renderFiches();
+
+// ── ARTICLES ──────────────────────────────────────────────────────────────────
+let articles = [];
+let nextArticleId = 1;
+
+function renderArticles() {
+  const list = document.getElementById('articlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  if (articles.length === 0) {
+    list.innerHTML = '<p style="font-size:11px;color:var(--gray);padding:16px 0;">Aucun article cree. Utilisez le formulaire ci-dessous.</p>';
+    return;
   }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const saved = localStorage.getItem('lang');
-    const isEn = saved === 'en';
-    if (isEn) {
-      document.body.classList.add('en');
-      const btn = document.getElementById('langBtn');
-      if (btn) btn.textContent = 'FR';
-      updatePlaceholders(true);
-    }
+  articles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.cat}</span>
+        <span class="offre-titre">${a.title}</span>
+        <span style="font-size:9px;color:var(--gray)">${a.date}</span>
+      </div>
+      <div style="flex:1;font-size:10px;color:var(--gray);padding:0 8px;">${a.desc.substring(0,80)}...</div>
+      <div class="offre-actions">
+        <button class="btn-test" onclick="previewArticle(${a.id})">Apercu</button>
+        <button class="btn-del" onclick="removeArticle(${a.id})">✕</button>
+      </div>`;
+    list.appendChild(row);
   });
-</script>
+}
 
+function insertTag(type) {
+  const ta = document.getElementById('na-body');
+  const map = {
+    'h3': '<h3>Titre de section</h3>\n',
+    'p': '<p>Votre paragraphe ici...</p>\n',
+    'li': '<ul>\n<li>Element 1</li>\n<li>Element 2</li>\n</ul>\n',
+    'bq': '<blockquote><p>Votre citation marquante ici.</p></blockquote>\n'
+  };
+  const pos = ta.selectionStart;
+  const val = ta.value;
+  ta.value = val.slice(0, pos) + map[type] + val.slice(pos);
+  ta.focus();
+}
+
+function addArticle() {
+  const title = document.getElementById('na-title').value.trim();
+  const body = document.getElementById('na-body').value.trim();
+  if (!title || !body) { setStatus('statusArticles','error','Titre et contenu requis.'); return; }
+  articles.push({
+    id: nextArticleId++,
+    cat: document.getElementById('na-cat').value.trim() || 'Actualite',
+    date: document.getElementById('na-date').value.trim() || "Aujourd hui",
+    title,
+    desc: document.getElementById('na-desc').value.trim() || title,
+    body
+  });
+  ['na-cat','na-date','na-title','na-desc','na-body'].forEach(id => document.getElementById(id).value = '');
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+  setStatus('statusArticles','success','Article ajoute. Publiez pour le mettre en ligne.');
+}
+
+function removeArticle(id) {
+  articles = articles.filter(x => x.id !== id);
+  
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+}
+
+function previewArticle(id) {
+  const a = articles.find(x => x.id === id);
+  if (!a) return;
+  const win = window.open('', '_blank', 'width=800,height=700');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>body{font-family:'Montserrat',sans-serif;font-weight:300;padding:48px;max-width:680px;margin:0 auto;color:#333;}
+    h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;margin:24px 0 10px;}
+    p{font-size:14px;line-height:2;margin-bottom:16px;}
+    ul{list-style:none;margin-bottom:16px;}
+    li{font-size:13px;line-height:1.8;padding:6px 0 6px 14px;position:relative;border-bottom:0.5px solid #f0f0f0;}
+    li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:#b0b0b0;border-radius:50%;}
+    blockquote{border-left:2px solid #0d0d0d;padding:12px 20px;margin:20px 0;background:#fafafa;}
+    blockquote p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d;}
+    .cat{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:8px;}
+    .title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;line-height:1.2;margin-bottom:8px;}
+    </style></head><body>
+    <p class="cat">${a.cat} — ${a.date}</p>
+    <p class="title">${a.title}</p>
+    <hr style="border:none;border-top:0.5px solid #f0f0f0;margin:20px 0;">
+    ${a.body}
+    </body></html>`);
+}
+
+function generateArticlesCode() {
+  if (articles.length === 0) return '';
+  let code = '';
+  articles.forEach(a => {
+    const dataObj = JSON.stringify({cat: a.cat, title: a.title, meta: a.date + ' - Apogee Consulting', body: a.body}).replace(/'/g, "\'");
+    code += `<div class="actu-card" onclick="openReader(${dataObj})" style="cursor:pointer;">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<p class="actu-desc">${a.desc}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">Apogee →</span></div>`;
+    code += `</div>\n`;
+  });
+  return code;
+}
+
+async function publishArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  if (articles.length === 0) { setStatus('statusArticles','error','Aucun article a publier.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    const newCards = generateArticlesCode();
+    // Insert before closing </div> of actu-grid
+    const gridEnd = content.lastIndexOf('</div>', content.indexOf('actu-grid') + 2000);
+    const newContent = content.slice(0, gridEnd) + newCards + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Ajout d articles');
+    setStatus('statusArticles','success','✓ Articles publies sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+
+// ── ARTICLES EXISTANTS (liens externes) ───────────────────────────────────────
+let existingArticles = [
+  {id:'ea1', cat:'Evolution de carriere', title:'Comment passer d assistante a Office Manager ?', date:'Cette semaine', lien:'https://www.fed-group.fr/fed-office/conseils/quel-avenir-pour-le-poste-d-assistant-de-direction', source:'Fed Group'},
+  {id:'ea2', cat:'Entretien', title:'5 questions pieges en entretien d assistante de direction', date:'Hier', lien:'https://www.assessfirst.com/fr/blog/questions-entretien-executive-assistant', source:'AssessFirst'},
+  {id:'ea3', cat:'Salaires', title:'Grille de salaires : assistantes a Paris', date:'Ce mois', lien:'https://www.ifocop.fr/assistante-de-direction-quel-salaire/', source:'Ifocop'},
+  {id:'ea4', cat:'Outils & IA', title:'Les outils IA que les assistantes doivent maitriser', date:'Cette semaine', lien:'https://www.businessinfomedia.fr/assistante-de-direction-appellation-actuelle-et-evolution-du-metier-en-2025/', source:'Business InfoMedia'},
+  {id:'ea5', cat:'Salaires', title:'Comment negocier son salaire en tant qu assistante ?', date:'Hier', lien:'https://www.pagepersonnel.fr/advice/tendances-de-marche/salaire-moyen-d-un-assistant-de-direction', source:'Page Personnel'},
+  {id:'ea6', cat:'Formation', title:'Les certifications qui font la difference sur un CV', date:'Ce mois', lien:'https://www.hellowork.com/fr-fr/salaires/assistant-de-direction.html', source:'Hellowork'},
+];
+
+function renderExistingArticles() {
+  const list = document.getElementById('existingArticlesList');
+  if (!list) return;
+  list.innerHTML = '';
+  existingArticles.forEach(a => {
+    const row = document.createElement('div');
+    row.className = 'offre-row externe';
+    row.innerHTML = `
+      <div class="offre-info">
+        <span class="offre-badge badge-externe">${a.source}</span>
+        <input type="text" value="${a.title}" style="font-family:'Cormorant Garamond',serif;font-size:14px;border:none;border-bottom:0.5px solid var(--accent);background:transparent;outline:none;width:100%;padding:2px 0;color:var(--brown);"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').title=this.value">
+        <input type="text" value="${a.cat}" style="font-size:9px;border:none;background:transparent;outline:none;width:80px;color:var(--gray);padding:2px 0;"
+          onchange="existingArticles.find(x=>x.id==='${a.id}').cat=this.value">
+      </div>
+      <div class="offre-url">
+        <input type="url" value="${a.lien}" placeholder="https://..."
+          onchange="existingArticles.find(x=>x.id==='${a.id}').lien=this.value;document.getElementById('ea-test-${a.id}').href=this.value;">
+      </div>
+      <div class="offre-date">
+        <input value="${a.date}" onchange="existingArticles.find(x=>x.id==='${a.id}').date=this.value;">
+      </div>
+      <div class="offre-actions">
+        <a id="ea-test-${a.id}" class="btn-test" href="${a.lien}" target="_blank">Tester</a>
+        <button class="btn-del" onclick="removeExistingArticle('${a.id}')">✕</button>
+      </div>`;
+    list.appendChild(row);
+  });
+}
+
+function removeExistingArticle(id) {
+  if (!confirm('Supprimer cet article de la liste ?')) return;
+  existingArticles = existingArticles.filter(x => x.id !== id);
+  renderExistingArticles();
+}
+
+function generateExistingArticlesCode() {
+  let code = '';
+  existingArticles.forEach(a => {
+    code += `<a href="${a.lien}" class="actu-card" target="_blank">`;
+    code += `<span class="actu-cat">${a.cat}</span>`;
+    code += `<p class="actu-title">${a.title}</p>`;
+    code += `<div class="actu-footer"><span class="actu-date">${a.date}</span><span class="actu-source">${a.source} →</span></div>`;
+    code += `</a>\n`;
+  });
+  return code;
+}
+
+async function publishAllArticles() {
+  const {token,user,repo} = getConfig();
+  if (!token||!user||!repo) { setStatus('statusArticles','error','Configurez GitHub dans l onglet Configuration.'); return; }
+  setStatus('statusArticles','loading','Publication...');
+  try {
+    const {sha, content} = await getFileSha(token, user, repo, 'ressources.html');
+    // Build full new actu-grid
+    let newGrid = '<div class="actu-grid" id="actuGrid">\n';
+    newGrid += generateExistingArticlesCode();
+    newGrid += generateArticlesCode();
+    newGrid += '    </div>';
+    // Replace existing actu-grid
+    const gridStart = content.indexOf('<div class="actu-grid"');
+    let depth = 0, i = gridStart, gridEnd = -1;
+    while (i < content.length) {
+      if (content.substr(i,4) === '<div') depth++;
+      else if (content.substr(i,6) === '</div>') { depth--; if (depth===0) { gridEnd = i+6; break; } }
+      i++;
+    }
+    if (gridStart === -1 || gridEnd === -1) throw new Error('Section actu-grid introuvable.');
+    const newContent = content.slice(0, gridStart) + newGrid + content.slice(gridEnd);
+    await pushFile(token, user, repo, 'ressources.html', newContent, sha, 'Mise a jour des articles');
+    setStatus('statusArticles','success','✓ Articles mis a jour sur GitHub Pages (delai ~1 min).');
+  } catch(e) { setStatus('statusArticles','error','Erreur : ' + e.message); }
+}
+
+renderExistingArticles();
+
+renderArticles();
+
+</script>
 </body>
 </html>
