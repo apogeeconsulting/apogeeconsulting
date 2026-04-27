@@ -172,7 +172,38 @@
   body.en [lang="en"] { display: inline !important; }
   body.en [lang="fr"] { display: none !important; }
 
-  </style>
+  
+  /* TIROIR FICHE */
+  .fiche-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;opacity:0;pointer-events:none;transition:opacity .3s;}
+  .fiche-overlay.open{opacity:1;pointer-events:all;}
+  .fiche-drawer{position:fixed;top:0;right:-520px;width:480px;height:100vh;background:#fff;z-index:301;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-4px 0 32px rgba(0,0,0,0.1);overflow:hidden;}
+  .fiche-drawer.open{right:0;}
+  .fd-header{padding:28px;border-bottom:0.5px solid #f0ede8;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0;background:#0d0d0d;color:#fff;}
+  .fd-ref{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:4px;}
+  .fd-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;}
+  .fd-close{background:none;border:none;cursor:pointer;font-size:20px;color:rgba(255,255,255,.5);padding:0;line-height:1;}
+  .fd-close:hover{color:#fff;}
+  .fd-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .fd-badge{font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border:0.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.7);}
+  .fd-body{padding:28px;overflow-y:auto;flex:1;}
+  .fd-section{margin-bottom:28px;}
+  .fd-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#b0b0b0;margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid #f4f4f4;}
+  .fd-text{font-size:12px;line-height:1.9;color:#6b6b6b;}
+  .fd-list{list-style:none;}
+  .fd-list li{font-size:12px;line-height:1.7;color:#6b6b6b;padding:7px 0 7px 12px;border-bottom:0.5px solid #f4f4f4;position:relative;}
+  .fd-list li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:3px;background:#b0b0b0;border-radius:50%;}
+  .fd-list li:last-child{border-bottom:none;}
+  .fd-footer{padding:20px 28px;border-top:0.5px solid #f4f4f4;flex-shrink:0;}
+  .fd-form .fg{margin-bottom:14px;}
+  .fd-form .fg label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#b0b0b0;display:block;margin-bottom:4px;}
+  .fd-form .fg input,.fd-form .fg select,.fd-form .fg textarea{width:100%;border:none;border-bottom:0.5px solid #b0b0b0;background:transparent;padding:6px 0;font-family:'Montserrat',sans-serif;font-size:12px;color:#0d0d0d;outline:none;}
+  .fd-form .fg textarea{resize:none;min-height:60px;}
+  .fd-submit{width:100%;background:#0d0d0d;color:#fff;border:none;padding:12px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;margin-top:8px;}
+  .fd-consent{font-size:9px;color:#b0b0b0;margin-top:8px;line-height:1.6;}
+  .fd-success{display:none;text-align:center;padding:32px 0;}
+  .fd-success p{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d;line-height:1.6;}
+
+</style>
 </head>
 <body>
 
@@ -233,13 +264,13 @@
       <button class="filter-btn" onclick="filter('remote',this)"><span lang="fr">Remote</span><span lang="en">Remote</span></button>
     </div>
     <div class="offres-grid">
-      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive" target="_blank"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Exclusif Apogee</span></span><div class="offre-title"><span lang="fr">Assistante de direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris 8e</span><span lang="en">Consulting firm, Paris 8th</span><br><span lang="fr">CDI, 35 a 42K</span><span lang="en">Permanent, 35 to 42K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="recrutement.html" class="offre-card" data-cat="direction" data-type="exclusive" target="_blank"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Exclusif Apogee</span></span><div class="offre-title"><span lang="fr">Office Manager</span><span lang="en">Office Manager</span></div><div class="offre-meta"><span lang="fr">Startup tech, Paris 11e</span><span lang="en">Tech startup, Paris 11th</span><br><span lang="fr">CDI, 38 a 45K</span><span lang="en">Permanent, 38 to 45K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="recrutement.html" class="offre-card" data-cat="remote" data-type="exclusive" target="_blank"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Exclusif Apogee</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">Indeed</span><span lang="en">Indeed</span></span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, temps partiel, Paris</span><span lang="en">Permanent, part-time, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
-      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe"><span lang="fr">LinkedIn</span><span lang="en">LinkedIn</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <div class="offre-card" data-cat="direction" data-type="exclusive" onclick="openFiche('fiche-ad')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 32 a 40K</span><span lang="en">Fixed-term, 32 to 40K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <div class="offre-card" data-cat="finance" data-type="exclusive" onclick="openFiche('fiche-fin')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 28 a 36K</span><span lang="en">Fixed-term, 28 to 36K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <div class="offre-card" data-cat="remote" data-type="exclusive" onclick="openFiche('fiche-virt')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, Paris</span><span lang="en">Permanent, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe">LinkedIn</span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
     </div>
   </div>
 </section>
@@ -415,6 +446,176 @@
       updatePlaceholders(true);
     }
   });
+</script>
+
+
+<!-- FICHE OVERLAY -->
+<div class="fiche-overlay" id="ficheOverlay" onclick="closeFiche()"></div>
+
+<!-- FICHE AD -->
+<div class="fiche-drawer" id="fiche-ad">
+  <div class="fd-header">
+    <div>
+      <p class="fd-ref">Ref. APG-AD-001</p>
+      <p class="fd-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></p>
+      <div class="fd-badges">
+        <span class="fd-badge">CDD</span>
+        <span class="fd-badge">Paris, IDF</span>
+        <span class="fd-badge">32 a 40K</span>
+      </div>
+    </div>
+    <button class="fd-close" onclick="closeFiche()">✕</button>
+  </div>
+  <div class="fd-body">
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante de Direction rigoureuse et proactive pour accompagner un dirigeant dans la gestion quotidienne de son activite. Poste en CDD a Paris, disponibilite immediate souhaitee.</span><span lang="en">Apogee Consulting is recruiting a rigorous and proactive Executive Assistant to support an executive in the daily management of their activity. Fixed-term position in Paris.</span></p>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul class="fd-list">
+        <li><span lang="fr">Gestion des agendas complexes et organisation des deplacements</span><span lang="en">Complex diary management and travel organisation</span></li>
+        <li><span lang="fr">Preparation des reunions, comptes rendus et suivi des actions</span><span lang="en">Meeting preparation, minutes and action follow-up</span></li>
+        <li><span lang="fr">Interface avec les partenaires, clients et equipes internes</span><span lang="en">Interface with partners, clients and internal teams</span></li>
+        <li><span lang="fr">Gestion des notes de frais et suivi administratif (Lucca)</span><span lang="en">Expense management and administrative tracking (Lucca)</span></li>
+        <li><span lang="fr">Redaction de courriers, emails et documents professionnels</span><span lang="en">Drafting correspondence, emails and professional documents</span></li>
+        <li><span lang="fr">Coordination des priorites et anticipation des besoins</span><span lang="en">Priority coordination and anticipation of needs</span></li>
+      </ul>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p>
+      <ul class="fd-list">
+        <li><span lang="fr">Experience confirmee en assistanat de direction (2 ans minimum)</span><span lang="en">Confirmed executive assistant experience (minimum 2 years)</span></li>
+        <li><span lang="fr">Maitrise des outils bureautiques (Pack Office, Notion, Asana)</span><span lang="en">Proficiency in office tools (MS Office, Notion, Asana)</span></li>
+        <li><span lang="fr">Aisance redactionnelle en francais, anglais apprecie</span><span lang="en">Strong written French, English appreciated</span></li>
+        <li><span lang="fr">Grande discretion et sens de la confidentialite</span><span lang="en">Discretion and confidentiality</span></li>
+        <li><span lang="fr">Autonomie, reactivite et esprit d initiative</span><span lang="en">Autonomy, responsiveness and initiative</span></li>
+      </ul>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
+      <form class="fd-form" id="form-ad" onsubmit="submitFiche(event,'ad')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select><option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option><option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option><option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option><option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option><option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option></select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
+        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+        <p class="fd-consent"><span lang="fr">J accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+      </form>
+      <div class="fd-success" id="success-ad"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE FIN -->
+<div class="fiche-drawer" id="fiche-fin">
+  <div class="fd-header">
+    <div>
+      <p class="fd-ref">Ref. APG-FIN-001</p>
+      <p class="fd-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></p>
+      <div class="fd-badges">
+        <span class="fd-badge">CDD</span>
+        <span class="fd-badge">Paris, IDF</span>
+        <span class="fd-badge">28 a 36K</span>
+      </div>
+    </div>
+    <button class="fd-close" onclick="closeFiche()">✕</button>
+  </div>
+  <div class="fd-body">
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante en Finance pour accompagner une equipe financiere dans la gestion administrative, comptable et operationnelle.</span><span lang="en">Apogee Consulting is recruiting a Finance Assistant to support a finance team in administrative, accounting and operational management.</span></p>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul class="fd-list">
+        <li><span lang="fr">Saisie et suivi des factures fournisseurs et clients</span><span lang="en">Invoice entry and tracking (suppliers and clients)</span></li>
+        <li><span lang="fr">Gestion des notes de frais et controle de conformite (Lucca, Ciel, Sage)</span><span lang="en">Expense management and compliance control (Lucca, Ciel, Sage)</span></li>
+        <li><span lang="fr">Preparation des reportings mensuels et tableaux de bord</span><span lang="en">Monthly reporting and dashboard preparation</span></li>
+        <li><span lang="fr">Support a la cloture comptable mensuelle</span><span lang="en">Support for monthly accounting close</span></li>
+        <li><span lang="fr">Suivi des contrats et referencement des dossiers</span><span lang="en">Contract tracking and file referencing</span></li>
+        <li><span lang="fr">Interface avec les prestataires comptables et auditeurs</span><span lang="en">Interface with accounting providers and auditors</span></li>
+      </ul>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p>
+      <ul class="fd-list">
+        <li><span lang="fr">Formation en comptabilite, gestion ou finance (BTS, Licence)</span><span lang="en">Training in accounting, management or finance</span></li>
+        <li><span lang="fr">Maitrise d Excel et outils de gestion (Sage, Ciel, Dolibarr, Lucca)</span><span lang="en">Proficiency in Excel and management tools (Sage, Ciel, Dolibarr, Lucca)</span></li>
+        <li><span lang="fr">Rigueur, organisation et sens du detail</span><span lang="en">Rigour, organisation and attention to detail</span></li>
+        <li><span lang="fr">Discretion et respect de la confidentialite des donnees</span><span lang="en">Discretion and data confidentiality</span></li>
+        <li><span lang="fr">Experience en cabinet comptable ou service financier appreciee</span><span lang="en">Experience in accounting firm or finance department appreciated</span></li>
+      </ul>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
+      <form class="fd-form" id="form-fin" onsubmit="submitFiche(event,'fin')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select><option><span lang="fr">Selectionnez...</span><span lang="en">Select...</span></option><option><span lang="fr">Moins d 1 an</span><span lang="en">Less than 1 year</span></option><option><span lang="fr">1 a 3 ans</span><span lang="en">1 to 3 years</span></option><option><span lang="fr">3 a 7 ans</span><span lang="en">3 to 7 years</span></option><option><span lang="fr">Plus de 7 ans</span><span lang="en">7+ years</span></option></select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
+        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+        <p class="fd-consent"><span lang="fr">J accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+      </form>
+      <div class="fd-success" id="success-fin"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+    </div>
+  </div>
+</div>
+
+<!-- FICHE VIRTUELLE -->
+<div class="fiche-drawer" id="fiche-virt">
+  <div class="fd-header">
+    <div>
+      <p class="fd-ref">Ref. APG-VIRT-001</p>
+      <p class="fd-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></p>
+      <div class="fd-badges">
+        <span class="fd-badge">Freelance</span>
+        <span class="fd-badge">Remote</span>
+      </div>
+    </div>
+    <button class="fd-close" onclick="closeFiche()">✕</button>
+  </div>
+  <div class="fd-body">
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p class="fd-text"><span lang="fr">Apogee Consulting recrute une Assistante virtuelle pour accompagner des dirigeants independants a distance. Mission freelance, 100% remote.</span><span lang="en">Apogee Consulting is recruiting a Virtual Assistant to support independent executives remotely. Freelance mission, 100% remote.</span></p>
+    </div>
+    <div class="fd-section">
+      <p class="fd-label"><span lang="fr">Postuler</span><span lang="en">Apply</span></p>
+      <form class="fd-form" id="form-virt" onsubmit="submitFiche(event,'virt')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours..."></textarea></div>
+        <button type="submit" class="fd-submit"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      </form>
+      <div class="fd-success" id="success-virt"><p><span lang="fr">Candidature recue. Nous vous contacterons tres bientot.</span><span lang="en">Application received. We will contact you very soon.</span></p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function openFiche(id) {
+    document.getElementById('ficheOverlay').classList.add('open');
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFiche() {
+    document.getElementById('ficheOverlay').classList.remove('open');
+    document.querySelectorAll('.fiche-drawer').forEach(d => d.classList.remove('open'));
+    document.body.style.overflow = '';
+  }
+  function submitFiche(e, id) {
+    e.preventDefault();
+    document.getElementById('form-' + id).style.display = 'none';
+    document.getElementById('success-' + id).style.display = 'block';
+  }
 </script>
 
 </body>
