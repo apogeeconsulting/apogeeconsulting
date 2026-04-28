@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace Assistantes, Apogee Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --black: #6b4c3b; --white: #f7f5f0; --gray: #9a9088; --light: #e8ddd6; --accent: #b0a898; --terra: #a85c3a; --dark: #3d2b1f; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--black); font-family: 'Montserrat', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: var(--white); border-bottom: 1px solid rgba(107,76,59,0.12); overflow: visible; }
+  .nav-logo img { height: 64px; width: auto; opacity: 0.35; }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--black); }
+  .nav-links a.active { border-bottom: 1px solid var(--black); padding-bottom: 2px; }
+
+  /* MENU ANCRES */
+  .ancres { position: fixed; top: 89px; left: 0; right: 0; z-index: 150; background: var(--dark); padding: 0 60px; display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .ancres::-webkit-scrollbar { display: none; }
+  .ancre-btn { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); text-decoration: none; padding: 14px 20px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; flex-shrink: 0; }
+  .ancre-btn:hover { color: var(--white); }
+  .ancre-btn.active { color: var(--terra); border-bottom-color: var(--terra); }
+
+  /* HERO */
+  .hero { min-height: 100vh; background: var(--dark); color: var(--white); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 160px 60px 80px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--terra); }
+  .hero-tag { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terra); margin-bottom: 48px; opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+  .manifeste { font-family: 'Cormorant Garamond', serif; max-width: 800px; }
+  .manifeste-line { font-size: clamp(28px,5.5vw,68px); font-weight: 300; line-height: 1.1; opacity: 0; }
+  .manifeste-line em { font-style: italic; color: var(--terra); }
+  .manifeste-line:nth-child(1) { animation: fadeUp 0.9s ease forwards 0.3s; }
+  .manifeste-line:nth-child(2) { animation: fadeUp 0.9s ease forwards 0.55s; color: rgba(255,255,255,0.5); font-size: clamp(22px,4vw,52px); }
+  .manifeste-line:nth-child(3) { animation: fadeUp 0.9s ease forwards 0.8s; color: rgba(255,255,255,0.5); font-size: clamp(22px,4vw,52px); }
+  .manifeste-line:nth-child(4) { animation: fadeUp 0.9s ease forwards 1.05s; font-size: clamp(24px,4.5vw,56px); }
+  .manifeste-conclusion { font-size: clamp(26px,4.5vw,56px); font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; color: var(--terra); margin-top: 8px; opacity: 0; animation: fadeUp 0.9s ease forwards 1.3s; }
+
+  /* BAND */
+  .band { background: var(--terra); padding: 16px 0; overflow: hidden; }
+  .band-inner { display: flex; animation: scrollBand 40s linear infinite; white-space: nowrap; width: max-content; }
+  .band span { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.85; padding: 0 32px; border-right: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; color: var(--white); }
+  @keyframes scrollBand { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* PHRASE FORTE */
+  .phrase { padding: 100px 60px; text-align: center; scroll-margin-top: 130px; }
+  .phrase-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px,5vw,64px); font-weight: 300; line-height: 1.2; }
+  .phrase-text em { font-style: italic; color: var(--terra); }
+
+  /* SECTIONS */
+  .section { padding: 100px 60px; scroll-margin-top: 130px; }
+  .section-dark { background: var(--dark); color: var(--white); }
+  .section-light { background: var(--light); }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
+  .section-dark .section-label { color: var(--terra); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,5vw,56px); font-weight: 300; line-height: 1.1; margin-bottom: 56px; }
+  .section-title em { font-style: italic; }
+
+  /* OFFRES */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 32px; }
+  .filter-btn { background: transparent; border: 1px solid var(--accent); padding: 8px 20px; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); transition: all 0.2s; }
+  .filter-btn:hover, .filter-btn.active { background: var(--terra); border-color: var(--terra); color: var(--white); }
+  .offres-grid { display: flex; gap: 2px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .offres-grid::-webkit-scrollbar { height: 2px; }
+  .offres-grid::-webkit-scrollbar-thumb { background: var(--terra); }
+  .offre-card { background: var(--white); border: 0.5px solid rgba(107,76,59,0.1); padding: 28px; min-width: 280px; max-width: 300px; flex-shrink: 0; scroll-snap-align: start; text-decoration: none; color: var(--black); display: block; transition: background 0.2s, transform 0.2s; }
+  .offre-card:hover { background: var(--light); transform: translateY(-2px); }
+  .offre-card.hidden { display: none; }
+  .offre-badge { display: inline-block; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 8px; margin-bottom: 14px; }
+  .badge-exclusive { background: var(--terra); color: var(--white); }
+  .badge-externe { background: var(--light); color: var(--gray); border: 0.5px solid var(--accent); }
+  .offre-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 8px; line-height: 1.2; }
+  .offre-meta { font-size: 11px; color: var(--gray); line-height: 2; }
+  .offre-footer { margin-top: 16px; padding-top: 12px; border-top: 0.5px solid var(--light); display: flex; justify-content: space-between; }
+  .offre-date { font-size: 10px; color: var(--terra); }
+  .offre-cta { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); }
+
+  /* ACTU */
+  .actu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
+  .actu-card { background: var(--white); border: 0.5px solid rgba(107,76,59,0.08); padding: 28px; text-decoration: none; color: var(--black); display: block; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .actu-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--terra); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .actu-card:hover { transform: translateY(-2px); }
+  .actu-card:hover::before { transform: scaleX(1); }
+  .actu-tag { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
+  .actu-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; line-height: 1.3; margin-bottom: 10px; }
+  .actu-desc { font-size: 11px; line-height: 1.8; color: var(--gray); }
+  .actu-date { font-size: 10px; color: var(--accent); margin-top: 12px; }
+
+  /* LEXIQUE */
+  .lexique-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 2px; }
+  .lexique-card { background: rgba(255,255,255,0.06); padding: 40px 36px; border-top: 2px solid var(--terra); transition: background 0.3s; }
+  .lexique-card:hover { background: rgba(255,255,255,0.12); }
+  .lexique-mot { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; color: var(--terra); margin-bottom: 12px; }
+  .lexique-def-officielle { font-size: 10px; color: rgba(255,255,255,0.3); margin-bottom: 16px; font-style: italic; }
+  .lexique-def-vraie { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,0.75); }
+
+
+  .lexique-card { transition: opacity 1.2s ease, background 0.3s; }
+  .lexique-card.fading { opacity: 0; }
+
+  /* PORTRAITS */
+  .portraits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
+  .portrait-card { background: var(--white); padding: 48px 40px; position: relative; overflow: hidden; transition: transform 0.3s; }
+  .portrait-card:hover { transform: translateY(-4px); }
+  .portrait-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--terra); }
+  .portrait-initiales { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--terra); opacity: 0.25; line-height: 1; margin-bottom: 20px; }
+  .portrait-prenom { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; margin-bottom: 4px; }
+  .portrait-metier { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 20px; }
+  .portrait-texte { font-size: 13px; line-height: 1.9; color: var(--gray); }
+  .portrait-detail { font-size: 11px; color: var(--accent); margin-top: 16px; font-style: italic; }
+
+  /* GUIDE */
+  .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 2px; }
+  .guide-card { background: var(--white); padding: 40px 36px 52px; position: relative; transition: background 0.3s, transform 0.3s; }
+  .guide-card:hover { background: var(--dark); color: var(--white); transform: translateY(-4px); }
+  .guide-num { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 300; color: var(--terra); opacity: 0.3; line-height: 1; margin-bottom: 16px; }
+  .guide-situation { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terra); margin-bottom: 12px; }
+  .guide-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin-bottom: 12px; line-height: 1.3; }
+  .guide-conseil { font-size: 12px; line-height: 1.9; color: var(--gray); transition: color 0.3s; }
+  .guide-card:hover .guide-conseil { color: rgba(255,255,255,0.6); }
+
+  /* CHIFFRES */
+  .chiffres-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 2px; }
+  .chiffre-card { background: var(--white); padding: 40px 32px; text-align: center; transition: transform 0.2s; }
+  .chiffre-card:hover { transform: translateY(-3px); }
+  .chiffre-val { font-family: 'Cormorant Garamond', serif; font-size: 56px; font-weight: 300; color: var(--terra); line-height: 1; margin-bottom: 8px; }
+  .chiffre-label { font-size: 11px; line-height: 1.7; color: var(--gray); }
+  .chiffre-source { font-size: 9px; color: var(--accent); margin-top: 8px; letter-spacing: 0.1em; }
+
+
+  /* CHIFFRES ANIMATION */
+  .chiffre-val { transition: color 0.3s; }
+  .chiffre-val.animating { color: var(--terra); }
+  @keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+  .chiffre-card.visible .chiffre-val { animation: countUp 0.5s ease forwards; }
+  .chiffre-source { font-size:9px; color:var(--accent); margin-top:8px; letter-spacing:0.1em; }
+
+
+  .chiffre-card { transition: opacity 0.4s ease, transform 0.2s; }
+  .chiffre-val { position:relative; }
+  .chiffre-val .cv { display:inline; }
+
+
+  .portrait-card { transition: transform 0.3s, opacity 0.6s; }
+  .portrait-card.fading { opacity: 0; }
+  .audio-btn { cursor: pointer; flex-shrink:0; transition: transform 0.2s; }
+  .audio-btn:hover { transform: scale(1.1); }
+  .audio-btn.playing circle { fill: var(--terra); }
+  .audio-btn.playing polygon { fill: #fff; }
+  .audio-wave { display:inline-flex; gap:2px; align-items:center; height:16px; margin-left:6px; }
+  .audio-wave span { width:3px; background:var(--terra); border-radius:2px; animation:wave 0.8s ease-in-out infinite; }
+  .audio-wave span:nth-child(2) { animation-delay:0.15s; }
+  .audio-wave span:nth-child(3) { animation-delay:0.3s; }
+  @keyframes wave { 0%,100%{height:4px} 50%{height:14px} }
+
+  /* PORTRAIT MODALE */
+  .portrait-overlay { position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px); }
+  .portrait-overlay.open { opacity:1;pointer-events:all; }
+  .portrait-modal { position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(0.97);width:min(700px,92vw);max-height:88vh;background:#fff;z-index:601;display:flex;flex-direction:column;border-radius:2px;box-shadow:0 40px 100px rgba(0,0,0,0.25);opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.4,0,.2,1);overflow:hidden; }
+  .portrait-modal.open { opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1); }
+  .pm-header { background:var(--dark);color:#fff;padding:32px 40px 24px;flex-shrink:0;position:relative; }
+  .pm-initiales { font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--terra);opacity:.4;line-height:1;margin-bottom:12px; }
+  .pm-prenom { font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;margin-bottom:4px; }
+  .pm-metier { font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5); }
+  .pm-close { position:absolute;top:20px;right:24px;background:none;border:none;cursor:pointer;font-size:18px;color:rgba(255,255,255,.5); }
+  .pm-close:hover { color:#fff; }
+  .pm-body { padding:32px 40px;overflow-y:auto;flex:1; }
+  .pm-body p { font-size:13px;line-height:2;color:#555;margin-bottom:16px; }
+  .pm-body h3 { font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;color:#0d0d0d;margin:24px 0 10px;border-top:.5px solid #f4f4f4;padding-top:8px; }
+  .pm-body ul { list-style:none;margin-bottom:16px; }
+  .pm-body ul li { font-size:12px;line-height:1.8;color:#555;padding:6px 0 6px 14px;border-bottom:.5px solid #f8f8f8;position:relative; }
+  .pm-body ul li::before { content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:4px;height:4px;background:var(--terra);border-radius:50%; }
+  .pm-body ul li:last-child { border-bottom:none; }
+  .pm-body blockquote { border-left:2px solid var(--terra);padding:14px 20px;margin:20px 0;background:#fafafa; }
+  .pm-body blockquote p { font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:#0d0d0d; }
+  .pm-footer { padding:16px 40px;border-top:.5px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:#fafafa; }
+  .pm-cta { background:var(--terra);color:#fff;border:none;padding:10px 24px;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:opacity .2s; }
+  .pm-cta:hover { opacity:.85; }
+  .pm-fermer { background:none;border:none;cursor:pointer;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#b0b0b0;font-family:'Montserrat',sans-serif; }
+
+  /* NEWSLETTER */
+  .newsletter-section { background: var(--dark); color: var(--white); padding: 100px 60px; text-align: center; border-top: 3px solid var(--terra); scroll-margin-top: 130px; }
+  .newsletter-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px,5vw,60px); font-weight: 300; margin-bottom: 12px; }
+  .newsletter-title em { font-style: italic; color: var(--terra); }
+  .newsletter-sub { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.9; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .newsletter-form { display: flex; gap: 2px; max-width: 480px; margin: 0 auto; }
+  .newsletter-form input { flex: 1; border: none; border-bottom: 1px solid rgba(255,255,255,0.2); background: transparent; padding: 14px 0; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--white); outline: none; }
+  .newsletter-form input:focus { border-bottom-color: var(--terra); }
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.25); }
+  .newsletter-form button { background: var(--terra); color: var(--white); border: none; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: opacity 0.2s; white-space: nowrap; }
+  .newsletter-form button:hover { opacity: 0.85; }
+  .nl-success { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--terra); }
+
+  footer { border-top: 1px solid var(--light); padding: 36px 60px; display: flex; justify-content: space-between; align-items: center; }
+  footer span { font-size: 11px; color: var(--gray); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 11px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--black); }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .ancres { padding: 0 20px; top: 76px; }
+    .section { padding: 60px 24px; }
+    .phrase { padding: 60px 24px; }
+    .newsletter-section { padding: 60px 24px; }
+    .newsletter-form { flex-direction: column; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 20px; }
+  }
+
+  .lang-btn { background: none; border: 1px solid rgba(0,0,0,0.15); padding: 5px 12px; font-family: 'Montserrat', sans-serif; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; color: var(--gray); border-radius: 2px; transition: all 0.2s; margin-left: 20px; }
+  .lang-btn:hover { border-color: var(--black); color: var(--black); }
+  /* Langue par defaut : francais visible, anglais cache */
+  [lang="en"] { display: none !important; }
+  [lang="fr"] { display: revert !important; }
+  body.en [lang="en"] { display: revert !important; }
+  body.en [lang="fr"] { display: none !important; }
+  .en-pending [lang="en"] { display: revert !important; }
+  .en-pending [lang="fr"] { display: none !important; }
+
+  
+  
+
+
+  
+
+  
+  /* FICHE MODALE PLEIN ECRAN */
+  .fiche-modal { display:none; position:fixed; inset:0; z-index:400; background:#fff; pointer-events:none; }
+  .fiche-modal.open { display:flex; animation:fadeIn .25s ease; pointer-events:all; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+  /* COLONNE GAUCHE — contenu */
+  .fm-left { flex:1; overflow-y:auto; padding:60px 80px; }
+  .fm-back { display:inline-flex; align-items:center; gap:8px; font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:#b0b0b0; background:none; border:none; cursor:pointer; margin-bottom:40px; transition:color .2s; font-family:'Montserrat',sans-serif; }
+  .fm-back:hover { color:#0d0d0d; }
+  .fm-ref { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:#b0b0b0; margin-bottom:10px; }
+  .fm-title { font-family:'Cormorant Garamond',serif; font-size:clamp(32px,4vw,56px); font-weight:300; line-height:1.05; margin-bottom:20px; }
+  .fm-badges { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:48px; }
+  .fm-badge { font-size:9px; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border:0.5px solid #b0b0b0; color:#6b6b6b; }
+  .fm-badge.filled { background:#0d0d0d; color:#fff; border-color:#0d0d0d; }
+  .fm-details { background:#f4f4f4; padding:20px 24px; display:flex; gap:32px; flex-wrap:wrap; margin-bottom:48px; }
+  .fm-detail { display:flex; flex-direction:column; gap:3px; }
+  .fm-detail-lbl { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#b0b0b0; }
+  .fm-detail-val { font-size:12px; color:#0d0d0d; font-weight:400; }
+  .fm-bloc { margin-bottom:40px; }
+  .fm-bloc-label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#b0b0b0; margin-bottom:12px; padding-bottom:8px; border-bottom:0.5px solid #f0f0f0; }
+  .fm-bloc p { font-size:13px; line-height:2; color:#6b6b6b; }
+  .fm-bloc ul { list-style:none; }
+  .fm-bloc ul li { font-size:12px; line-height:1.7; color:#6b6b6b; padding:9px 0 9px 14px; border-bottom:0.5px solid #f4f4f4; position:relative; }
+  .fm-bloc ul li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#b0b0b0; border-radius:50%; }
+  .fm-bloc ul li:last-child { border-bottom:none; }
+
+  /* COLONNE DROITE — formulaire */
+  .fm-right { width:380px; flex-shrink:0; background:#0d0d0d; display:flex; flex-direction:column; overflow-y:auto; }
+  .fm-right-header { padding:28px 28px 20px; border-bottom:0.5px solid rgba(255,255,255,.08); text-align:center; }
+  .fm-right-ref { font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:6px; }
+  .fm-right-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:300; color:#fff; font-style:italic; }
+  .fm-form { padding:28px 28px; flex:1; }
+  .fm-form .fg { margin-bottom:18px; }
+  .fm-form .fg label { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.4); display:block; margin-bottom:5px; }
+  .fm-form .fg input, .fm-form .fg select, .fm-form .fg textarea { width:100%; border:none; border-bottom:0.5px solid rgba(255,255,255,.15); background:transparent; padding:7px 0; font-family:'Montserrat',sans-serif; font-size:12px; color:#fff; outline:none; transition:border-color .2s; }
+  .fm-form .fg input:focus, .fm-form .fg textarea:focus { border-bottom-color:rgba(255,255,255,.5); }
+  .fm-form .fg input::placeholder, .fm-form .fg textarea::placeholder { color:rgba(255,255,255,.2); }
+  .fm-form .fg textarea { resize:none; min-height:70px; }
+  .fm-form .fg select { cursor:pointer; appearance:none; }
+  .fm-form .fg select option { background:#1a1a1a; }
+  .fm-divider { height:0.5px; background:rgba(255,255,255,.08); margin:16px 0; }
+  .fm-submit { width:100%; background:#fff; color:#0d0d0d; border:none; padding:13px; font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:.2em; text-transform:uppercase; cursor:pointer; transition:opacity .2s; }
+  .fm-submit:hover { opacity:.85; }
+  .fm-consent { font-size:9px; color:rgba(255,255,255,.25); margin-top:10px; line-height:1.7; }
+  .fm-footer { padding:20px 28px; border-top:0.5px solid rgba(255,255,255,.08); flex-shrink:0; }
+  .fm-success { display:none; padding:40px 28px; text-align:center; }
+  .fm-success p { font-family:'Cormorant Garamond',serif; font-size:20px; font-style:italic; color:#fff; line-height:1.6; }
+
+  @media(max-width:900px) {
+    .fiche-modal { flex-direction:column; }
+    .fm-left { padding:40px 24px; }
+    .fm-right { width:100%; }
+  }
+
+  
+  /* ARTICLE READER MODAL */
+  .reader-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:500; opacity:0; pointer-events:none; transition:opacity .4s; backdrop-filter:blur(6px); }
+  .reader-overlay.open { opacity:1; pointer-events:all; }
+  .reader-modal { pointer-events:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-48%) scale(0.97); width:min(780px,94vw); max-height:88vh; background:#fff; z-index:501; display:flex; flex-direction:column; border-radius:3px; box-shadow:0 40px 100px rgba(0,0,0,0.3); opacity:0; pointer-events:none; transition:all .35s cubic-bezier(.4,0,.2,1); overflow:hidden; }
+  .reader-modal.open { opacity:1; pointer-events:all; transform:translate(-50%,-50%) scale(1); }
+
+  /* BARRE DE PROGRESSION */
+  .reader-progress { position:absolute; top:0; left:0; height:2px; background:#0d0d0d; width:0%; transition:width .1s linear; z-index:10; border-radius:0 2px 2px 0; }
+
+  /* HEADER */
+  .reader-header { padding:40px 48px 28px; flex-shrink:0; position:relative; overflow:hidden; }
+  .reader-header::before { content:'"'; font-family:'Cormorant Garamond',serif; font-size:220px; font-weight:300; color:rgba(0,0,0,0.035); position:absolute; top:-20px; left:28px; line-height:1; pointer-events:none; animation:guillemet-in .6s ease forwards; opacity:0; }
+  @keyframes guillemet-in { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+  .reader-cat { font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:#b0b0b0; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .reader-cat::after { content:''; flex:1; height:0.5px; background:#f0f0f0; }
+  .reader-title { font-family:'Cormorant Garamond',serif; font-size:clamp(22px,3vw,32px); font-weight:300; line-height:1.2; color:#0d0d0d; margin-bottom:10px; position:relative; z-index:1; }
+  .reader-meta { font-size:10px; color:#b0b0b0; letter-spacing:.05em; }
+  .reader-close { position:absolute; top:20px; right:24px; background:none; border:none; cursor:pointer; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:#b0b0b0; font-size:16px; transition:all .2s; }
+  .reader-close:hover { background:#f4f4f4; color:#0d0d0d; }
+
+  /* SEPARATEUR ANIME */
+  .reader-divider { height:1px; background:linear-gradient(to right, #0d0d0d 0%, #0d0d0d var(--w,0%), #f0f0f0 var(--w,0%)); margin:0 48px; flex-shrink:0; transition:--w .8s ease; }
+  .reader-modal.open .reader-divider { --w:100%; }
+
+  /* BODY */
+  .reader-body { padding:32px 48px 48px; overflow-y:auto; flex:1; scroll-behavior:smooth; }
+  .reader-body p { font-size:13.5px; line-height:2.1; color:#444; margin-bottom:20px; }
+  .reader-body h3 { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:400; color:#0d0d0d; margin:36px 0 12px; padding-top:4px; border-top:0.5px solid #f4f4f4; }
+  .reader-body ul { list-style:none; margin-bottom:20px; }
+  .reader-body ul li { font-size:13px; line-height:1.9; color:#555; padding:7px 0 7px 18px; position:relative; border-bottom:0.5px solid #f8f8f8; }
+  .reader-body ul li::before { content:''; position:absolute; left:0; top:50%; transform:translateY(-50%); width:4px; height:4px; background:#0d0d0d; border-radius:50%; }
+  .reader-body ul li:last-child { border-bottom:none; }
+  .reader-body blockquote { border-left:2px solid #0d0d0d; padding:16px 24px; margin:28px 0; background:linear-gradient(to right, #fafafa, #fff); position:relative; }
+  .reader-body blockquote::before { content:'"'; font-family:'Cormorant Garamond',serif; font-size:60px; color:rgba(0,0,0,0.08); position:absolute; top:-8px; left:12px; line-height:1; }
+  .reader-body blockquote p { font-family:'Cormorant Garamond',serif; font-size:19px; font-style:italic; color:#0d0d0d; margin:0; line-height:1.7; }
+
+  /* FOOTER */
+  .reader-footer { padding:16px 48px; border-top:0.5px solid #f0f0f0; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; background:#fafafa; }
+  .reader-footer-brand { font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#b0b0b0; }
+  .reader-share { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:#0d0d0d; background:none; border:1px solid rgba(0,0,0,0.12); padding:6px 14px; cursor:pointer; transition:all .2s; font-family:'Montserrat',sans-serif; }
+  .reader-share:hover { background:#0d0d0d; color:#fff; }
+
+  /* ILLUSTRATION SVG PAR CATEGORIE */
+  .reader-illus { position:absolute; bottom:16px; right:40px; opacity:0.06; pointer-events:none; }
+
+  /* ACTU CARD update */
+  .actu-source { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#b0b0b0; }
+
+  /* ACTU CARD update for source display */
+  .actu-source { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#b0b0b0; }
+
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo" style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.15em;color:#6b4c3b;text-decoration:none;">Apogee Consulting</a>
+  <div class="nav-links">
+    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
+    <a href="recrutement.html">Recrutement</a>
+    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
+    <a href="ressources.html" class="active"><span lang="fr">Espace assistantes</span><span lang="en">Executive Assistants Hub</span></a>
+  </div>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+</nav>
+
+<div class="ancres" id="ancres">
+  <a href="#offres" class="ancre-btn"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></a>
+  <a href="#actualites" class="ancre-btn"><span lang="fr">Actualites</span><span lang="en">News</span></a>
+  <a href="#lexique" class="ancre-btn"><span lang="fr">Le lexique</span><span lang="en">The glossary</span></a>
+  <a href="#portraits" class="ancre-btn"><span lang="fr">Portraits</span><span lang="en">Portraits</span></a>
+  <a href="#guide" class="ancre-btn"><span lang="fr">Guide</span><span lang="en">Guide</span></a>
+  <a href="#chiffres" class="ancre-btn"><span lang="fr">Chiffres</span><span lang="en">Figures</span></a>
+  <a href="#newsletter" class="ancre-btn"><span lang="fr">Newsletter</span><span lang="en">Newsletter</span></a>
+</div>
+
+<section class="hero">
+  <p class="hero-tag"><span lang="fr">Espace assistantes, Apogee Consulting</span><span lang="en">Executive Assistants Hub, Apogee Consulting</span></p>
+  <div class="manifeste">
+    <p class="manifeste-line"><span lang="fr">Assistante de direction.</span><span lang="en">Executive assistant.</span></p>
+    <p class="manifeste-line"><span lang="fr">Pas secretaire. Pas executante.</span><span lang="en">Not a secretary. Not an executor.</span></p>
+    <p class="manifeste-line"><span lang="fr">Celle qui voit tout, anticipe tout, <em>tient tout.</em></span><span lang="en">The one who sees everything, anticipates everything, <em>holds everything together.</em></span></p>
+    <p class="manifeste-line"><span lang="fr">Le pilier strategique que peu d'organisations savent vraiment valoriser.</span><span lang="en">The strategic asset that few organisations truly know how to value.</span></p>
+  </div>
+  <p class="manifeste-conclusion"><span lang="fr">Nous, si.</span><span lang="en">We do.</span></p>
+</section>
+
+<div class="band">
+  <div class="band-inner">
+    <span><span lang="fr">Pilier strategique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Evolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span><span><span lang="fr">Pilier strategique</span><span lang="en">Strategic asset</span></span><span><span lang="fr">Vision</span><span lang="en">Vision</span></span><span><span lang="fr">Anticipation</span><span lang="en">Anticipation</span></span><span><span lang="fr">Excellence</span><span lang="en">Excellence</span></span><span><span lang="fr">Evolution</span><span lang="en">Growth</span></span><span><span lang="fr">Reconnaissance</span><span lang="en">Recognition</span></span><span><span lang="fr">Paris et IDF</span><span lang="en">Paris & Greater Paris</span></span><span><span lang="fr">Remote</span><span lang="en">Remote</span></span>
+  </div>
+</div>
+
+<section class="phrase reveal">
+  <p class="phrase-text"><span lang="fr">Vous gerez. Vous anticipez. Vous tenez.</span><span lang="en">You manage. You anticipate. You hold it together.</span><br><em><span lang="fr">Le reste, c'est notre travail.</span><span lang="en">The rest is our job.</span></em></p>
+</section>
+
+<!-- OFFRES -->
+<section class="section" id="offres">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr"><span lang="fr">Offres du jour</span><span lang="en">Today's positions</span></span><span lang="en">Today's positions</span></p>
+    <h2 class="section-title"><span lang="fr">Postes</span><span lang="en">Positions</span><br><em><span lang="fr">disponibles.</span><span lang="en">available.</span></em></h2>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filter('all',this)"><span lang="fr">Toutes</span><span lang="en">All</span></button>
+      <button class="filter-btn" onclick="filter('exclusive',this)"><span lang="fr">Exclusives Apogee</span><span lang="en">Apogee Exclusives</span></button>
+      <button class="filter-btn" onclick="filter('direction',this)"><span lang="fr">Direction</span><span lang="en">Management</span></button>
+      <button class="filter-btn" onclick="filter('juridique',this)"><span lang="fr">Juridique</span><span lang="en">Legal</span></button>
+      <button class="filter-btn" onclick="filter('medical',this)"><span lang="fr">Medical</span><span lang="en">Medical</span></button>
+      <button class="filter-btn" onclick="filter('finance',this)"><span lang="fr">Finance</span><span lang="en">Finance</span></button>
+      <button class="filter-btn" onclick="filter('remote',this)"><span lang="fr">Remote</span><span lang="en">Remote</span></button>
+    </div>
+    <div class="offres-grid">
+      <div class="offre-card" data-cat="direction" data-type="exclusive" onclick="openFiche('fiche-ad')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 32 a 40K</span><span lang="en">Fixed-term, 32 to 40K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <div class="offre-card" data-cat="finance" data-type="exclusive" onclick="openFiche('fiche-fin')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></div><div class="offre-meta"><span lang="fr">Cabinet de conseil, Paris</span><span lang="en">Consulting firm, Paris</span><br><span lang="fr">CDD, 28 a 36K</span><span lang="en">Fixed-term, 28 to 36K</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Aujourd'hui</span><span lang="en">Today</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <div class="offre-card" data-cat="remote" data-type="exclusive" onclick="openFiche('fiche-virt')" style="cursor:pointer;"><span class="offre-badge badge-exclusive"><span lang="fr">Exclusif Apogee</span><span lang="en">Apogee Exclusive</span></span><div class="offre-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></div><div class="offre-meta"><span lang="fr">Independant, Remote</span><span lang="en">Independent, Remote</span><br><span lang="fr">Freelance</span><span lang="en">Freelance</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="offre-cta"><span lang="fr">Postuler →</span><span lang="en">Apply →</span></span></div></div>
+      <a href="https://fr.indeed.com/jobs?q=assistante+de+direction&l=Paris" class="offre-card" data-cat="direction" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante de direction, Paris</span><span lang="en">Executive Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+juridique&l=Paris" class="offre-card" data-cat="juridique" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante juridique, Paris</span><span lang="en">Legal Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, CDD, Paris</span><span lang="en">Permanent, Fixed-term, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://fr.indeed.com/jobs?q=assistante+medicale&l=Paris" class="offre-card" data-cat="medical" data-type="externe" target="_blank"><span class="offre-badge badge-externe">Indeed</span><div class="offre-title"><span lang="fr">Assistante medicale, Paris</span><span lang="en">Medical Assistant, Paris</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">CDI, Paris</span><span lang="en">Permanent, Paris</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+      <a href="https://www.linkedin.com/jobs/search/?keywords=assistante+virtuelle&location=Paris" class="offre-card" data-cat="remote" data-type="externe" target="_blank"><span class="offre-badge badge-externe">LinkedIn</span><div class="offre-title"><span lang="fr">Assistante virtuelle, Remote</span><span lang="en">Virtual Assistant, Remote</span></div><div class="offre-meta"><span lang="fr">Offres en temps reel</span><span lang="en">Live positions</span><br><span lang="fr">Freelance, Remote</span><span lang="en">Freelance, Remote</span></div><div class="offre-footer"><span class="offre-date"><span lang="fr">Mis a jour</span><span lang="en">Updated</span></span><span class="offre-cta"><span lang="fr">Voir →</span><span lang="en">View →</span></span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ACTUALITÉS -->
+<section class="section section-light" id="actualites">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr">Actualites, mis a jour regulierement</span><span lang="en">News, updated regularly</span></p>
+    <h2 class="section-title"><span lang="fr">Pour avancer</span><span lang="en">To move forward</span><br><em><span lang="fr">plus loin.</span><span lang="en">further.</span></em></h2>
+    <!-- ACTU-GRID-START --><div class="actu-grid" id="actuGrid">
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiRXZvbHV0aW9uIGRlIGNhcnJpZXJlIiwgImNhdEVuIjogIkNhcmVlciBkZXZlbG9wbWVudCIsICJ0aXRsZSI6ICJDb21tZW50IHBhc3NlciBkIGFzc2lzdGFudGUgYSBPZmZpY2UgTWFuYWdlciA/IiwgInRpdGxlRW4iOiAiSG93IHRvIG1vdmUgZnJvbSBhc3Npc3RhbnQgdG8gT2ZmaWNlIE1hbmFnZXI/IiwgIm1ldGEiOiAiQ2V0dGUgc2VtYWluZSBcdTAwYjcgRmVkIEdyb3VwIiwgIm1ldGFFbiI6ICJUaGlzIHdlZWsgXHUwMGI3IEZlZCBHcm91cCIsICJib2R5IjogIjxwPkwgT2ZmaWNlIE1hbmFnZXIgcmVwcmVzZW50ZSBsIGV2b2x1dGlvbiBsYSBwbHVzIGxvZ2lxdWUgcG91ciB1bmUgYXNzaXN0YW50ZSBkZSBkaXJlY3Rpb24sIG1haXMgbGEgdHJhbnNpdGlvbiBkZW1hbmRlIHByZXBhcmF0aW9uIGV0IHBvc2l0aW9ubmVtZW50LjwvcD5cbjxoMz5DZSBxdWkgY2hhbmdlIHZyYWltZW50PC9oMz5cbjxwPkxlIHBhc3NhZ2UgZGUgbCBhc3Npc3RhbmF0IGEgbCBPZmZpY2UgTWFuYWdlbWVudCBuIGVzdCBwYXMgYW5vZGluLiBMZXMgdGFjaGVzIGQgdW5lIGFzc2lzdGFudGUgcmVsZXZlbnQgbWFqb3JpdGFpcmVtZW50IGRlIGwgZXhlY3V0aW9uLCBxdWFuZCBjZWxsZXMgZGUgbCBPTSBjb21wb3J0ZW50IHVuZSBwYXJ0IGltcG9ydGFudGUgZGUgc3RyYXRlZ2llIGV0IGRlIG1hbmFnZW1lbnQuPC9wPlxuPHVsPlxuPGxpPkwgT00gc3VwZXJ2aXNlIGxlcyBidWRnZXRzLCBsZXMgUkgsIGxhIGxvZ2lzdGlxdWUgZXQgbGVzIHNlcnZpY2VzIGdlbmVyYXV4PC9saT5cbjxsaT5JbCBmYXV0IGFwcHJlbmRyZSBhIGRlbGVndWVyIGNlIHF1IG9uIGZhaXNhaXQgc29pLW1lbWU8L2xpPlxuPGxpPkxhIGNvbW11bmljYXRpb24gc3VyIHNvbiBldm9sdXRpb24gZXN0IGNydWNpYWxlIFx1MjAxNCBhdHRlbmRyZSBxdWUgY2VsYSB2aWVubmUgZHUgbWFuYWdlciBlc3QgdW4gcGllZ2U8L2xpPlxuPC91bD5cbjxoMz5MZXMgZnJlaW5zIGEgY29ubmFpdHJlPC9oMz5cbjxwPkNlcnRhaW5zIG1hbmFnZXJzIG5lIHNvdWhhaXRlbnQgcGFzIHZvaXIgcGFydGlyIGxldXIgYXNzaXN0YW50ZS4gTCBldm9sdXRpb24gZXN0IHBhcmZvaXMgdmVjdWUgY29tbWUgdW4gcmlzcXVlLCBwYXMgY29tbWUgdW5lIG9wcG9ydHVuaXRlLiBJbCBmYXV0IHByZW5kcmUgbCBpbml0aWF0aXZlIDogZGVtYW5kZXIsIGZvcm1hbGlzZXIsIG5lZ29jaWVyLjwvcD5cbjxibG9ja3F1b3RlPjxwPkwgaW5pdGlhdGl2ZSBkZSBsYSByZWNvbm5haXNzYW5jZSBkb2l0IHZlbmlyIGRlcyBhc3Npc3RhbnRlcyBlbGxlcy1tZW1lcywgcGFzIGF0dGVuZHJlIHBhc3NpdmVtZW50LjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+TGVzIGV0YXBlcyBwb3VyIHkgYXJyaXZlcjwvaDM+XG48dWw+XG48bGk+VXRpbGlzZXIgbCBlbnRyZXRpZW4gYW5udWVsIHBvdXIgZm9ybWFsaXNlciBzZXMgYW1iaXRpb25zPC9saT5cbjxsaT5TdWl2cmUgdW5lIGZvcm1hdGlvbiBjZXJ0aWZpYW50ZSAoUk5DUCwgQlRTLCBCYWNoZWxvciBPTSk8L2xpPlxuPGxpPlNlIGNvbm5lY3RlciBhdXggcmVzZWF1eCBwcm9mZXNzaW9ubmVscyBkdSBzZWN0ZXVyPC9saT5cbjxsaT5SZW5kcmUgdmlzaWJsZSBjZSBxdSBvbiBmYWl0IGRlamEgYXUtZGVsYSBkZSBzYSBmaWNoZSBkZSBwb3N0ZTwvbGk+XG48L3VsPiIsICJib2R5RW4iOiAiPHA+VGhlIE9mZmljZSBNYW5hZ2VyIHJvbGUgaXMgdGhlIG1vc3QgbG9naWNhbCBzdGVwIHVwIGZyb20gZXhlY3V0aXZlIGFzc2lzdGFudCwgYnV0IHRoZSB0cmFuc2l0aW9uIHJlcXVpcmVzIGNhcmVmdWwgcHJlcGFyYXRpb24gYW5kIHBvc2l0aW9uaW5nLjwvcD5cbjxoMz5XaGF0IHJlYWxseSBjaGFuZ2VzPC9oMz5cbjxwPlRoZSBzaGlmdCBmcm9tIEVBIHRvIE9mZmljZSBNYW5hZ2VyIGlzIHNpZ25pZmljYW50LiBFQSB0YXNrcyBhcmUgbW9zdGx5IGV4ZWN1dGlvbi1iYXNlZCwgd2hpbGUgT00gcmVzcG9uc2liaWxpdGllcyBpbmNsdWRlIHN0cmF0ZWd5IGFuZCBtYW5hZ2VtZW50LjwvcD5cbjx1bD5cbjxsaT5UaGUgT00gb3ZlcnNlZXMgYnVkZ2V0cywgSFIsIGxvZ2lzdGljcyBhbmQgZ2VuZXJhbCBzZXJ2aWNlczwvbGk+XG48bGk+WW91IG11c3QgbGVhcm4gdG8gZGVsZWdhdGUgd2hhdCB5b3UgdXNlZCB0byBkbyB5b3Vyc2VsZjwvbGk+XG48bGk+Q29tbXVuaWNhdGlvbiBhYm91dCB5b3VyIGFtYml0aW9ucyBpcyBlc3NlbnRpYWwgXHUyMDE0IHdhaXRpbmcgZm9yIHRoZSBtYW5hZ2VyIHRvIGFjdCBpcyBhIHRyYXA8L2xpPlxuPC91bD5cbjxoMz5UaGUgb2JzdGFjbGVzIHRvIGtub3c8L2gzPlxuPHA+U29tZSBtYW5hZ2VycyBkb24ndCB3YW50IHRvIGxvc2UgdGhlaXIgYXNzaXN0YW50LiBFdm9sdXRpb24gaXMgc29tZXRpbWVzIHNlZW4gYXMgYSByaXNrLiBZb3UgbXVzdCB0YWtlIHRoZSBpbml0aWF0aXZlOiBhc2ssIGZvcm1hbGlzZSwgbmVnb3RpYXRlLjwvcD5cbjxibG9ja3F1b3RlPjxwPlRoZSBkcml2ZSBmb3IgcmVjb2duaXRpb24gbXVzdCBjb21lIGZyb20gYXNzaXN0YW50cyB0aGVtc2VsdmVzLCBub3QgZnJvbSBwYXNzaXZlIHdhaXRpbmcuPC9wPjwvYmxvY2txdW90ZT5cbjxoMz5TdGVwcyB0byBnZXQgdGhlcmU8L2gzPlxuPHVsPlxuPGxpPlVzZSB0aGUgYW5udWFsIHJldmlldyB0byBmb3JtYWxpc2UgeW91ciBhbWJpdGlvbnM8L2xpPlxuPGxpPkZvbGxvdyBhIGNlcnRpZmllZCB0cmFpbmluZyBwcm9ncmFtbWU8L2xpPlxuPGxpPkNvbm5lY3Qgd2l0aCBwcm9mZXNzaW9uYWwgbmV0d29ya3MgaW4gdGhlIHNlY3RvcjwvbGk+XG48bGk+TWFrZSB2aXNpYmxlIHdoYXQgeW91IGFscmVhZHkgZG8gYmV5b25kIHlvdXIgam9iIGRlc2NyaXB0aW9uPC9saT5cbjwvdWw+IiwgImxpZW4iOiAiaHR0cHM6Ly93d3cuZmVkLWdyb3VwLmZyL2ZlZC1vZmZpY2UvY29uc2VpbHMvcXVlbC1hdmVuaXItcG91ci1sZS1wb3N0ZS1kLWFzc2lzdGFudC1kZS1kaXJlY3Rpb24iLCAic291cmNlIjogIkZlZCBHcm91cCJ9" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Evolution de carriere</span><span lang="en">Career development</span></span>
+        <p class="actu-title"><span lang="fr">Comment passer d assistante a Office Manager ?</span><span lang="en">How to move from assistant to Office Manager?</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="actu-source">Fed Group →</span></div>
+      </div>
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiRW50cmV0aWVuIiwgImNhdEVuIjogIkludGVydmlldyIsICJ0aXRsZSI6ICI1IHF1ZXN0aW9ucyBwaWVnZXMgZW4gZW50cmV0aWVuIGQgYXNzaXN0YW50ZSBkZSBkaXJlY3Rpb24iLCAidGl0bGVFbiI6ICI1IHRyaWNreSBpbnRlcnZpZXcgcXVlc3Rpb25zIGZvciBleGVjdXRpdmUgYXNzaXN0YW50cyIsICJtZXRhIjogIkhpZXIgXHUwMGI3IEFzc2Vzc0ZpcnN0IiwgIm1ldGFFbiI6ICJZZXN0ZXJkYXkgXHUwMGI3IEFzc2Vzc0ZpcnN0IiwgImJvZHkiOiAiPHA+TGVzIHJlY3J1dGV1cnMgdGVzdGVudCBzb3V2ZW50IGRlcyBhc3BlY3RzIHByZWNpcyBsb3JzIGRlcyBlbnRyZXRpZW5zIHBvdXIgYXNzaXN0YW50ZSBkZSBkaXJlY3Rpb24uIFZvaWNpIGxlcyA1IHF1ZXN0aW9ucyBsZXMgcGx1cyBkZWxpY2F0ZXMgZXQgY29tbWVudCB5IHJlcG9uZHJlIGF2ZWMgYXNzdXJhbmNlLjwvcD5cbjxoMz4xLiBDb21tZW50IGdlcmVyIGxhIGNvbmZpZGVudGlhbGl0ZSA/PC9oMz5cbjxwPk5lIHBhcyBkb25uZXIgZCBleGVtcGxlcyBwcmVjaXMgaW1wbGlxdWFudCBkZXMgcGVyc29ubmVzIG91IGRlcyBlbnRyZXByaXNlcyByZWVsbGVzLiBQYXJsZXIgZGUgcHJpbmNpcGUgOiB2b3VzIG5lIHBhcnRhZ2V6IGphbWFpcyBkIGluZm9ybWF0aW9ucyBzZW5zaWJsZXMsIG1lbWUgZW4gZGVob3JzIGR1IHRyYXZhaWwuPC9wPlxuPGgzPjIuIFF1ZSBmYWl0ZXMtdm91cyBxdWFuZCB2b3RyZSBtYW5hZ2VyIGVzdCBhYnNlbnQgPzwvaDM+XG48cD5Nb250cmVyIHZvdHJlIGF1dG9ub21pZSBzYW5zIHBhcmFpdHJlIHZvdWxvaXIgcHJlbmRyZSBzYSBwbGFjZS4gRXhwbGlxdWV6IGNvbW1lbnQgdm91cyBwcmlvcmlzZXosIGZpbHRyZXogZXQgZXNjYWxhZGV6IGxlcyB1cmdlbmNlcyByZWVsbGVzLjwvcD5cbjxoMz4zLiBDb21tZW50IGdlcmV6LXZvdXMgbGVzIGNvbmZsaXRzIGRlIHByaW9yaXRlcyA/PC9oMz5cbjxibG9ja3F1b3RlPjxwPkRpdGVzIHF1ZSB2b3VzIGNsYXJpZmlleiBhdmVjIGxlcyBwYXJ0aWVzIGNvbmNlcm5lZXMuIEphbWFpcyBkZSBkZWNpc2lvbiB1bmlsYXRlcmFsZSBzdXIgbGVzIHVyZ2VuY2VzIGRlIHZvdHJlIG1hbmFnZXIuPC9wPjwvYmxvY2txdW90ZT5cbjxoMz40LiBBdmV6LXZvdXMgZGVqYSBmYWl0IHVuZSBlcnJldXIgaW1wb3J0YW50ZSA/PC9oMz5cbjxwPkV0cmUgaG9ubmV0ZSwgbW9udHJlciBjZSBxdWUgdm91cyBhdmV6IGFwcHJpcywgZXhwbGlxdWVyIGNvbW1lbnQgdm91cyBhdmV6IGNvcnJpZ2UuIExlcyByZWNydXRldXJzIGNoZXJjaGVudCBsYSBsdWNpZGl0ZSwgcGFzIGxhIHBlcmZlY3Rpb24uPC9wPlxuPGgzPjUuIFBvdXJxdW9pIGNlIHBvc3RlIGV0IHBhcyBPZmZpY2UgTWFuYWdlciA/PC9oMz5cbjx1bD5cbjxsaT5WYWxvcmlzZXIgbGUgdHJhdmFpbCBkZSBwcm94aW1pdGUgYXZlYyB1biBkaXJpZ2VhbnQ8L2xpPlxuPGxpPlBhcmxlciBkZSBsIGltcGFjdCBkaXJlY3Qgc3VyIGxhIHBlcmZvcm1hbmNlIGRlIGwgZW50cmVwcmlzZTwvbGk+XG48bGk+TmUgcGFzIGRvbm5lciBsIGltcHJlc3Npb24gcXVlIGMgZXN0IHVuZSBldGFwZSBkZSB0cmFuc2l0aW9uPC9saT5cbjwvdWw+IiwgImJvZHlFbiI6ICI8cD5SZWNydWl0ZXJzIG9mdGVuIHRlc3Qgc3BlY2lmaWMgYXNwZWN0cyBkdXJpbmcgRUEgaW50ZXJ2aWV3cy4gSGVyZSBhcmUgdGhlIDUgdHJpY2tpZXN0IHF1ZXN0aW9ucyBhbmQgaG93IHRvIGFuc3dlciB0aGVtIGNvbmZpZGVudGx5LjwvcD5cbjxoMz4xLiBIb3cgZG8geW91IGhhbmRsZSBjb25maWRlbnRpYWxpdHk/PC9oMz5cbjxwPkRvbid0IGdpdmUgc3BlY2lmaWMgZXhhbXBsZXMgaW52b2x2aW5nIHJlYWwgcGVvcGxlIG9yIGNvbXBhbmllcy4gU3BlYWsgaW4gcHJpbmNpcGxlOiB5b3UgbmV2ZXIgc2hhcmUgc2Vuc2l0aXZlIGluZm9ybWF0aW9uLCBldmVuIG91dHNpZGUgb2Ygd29yay48L3A+XG48aDM+Mi4gV2hhdCBkbyB5b3UgZG8gd2hlbiB5b3VyIG1hbmFnZXIgaXMgYWJzZW50PzwvaDM+XG48cD5TaG93IHlvdXIgYXV0b25vbXkgd2l0aG91dCBhcHBlYXJpbmcgdG8gd2FudCB0byB0YWtlIHRoZWlyIHBsYWNlLiBFeHBsYWluIGhvdyB5b3UgcHJpb3JpdGlzZSwgZmlsdGVyIGFuZCBlc2NhbGF0ZSBnZW51aW5lIGVtZXJnZW5jaWVzLjwvcD5cbjxoMz4zLiBIb3cgZG8geW91IGhhbmRsZSBjb25mbGljdGluZyBwcmlvcml0aWVzPzwvaDM+XG48YmxvY2txdW90ZT48cD5TYXkgdGhhdCB5b3UgY2xhcmlmeSB3aXRoIHRoZSBwYXJ0aWVzIGludm9sdmVkLiBOZXZlciBtYWtlIHVuaWxhdGVyYWwgZGVjaXNpb25zIGFib3V0IHlvdXIgbWFuYWdlcidzIHByaW9yaXRpZXMuPC9wPjwvYmxvY2txdW90ZT5cbjxoMz40LiBIYXZlIHlvdSBldmVyIG1hZGUgYSBzaWduaWZpY2FudCBtaXN0YWtlPzwvaDM+XG48cD5CZSBob25lc3QsIHNob3cgd2hhdCB5b3UgbGVhcm5lZCwgZXhwbGFpbiBob3cgeW91IGNvcnJlY3RlZCBpdC4gUmVjcnVpdGVycyB3YW50IGx1Y2lkaXR5LCBub3QgcGVyZmVjdGlvbi48L3A+XG48aDM+NS4gV2h5IHRoaXMgcm9sZSBhbmQgbm90IE9mZmljZSBNYW5hZ2VyPzwvaDM+XG48dWw+XG48bGk+VmFsdWUgdGhlIGNsb3NlIHdvcmtpbmcgcmVsYXRpb25zaGlwIHdpdGggYW4gZXhlY3V0aXZlPC9saT5cbjxsaT5UYWxrIGFib3V0IHRoZSBkaXJlY3QgaW1wYWN0IG9uIGNvbXBhbnkgcGVyZm9ybWFuY2U8L2xpPlxuPGxpPkRvbid0IGdpdmUgdGhlIGltcHJlc3Npb24gaXQncyBhIHRyYW5zaXRpb25hbCBzdGVwPC9saT5cbjwvdWw+IiwgImxpZW4iOiAiaHR0cHM6Ly93d3cuYXNzZXNzZmlyc3QuY29tL2ZyL2Jsb2cvcXVlc3Rpb25zLWVudHJldGllbi1leGVjdXRpdmUtYXNzaXN0YW50IiwgInNvdXJjZSI6ICJBc3Nlc3NGaXJzdCJ9" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Entretien</span><span lang="en">Interview</span></span>
+        <p class="actu-title"><span lang="fr">5 questions pieges en entretien d assistante de direction</span><span lang="en">5 tricky interview questions for executive assistants</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span><span class="actu-source">AssessFirst →</span></div>
+      </div>
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiU2FsYWlyZXMiLCAiY2F0RW4iOiAiU2FsYXJpZXMiLCAidGl0bGUiOiAiR3JpbGxlIGRlIHNhbGFpcmVzIDogYXNzaXN0YW50ZXMgYSBQYXJpcyBlbiAyMDI1IiwgInRpdGxlRW4iOiAiU2FsYXJ5IGd1aWRlOiBhc3Npc3RhbnRzIGluIFBhcmlzIDIwMjUiLCAibWV0YSI6ICJDZSBtb2lzIFx1MDBiNyBJZm9jb3AgLyBQYWdlIFBlcnNvbm5lbCIsICJtZXRhRW4iOiAiVGhpcyBtb250aCBcdTAwYjcgSWZvY29wIC8gUGFnZSBQZXJzb25uZWwiLCAiYm9keSI6ICI8cD5MZXMgc2FsYWlyZXMgZGVzIGFzc2lzdGFudGVzIGRlIGRpcmVjdGlvbiBvbnQgcHJvZ3Jlc3NlIGVuIDIwMjUuIFZvaWNpIGxlcyBmb3VyY2hldHRlcyByZWVsbGVzIHBhciBleHBlcmllbmNlLCBzZWxvbiBsZXMgZGVybmllcmVzIGV0dWRlcyBkaXNwb25pYmxlcy48L3A+XG48aDM+TGVzIGZvdXJjaGV0dGVzIDIwMjUgYSBQYXJpczwvaDM+XG48dWw+XG48bGk+SnVuaW9yIChtb2lucyBkZSAyIGFucykgOiAyOCAwMDAgYSAzMyAwMDAgZXVyb3MgYnJ1dHMvYW48L2xpPlxuPGxpPkNvbmZpcm1lZSAoMiBhIDcgYW5zKSA6IDM0IDAwMCBhIDQ0IDAwMCBldXJvcyBicnV0cy9hbjwvbGk+XG48bGk+U2VuaW9yIChwbHVzIGRlIDcgYW5zKSA6IDQ0IDAwMCBhIDUyIDAwMCBldXJvcyBicnV0cy9hbjwvbGk+XG48bGk+QmlsaW5ndWUgb3Ugc3BlY2lhbGlzZWUgOiBqdXNxdSBhIDQyIDAwMCBhIDU4IDAwMCBldXJvcyBicnV0cy9hbjwvbGk+XG48L3VsPlxuPGgzPkxlcyBmYWN0ZXVycyBxdWkgZm9udCBtb250ZXIgbGUgc2FsYWlyZTwvaDM+XG48dWw+XG48bGk+TGEgbWFpdHJpc2UgZCB1bmUgb3UgcGx1c2lldXJzIGxhbmd1ZXMgZXRyYW5nZXJlcyA6ICsxNSBhIDIwJTwvbGk+XG48bGk+TGEgdGFpbGxlIGRlIGwgZW50cmVwcmlzZSA6IGxlcyBtdWx0aW5hdGlvbmFsZXMgcGFpZW50IDE1JSBkZSBwbHVzPC9saT5cbjxsaT5MZSBzZWN0ZXVyIDoganVyaWRpcXVlLCBmaW5hbmNlIGV0IHRlY2ggcGFpZW50IG1pZXV4IHF1ZSBsZXMgYXV0cmVzPC9saT5cbjxsaT5QYXJpcyB2cyBwcm92aW5jZSA6IGVjYXJ0IGRlICsxNSUgZW4gbW95ZW5uZTwvbGk+XG48L3VsPlxuPGJsb2NrcXVvdGU+PHA+VW5lIGFzc2lzdGFudGUgYmlsaW5ndWUgc2VuaW9yIGEgUGFyaXMgZGFucyB1biBncmFuZCBncm91cGUgcGV1dCBkZXBhc3NlciA1NSAwMDAgZXVyb3MgYnJ1dHMgYW5udWVscy48L3A+PC9ibG9ja3F1b3RlPlxuPGgzPkNvbW1lbnQgbmVnb2NpZXI8L2gzPlxuPHA+UHJlcGFyZXogdm90cmUgbmVnb2NpYXRpb24gYXZlYyBkZXMgZG9ubmVlcyBkZSBtYXJjaGUgY29uY3JldGVzLiBNZXR0ZXogZW4gYXZhbnQgdm9zIGNlcnRpZmljYXRpb25zLCB2b3RyZSBtYWl0cmlzZSBkZXMgb3V0aWxzIGV0IHZvdHJlIGltcGFjdCBtZXN1cmFibGUgc3VyIGwgb3JnYW5pc2F0aW9uIGRlIHZvdHJlIGRpcmlnZWFudC48L3A+IiwgImJvZHlFbiI6ICI8cD5FeGVjdXRpdmUgYXNzaXN0YW50IHNhbGFyaWVzIGhhdmUgcmlzZW4gaW4gMjAyNS4gSGVyZSBhcmUgdGhlIHJlYWwgc2FsYXJ5IHJhbmdlcyBieSBleHBlcmllbmNlLCBiYXNlZCBvbiB0aGUgbGF0ZXN0IGF2YWlsYWJsZSBzdHVkaWVzLjwvcD5cbjxoMz4yMDI1IHJhbmdlcyBpbiBQYXJpczwvaDM+XG48dWw+XG48bGk+SnVuaW9yICh1bmRlciAyIHllYXJzKTogMjgsMDAwIHRvIDMzLDAwMCBldXJvcyBncm9zcy95ZWFyPC9saT5cbjxsaT5Db25maXJtZWQgKDIgdG8gNyB5ZWFycyk6IDM0LDAwMCB0byA0NCwwMDAgZXVyb3MgZ3Jvc3MveWVhcjwvbGk+XG48bGk+U2VuaW9yICg3KyB5ZWFycyk6IDQ0LDAwMCB0byA1MiwwMDAgZXVyb3MgZ3Jvc3MveWVhcjwvbGk+XG48bGk+QmlsaW5ndWFsIG9yIHNwZWNpYWxpc3Q6IHVwIHRvIDQyLDAwMCB0byA1OCwwMDAgZXVyb3MgZ3Jvc3MveWVhcjwvbGk+XG48L3VsPlxuPGgzPkZhY3RvcnMgdGhhdCBwdXNoIHNhbGFyeSB1cDwvaDM+XG48dWw+XG48bGk+Rm9yZWlnbiBsYW5ndWFnZSBza2lsbHM6ICsxNSB0byAyMCU8L2xpPlxuPGxpPkNvbXBhbnkgc2l6ZTogbXVsdGluYXRpb25hbHMgcGF5IDE1JSBtb3JlPC9saT5cbjxsaT5TZWN0b3I6IGxlZ2FsLCBmaW5hbmNlIGFuZCB0ZWNoIHBheSBiZXR0ZXIgdGhhbiBvdGhlcnM8L2xpPlxuPGxpPlBhcmlzIHZzIHJlZ2lvbnM6IGF2ZXJhZ2UgZ2FwIG9mICsxNSU8L2xpPlxuPC91bD5cbjxibG9ja3F1b3RlPjxwPkEgYmlsaW5ndWFsIHNlbmlvciBFQSBpbiBQYXJpcyBhdCBhIGxhcmdlIGdyb3VwIGNhbiBleGNlZWQgNTUsMDAwIGV1cm9zIGdyb3NzIHBlciB5ZWFyLjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+SG93IHRvIG5lZ290aWF0ZTwvaDM+XG48cD5QcmVwYXJlIHlvdXIgbmVnb3RpYXRpb24gd2l0aCBjb25jcmV0ZSBtYXJrZXQgZGF0YS4gSGlnaGxpZ2h0IHlvdXIgY2VydGlmaWNhdGlvbnMsIHRvb2wgZXhwZXJ0aXNlIGFuZCBtZWFzdXJhYmxlIGltcGFjdCBvbiB5b3VyIGV4ZWN1dGl2ZSdzIG9yZ2FuaXNhdGlvbi48L3A+IiwgImxpZW4iOiAiaHR0cHM6Ly93d3cuaWZvY29wLmZyL2Fzc2lzdGFudGUtZGUtZGlyZWN0aW9uLXF1ZWwtc2FsYWlyZS8iLCAic291cmNlIjogIklmb2NvcCAvIFBhZ2UgUGVyc29ubmVsIn0=" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Salaires</span><span lang="en">Salaries</span></span>
+        <p class="actu-title"><span lang="fr">Grille de salaires : assistantes a Paris en 2025</span><span lang="en">Salary guide: assistants in Paris 2025</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span class="actu-source">Ifocop / Page Personnel →</span></div>
+      </div>
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiT3V0aWxzICYgSUEiLCAiY2F0RW4iOiAiVG9vbHMgJiBBSSIsICJ0aXRsZSI6ICJMZXMgb3V0aWxzIElBIHF1ZSBsZXMgYXNzaXN0YW50ZXMgZG9pdmVudCBtYWl0cmlzZXIiLCAidGl0bGVFbiI6ICJBSSB0b29scyBldmVyeSBhc3Npc3RhbnQgbmVlZHMgdG8gbWFzdGVyIiwgIm1ldGEiOiAiQ2V0dGUgc2VtYWluZSBcdTAwYjcgQnVzaW5lc3MgSW5mb01lZGlhIiwgIm1ldGFFbiI6ICJUaGlzIHdlZWsgXHUwMGI3IEJ1c2luZXNzIEluZm9NZWRpYSIsICJib2R5IjogIjxwPkVuIDIwMjUsIDcxJSBkZXMgYXNzaXN0YW50ZXMgZW4gRU1FQSB1dGlsaXNlbnQgZGVzIG91dGlscyBJQSBkYW5zIGxldXIgcXVvdGlkaWVuLiBMZXMgZGlyaWdlYW50cyBhdHRlbmRlbnQgZGVzb3JtYWlzIGNldHRlIG1haXRyaXNlLiBWb2ljaSBsZXMgb3V0aWxzIHByaW9yaXRhaXJlcy48L3A+XG48aDM+TGVzIGluY29udG91cm5hYmxlczwvaDM+XG48dWw+XG48bGk+Tm90aW9uIEFJIDogb3JnYW5pc2F0aW9uLCBwcmlzZSBkZSBub3Rlcywgc3ludGhlc2UgZGUgcmV1bmlvbnM8L2xpPlxuPGxpPkNoYXRHUFQgLyBDbGF1ZGUgOiByZWRhY3Rpb24sIHJlZm9ybXVsYXRpb24sIHByZXBhcmF0aW9uIGRlIHN1cHBvcnRzPC9saT5cbjxsaT5Db3BpbG90IE1pY3Jvc29mdCAzNjUgOiBhdXRvbWF0aXNhdGlvbiBkYW5zIFdvcmQsIE91dGxvb2ssIFRlYW1zPC9saT5cbjxsaT5PdHRlci5haSAvIEZpcmVmbGllcyA6IHRyYW5zY3JpcHRpb24gYXV0b21hdGlxdWUgZGVzIHJldW5pb25zPC9saT5cbjwvdWw+XG48aDM+TGEgZ2VzdGlvbiBkIGFnZW5kYSBpbnRlbGxpZ2VudGU8L2gzPlxuPHA+RGVzIG91dGlscyBjb21tZSBDYWxlbmRseSwgTW90aW9uIG91IFJlY2xhaW0uYWkgcGVybWV0dGVudCBkIG9wdGltaXNlciBsZXMgcGxhbm5pbmdzIGNvbXBsZXhlcyBldCBkZSBwcm90ZWdlciBsZXMgcGxhZ2VzIGRlIGNvbmNlbnRyYXRpb24gZHUgZGlyaWdlYW50LjwvcD5cbjxibG9ja3F1b3RlPjxwPkxlcyBtYW5hZ2VycyBhdHRlbmRlbnQgZGVzb3JtYWlzIGNlIFwicGV0aXQgdHJ1YyBlbiBwbHVzXCIgXHUyMDE0IGV0IGMgZXN0IHNvdXZlbnQgbGEgbWFpdHJpc2UgZGVzIG91dGlscyBJQSBxdWkgZmFpdCBsYSBkaWZmZXJlbmNlLjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+TCBhdXRvbWF0aXNhdGlvbiBkZXMgdGFjaGVzIHJlcGV0aXRpdmVzPC9oMz5cbjx1bD5cbjxsaT5aYXBpZXIgLyBNYWtlIDogY29ubmVjdGVyIGxlcyBvdXRpbHMgZW50cmUgZXV4IHNhbnMgY29kZXI8L2xpPlxuPGxpPkV4Y2VsIC8gU2hlZXRzIGF2ZWMgbWFjcm9zIGV0IElBIDogcmVwb3J0aW5nIGF1dG9tYXRpc2U8L2xpPlxuPGxpPkx1Y2NhLCBQYXlGaXQgOiBnZXN0aW9uIGFkbWluaXN0cmF0aXZlIGVuIHVuIGNsaWM8L2xpPlxuPC91bD5cbjxoMz5Db21tZW50IHNlIGZvcm1lcjwvaDM+XG48cD5Db21tZW5jZXogcGFyIGV4cGVyaW1lbnRlciBncmF0dWl0ZW1lbnQuIFlvdVR1YmUsIGZvcm1hdGlvbnMgTGlua2VkSW4gTGVhcm5pbmcgZXQgY2VydGlmaWNhdGlvbnMgR29vZ2xlIFdvcmtzcGFjZSBjb3V2cmVudCBsYSBwbHVwYXJ0IGRlcyBiZXNvaW5zIGVuIHF1ZWxxdWVzIGhldXJlcy48L3A+IiwgImJvZHlFbiI6ICI8cD5JbiAyMDI1LCA3MSUgb2YgYXNzaXN0YW50cyBpbiBFTUVBIHVzZSBBSSB0b29scyBkYWlseS4gRXhlY3V0aXZlcyBub3cgZXhwZWN0IHRoaXMgZXhwZXJ0aXNlLiBIZXJlIGFyZSB0aGUgcHJpb3JpdHkgdG9vbHMuPC9wPlxuPGgzPlRoZSBlc3NlbnRpYWxzPC9oMz5cbjx1bD5cbjxsaT5Ob3Rpb24gQUk6IG9yZ2FuaXNhdGlvbiwgbm90ZS10YWtpbmcsIG1lZXRpbmcgc3VtbWFyaWVzPC9saT5cbjxsaT5DaGF0R1BUIC8gQ2xhdWRlOiBkcmFmdGluZywgcmVmb3JtdWxhdGlvbiwgZG9jdW1lbnQgcHJlcGFyYXRpb248L2xpPlxuPGxpPk1pY3Jvc29mdCAzNjUgQ29waWxvdDogYXV0b21hdGlvbiBpbiBXb3JkLCBPdXRsb29rLCBUZWFtczwvbGk+XG48bGk+T3R0ZXIuYWkgLyBGaXJlZmxpZXM6IGF1dG9tYXRpYyBtZWV0aW5nIHRyYW5zY3JpcHRpb248L2xpPlxuPC91bD5cbjxoMz5TbWFydCBkaWFyeSBtYW5hZ2VtZW50PC9oMz5cbjxwPlRvb2xzIGxpa2UgQ2FsZW5kbHksIE1vdGlvbiBvciBSZWNsYWltLmFpIGhlbHAgb3B0aW1pc2UgY29tcGxleCBzY2hlZHVsZXMgYW5kIHByb3RlY3QgdGhlIGV4ZWN1dGl2ZSdzIGZvY3VzIHRpbWUuPC9wPlxuPGJsb2NrcXVvdGU+PHA+TWFuYWdlcnMgbm93IGV4cGVjdCB0aGF0IFwibGl0dGxlIGV4dHJhXCIgXHUyMDE0IGFuZCBpdCdzIG9mdGVuIEFJIHRvb2wgbWFzdGVyeSB0aGF0IG1ha2VzIHRoZSBkaWZmZXJlbmNlLjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+QXV0b21hdGluZyByZXBldGl0aXZlIHRhc2tzPC9oMz5cbjx1bD5cbjxsaT5aYXBpZXIgLyBNYWtlOiBjb25uZWN0IHRvb2xzIHdpdGhvdXQgY29kaW5nPC9saT5cbjxsaT5FeGNlbCAvIFNoZWV0cyB3aXRoIG1hY3JvcyBhbmQgQUk6IGF1dG9tYXRlZCByZXBvcnRpbmc8L2xpPlxuPGxpPkx1Y2NhLCBQYXlGaXQ6IGFkbWluaXN0cmF0aXZlIG1hbmFnZW1lbnQgaW4gb25lIGNsaWNrPC9saT5cbjwvdWw+XG48aDM+SG93IHRvIGdldCB0cmFpbmVkPC9oMz5cbjxwPlN0YXJ0IGJ5IGV4cGVyaW1lbnRpbmcgZm9yIGZyZWUuIFlvdVR1YmUsIExpbmtlZEluIExlYXJuaW5nIGFuZCBHb29nbGUgV29ya3NwYWNlIGNlcnRpZmljYXRpb25zIGNvdmVyIG1vc3QgbmVlZHMgaW4ganVzdCBhIGZldyBob3Vycy48L3A+IiwgImxpZW4iOiAiaHR0cHM6Ly93d3cuYnVzaW5lc3NpbmZvbWVkaWEuZnIvYXNzaXN0YW50ZS1kZS1kaXJlY3Rpb24tYXBwZWxsYXRpb24tYWN0dWVsbGUtZXQtZXZvbHV0aW9uLWR1LW1ldGllci1lbi0yMDI1LyIsICJzb3VyY2UiOiAiQnVzaW5lc3MgSW5mb01lZGlhIn0=" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Outils & IA</span><span lang="en">Tools & AI</span></span>
+        <p class="actu-title"><span lang="fr">Les outils IA que les assistantes doivent maitriser</span><span lang="en">AI tools every assistant needs to master</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Cette semaine</span><span lang="en">This week</span></span><span class="actu-source">Business InfoMedia →</span></div>
+      </div>
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiU2FsYWlyZXMiLCAiY2F0RW4iOiAiU2FsYXJpZXMiLCAidGl0bGUiOiAiQ29tbWVudCBuZWdvY2llciBzb24gc2FsYWlyZSBlbiB0YW50IHF1IGFzc2lzdGFudGUgPyIsICJ0aXRsZUVuIjogIkhvdyB0byBuZWdvdGlhdGUgeW91ciBzYWxhcnkgYXMgYW4gYXNzaXN0YW50PyIsICJtZXRhIjogIkhpZXIgXHUwMGI3IFBhZ2UgUGVyc29ubmVsIiwgIm1ldGFFbiI6ICJZZXN0ZXJkYXkgXHUwMGI3IFBhZ2UgUGVyc29ubmVsIiwgImJvZHkiOiAiPHA+Q2hhbmdlciBkZSBwb3N0ZSBwZXV0IGF1Z21lbnRlciB2b3RyZSBzYWxhaXJlIGRlIDM0JSBlbiBtb3llbm5lLiBMYSBuZWdvY2lhdGlvbiBlc3QgdW5lIGNvbXBldGVuY2UgcXVpIHMgYXBwcmVuZC4gVm9pY2kgY29tbWVudCBsYSBwcmVwYXJlciBldCBsYSBtZW5lci48L3A+XG48aDM+U2UgcHJlcGFyZXIgYXZlYyBkZXMgZG9ubmVlcyByZWVsbGVzPC9oMz5cbjx1bD5cbjxsaT5Db25zdWx0ZXogbGVzIGV0dWRlcyBkZSByZW11bmVyYXRpb24gOiBQYWdlIFBlcnNvbm5lbCwgR2xhc3Nkb29yLCBJbmRlZWQ8L2xpPlxuPGxpPkxlIHNhbGFpcmUgbWVkaWFuIGVzdCBkZSA0NCAwMDAgZXVyb3MgYnJ1dHMvYW4gZW4gRnJhbmNlIGVuIDIwMjY8L2xpPlxuPGxpPkEgUGFyaXMsIGxhIGZvdXJjaGV0dGUgMjUtNzVlIHBlcmNlbnRpbGUgZXN0IGRlIDM2IDIwMCBhIDUxIDUwMCBldXJvczwvbGk+XG48L3VsPlxuPGgzPkxlcyBhcmd1bWVudHMgcXVpIGZvbmN0aW9ubmVudDwvaDM+XG48dWw+XG48bGk+Vm9zIGNlcnRpZmljYXRpb25zIHJlY2VudGVzIChsYW5ndWVzLCBvdXRpbHMsIFJOQ1ApPC9saT5cbjxsaT5MIGltcGFjdCBtZXN1cmFibGUgZGUgdm90cmUgdHJhdmFpbCBzdXIgbGUgZGlyaWdlYW50PC9saT5cbjxsaT5MZXMgb2ZmcmVzIGNvbXBhcmFibGVzIHN1ciBsZSBtYXJjaGU8L2xpPlxuPGxpPlZvdHJlIGRpc3BvbmliaWxpdGUgZXQgdm90cmUgYXV0b25vbWllIGNyb2lzc2FudGU8L2xpPlxuPC91bD5cbjxibG9ja3F1b3RlPjxwPlZpc2VyIGxlIHBvc3RlIGQgT2ZmaWNlIE1hbmFnZXIgYXVnbWVudGUgbGUgc2FsYWlyZSBkZSAyMCUgZW4gbW95ZW5uZS4gTWVtZSBzYW5zIHByb21vdGlvbiwgbGEgbmVnb2NpYXRpb24gYW5udWVsbGUgbWVyaXRlIGQgZXRyZSBwcmVwYXJlZS48L3A+PC9ibG9ja3F1b3RlPlxuPGgzPkxlIGJvbiB0aW1pbmc8L2gzPlxuPHA+QXByZXMgdW5lIHJldXNzaXRlIG1hcnF1YW50ZSwgZW4gZmluIGQgYW5uZWUsIG91IGxvcnMgZCB1bmUgcHJpc2UgZGUgbm91dmVsbGVzIHJlc3BvbnNhYmlsaXRlcy4gSmFtYWlzIGRhbnMgdW4gbW9tZW50IGRlIHRlbnNpb24gb3JnYW5pc2F0aW9ubmVsbGUuPC9wPlxuPGgzPkxlcyBlcnJldXJzIGEgZXZpdGVyPC9oMz5cbjx1bD5cbjxsaT5EZW1hbmRlciBzYW5zIGFyZ3VtZW50ZXI8L2xpPlxuPGxpPlNlIGNvbXBhcmVyIGEgdW4gY29sbGVndWUgc3BlY2lmaXF1ZTwvbGk+XG48bGk+RG9ubmVyIHVuIGNoaWZmcmUgdHJvcCBiYXMgcG91ciBuZSBwYXMgcGFyYWl0cmUgZ291cm1hbmRlPC9saT5cbjwvdWw+IiwgImJvZHlFbiI6ICI8cD5DaGFuZ2luZyBqb2JzIGNhbiBpbmNyZWFzZSB5b3VyIHNhbGFyeSBieSAzNCUgb24gYXZlcmFnZS4gTmVnb3RpYXRpb24gaXMgYSBza2lsbCB0aGF0IGNhbiBiZSBsZWFybmVkLiBIZXJlJ3MgaG93IHRvIHByZXBhcmUgYW5kIGNvbmR1Y3QgaXQuPC9wPlxuPGgzPlByZXBhcmUgd2l0aCByZWFsIGRhdGE8L2gzPlxuPHVsPlxuPGxpPkNoZWNrIGNvbXBlbnNhdGlvbiBzdHVkaWVzOiBQYWdlIFBlcnNvbm5lbCwgR2xhc3Nkb29yLCBJbmRlZWQ8L2xpPlxuPGxpPk1lZGlhbiBzYWxhcnkgaXMgNDQsMDAwIGV1cm9zIGdyb3NzL3llYXIgaW4gRnJhbmNlIGluIDIwMjY8L2xpPlxuPGxpPkluIFBhcmlzLCB0aGUgMjV0aC03NXRoIHBlcmNlbnRpbGUgcmFuZ2UgaXMgMzYsMjAwIHRvIDUxLDUwMCBldXJvczwvbGk+XG48L3VsPlxuPGgzPkFyZ3VtZW50cyB0aGF0IHdvcms8L2gzPlxuPHVsPlxuPGxpPllvdXIgcmVjZW50IGNlcnRpZmljYXRpb25zIChsYW5ndWFnZXMsIHRvb2xzLCBSTkNQKTwvbGk+XG48bGk+VGhlIG1lYXN1cmFibGUgaW1wYWN0IG9mIHlvdXIgd29yayBvbiB0aGUgZXhlY3V0aXZlPC9saT5cbjxsaT5Db21wYXJhYmxlIG1hcmtldCBvZmZlcnM8L2xpPlxuPGxpPllvdXIgZ3Jvd2luZyBhdmFpbGFiaWxpdHkgYW5kIGF1dG9ub215PC9saT5cbjwvdWw+XG48YmxvY2txdW90ZT48cD5UYXJnZXRpbmcgYW4gT2ZmaWNlIE1hbmFnZXIgcm9sZSBpbmNyZWFzZXMgc2FsYXJ5IGJ5IDIwJSBvbiBhdmVyYWdlLiBFdmVuIHdpdGhvdXQgcHJvbW90aW9uLCBhbm51YWwgbmVnb3RpYXRpb24gZGVzZXJ2ZXMgcHJlcGFyYXRpb24uPC9wPjwvYmxvY2txdW90ZT5cbjxoMz5UaGUgcmlnaHQgdGltaW5nPC9oMz5cbjxwPkFmdGVyIGEgbm90YWJsZSBzdWNjZXNzLCBhdCB5ZWFyIGVuZCwgb3Igd2hlbiB0YWtpbmcgb24gbmV3IHJlc3BvbnNpYmlsaXRpZXMuIE5ldmVyIGR1cmluZyBvcmdhbmlzYXRpb25hbCB0ZW5zaW9ucy48L3A+XG48aDM+TWlzdGFrZXMgdG8gYXZvaWQ8L2gzPlxuPHVsPlxuPGxpPkFza2luZyB3aXRob3V0IGFyZ3VpbmcgeW91ciBjYXNlPC9saT5cbjxsaT5Db21wYXJpbmcgeW91cnNlbGYgdG8gYSBzcGVjaWZpYyBjb2xsZWFndWU8L2xpPlxuPGxpPk5hbWluZyBhIGZpZ3VyZSB0b28gbG93IHRvIGF2b2lkIHNlZW1pbmcgZ3JlZWR5PC9saT5cbjwvdWw+IiwgImxpZW4iOiAiaHR0cHM6Ly93d3cucGFnZXBlcnNvbm5lbC5mci9hZHZpY2UvdGVuZGFuY2VzLWRlLW1hcmNoZS9zYWxhaXJlLW1veWVuLWQtdW4tYXNzaXN0YW50LWRlLWRpcmVjdGlvbiIsICJzb3VyY2UiOiAiUGFnZSBQZXJzb25uZWwifQ==" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Salaires</span><span lang="en">Salaries</span></span>
+        <p class="actu-title"><span lang="fr">Comment negocier son salaire en tant qu assistante ?</span><span lang="en">How to negotiate your salary as an assistant?</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Hier</span><span lang="en">Yesterday</span></span><span class="actu-source">Page Personnel →</span></div>
+      </div>
+      <div class="actu-card" onclick="openReaderB64(this)" data-article="eyJjYXQiOiAiRm9ybWF0aW9uIiwgImNhdEVuIjogIlRyYWluaW5nIiwgInRpdGxlIjogIkxlcyBjZXJ0aWZpY2F0aW9ucyBxdWkgZm9udCBsYSBkaWZmZXJlbmNlIHN1ciB1biBDViIsICJ0aXRsZUVuIjogIkNlcnRpZmljYXRpb25zIHRoYXQgbWFrZSBhIGRpZmZlcmVuY2Ugb24gYSBDViIsICJtZXRhIjogIkNlIG1vaXMgXHUwMGI3IEhlbGxvd29yayAvIElmb2NvcCIsICJtZXRhRW4iOiAiVGhpcyBtb250aCBcdTAwYjcgSGVsbG93b3JrIC8gSWZvY29wIiwgImJvZHkiOiAiPHA+RW4gMjAyNSwgODAlIGRlcyBvZmZyZXMgZCBlbXBsb2kgcG91ciBhc3Npc3RhbnRlIGRlIGRpcmVjdGlvbiBleGlnZW50IGxhIG1haXRyaXNlIGQgb3V0aWxzIGNvbGxhYm9yYXRpZnMgZXQgZCBhdSBtb2lucyB1bmUgbGFuZ3VlIGV0cmFuZ2VyZS4gTGVzIGNlcnRpZmljYXRpb25zIGJpZW4gY2hvaXNpZXMgZm9udCBsYSBkaWZmZXJlbmNlLjwvcD5cbjxoMz5MZXMgY2VydGlmaWNhdGlvbnMgYnVyZWF1dGlxdWU8L2gzPlxuPHVsPlxuPGxpPlRPU0EgRXhjZWwgZXQgV29yZCA6IHJlZmVyZW5jZSBlbiBGcmFuY2UsIHJlY29ubnUgcGFyIHRvdXMgbGVzIHJlY3J1dGV1cnM8L2xpPlxuPGxpPk1pY3Jvc29mdCBPZmZpY2UgU3BlY2lhbGlzdCAoTU9TKSA6IGNlcnRpZmljYXRpb24gaW50ZXJuYXRpb25hbGU8L2xpPlxuPGxpPkdvb2dsZSBXb3Jrc3BhY2UgQ2VydGlmaWVkIDogZGUgcGx1cyBlbiBwbHVzIGRlbWFuZGU8L2xpPlxuPC91bD5cbjxoMz5MZXMgY2VydGlmaWNhdGlvbnMgbGFuZ3VlczwvaDM+XG48dWw+XG48bGk+VE9FSUMgOiByZWZlcmVuY2UgcG91ciBsIGFuZ2xhaXMgcHJvZmVzc2lvbm5lbDwvbGk+XG48bGk+QlVMQVRTIDogb3JpZW50ZSBidXNpbmVzcywgcmVjb25udSBlbiBFdXJvcGU8L2xpPlxuPGxpPkxhIG1haXRyaXNlIGRlIGwgYW5nbGFpcyBham91dGUgZW4gbW95ZW5uZSAxNSBhIDIwJSBhdSBzYWxhaXJlPC9saT5cbjwvdWw+XG48YmxvY2txdW90ZT48cD5VbmUgYXNzaXN0YW50ZSBiaWxpbmd1ZSBzZW5pb3IgcGV1dCBhdHRlaW5kcmUgNDIgMDAwIGV1cm9zIGJydXRzIGFubnVlbHMsIGNvbnRyZSAzNCAwMDAgcG91ciB1biBwcm9maWwgbW9ub2xpbmd1ZSBlcXVpdmFsZW50LjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+TGVzIGNlcnRpZmljYXRpb25zIG1ldGllcjwvaDM+XG48dWw+XG48bGk+Uk5DUCBuaXZlYXUgNSBvdSA2IEFzc2lzdGFudCBNYW5hZ2VyIC8gT2ZmaWNlIE1hbmFnZXI8L2xpPlxuPGxpPkNlcnRpZmljYXRpb25zIEx1Y2NhLCBBc2FuYSwgTm90aW9uPC9saT5cbjxsaT5Gb3JtYXRpb25zIGNvdXJ0ZXMgQ1BGIDogZmluYW5jZW1lbnQgcG9zc2libGUgc2FucyBhdmFuY2VyIGRlIGZvbmRzPC9saT5cbjwvdWw+XG48aDM+UGFyIG91IGNvbW1lbmNlciA/PC9oMz5cbjxwPkZhaXRlcyB1biBiaWxhbiBkZSBjb21wZXRlbmNlcy4gSWRlbnRpZmlleiBsZSBnYXAgbGUgcGx1cyBpbXBhY3RhbnQgcG91ciB2b3RyZSBwcm9jaGFpbmUgbmVnb2NpYXRpb24gb3UgZXZvbHV0aW9uIGRlIHBvc3RlLiBQcmlvcmlzZXogdW5lIGNlcnRpZmljYXRpb24gcXVlIHZvdXMgcG91dmV6IGZpbmFuY2VyIHZpYSBsZSBDUEYuPC9wPiIsICJib2R5RW4iOiAiPHA+SW4gMjAyNSwgODAlIG9mIEVBIGpvYiBvZmZlcnMgcmVxdWlyZSBwcm9maWNpZW5jeSBpbiBjb2xsYWJvcmF0aXZlIHRvb2xzIGFuZCBhdCBsZWFzdCBvbmUgZm9yZWlnbiBsYW5ndWFnZS4gV2VsbC1jaG9zZW4gY2VydGlmaWNhdGlvbnMgbWFrZSB0aGUgZGlmZmVyZW5jZS48L3A+XG48aDM+T2ZmaWNlIHNvZnR3YXJlIGNlcnRpZmljYXRpb25zPC9oMz5cbjx1bD5cbjxsaT5UT1NBIEV4Y2VsIGFuZCBXb3JkOiB0aGUgRnJlbmNoIHJlZmVyZW5jZSwgcmVjb2duaXNlZCBieSBhbGwgcmVjcnVpdGVyczwvbGk+XG48bGk+TWljcm9zb2Z0IE9mZmljZSBTcGVjaWFsaXN0IChNT1MpOiBpbnRlcm5hdGlvbmFsIGNlcnRpZmljYXRpb248L2xpPlxuPGxpPkdvb2dsZSBXb3Jrc3BhY2UgQ2VydGlmaWVkOiBpbmNyZWFzaW5nbHkgaW4gZGVtYW5kPC9saT5cbjwvdWw+XG48aDM+TGFuZ3VhZ2UgY2VydGlmaWNhdGlvbnM8L2gzPlxuPHVsPlxuPGxpPlRPRUlDOiB0aGUgcmVmZXJlbmNlIGZvciBwcm9mZXNzaW9uYWwgRW5nbGlzaDwvbGk+XG48bGk+QlVMQVRTOiBidXNpbmVzcy1vcmllbnRlZCwgcmVjb2duaXNlZCBhY3Jvc3MgRXVyb3BlPC9saT5cbjxsaT5FbmdsaXNoIHByb2ZpY2llbmN5IGFkZHMgYW4gYXZlcmFnZSBvZiAxNSB0byAyMCUgdG8gc2FsYXJ5PC9saT5cbjwvdWw+XG48YmxvY2txdW90ZT48cD5BIGJpbGluZ3VhbCBzZW5pb3IgYXNzaXN0YW50IGNhbiByZWFjaCA0MiwwMDAgZXVyb3MgZ3Jvc3MgYW5udWFsbHksIHZzIDM0LDAwMCBmb3IgYW4gZXF1aXZhbGVudCBtb25vbGluZ3VhbCBwcm9maWxlLjwvcD48L2Jsb2NrcXVvdGU+XG48aDM+UHJvZmVzc2lvbmFsIGNlcnRpZmljYXRpb25zPC9oMz5cbjx1bD5cbjxsaT5STkNQIGxldmVsIDUgb3IgNiBBc3Npc3RhbnQgTWFuYWdlciAvIE9mZmljZSBNYW5hZ2VyPC9saT5cbjxsaT5MdWNjYSwgQXNhbmEsIE5vdGlvbiBjZXJ0aWZpY2F0aW9uczwvbGk+XG48bGk+U2hvcnQgQ1BGIGNvdXJzZXM6IGZpbmFuY2luZyBwb3NzaWJsZSB3aXRoIG5vIHVwZnJvbnQgY29zdDwvbGk+XG48L3VsPlxuPGgzPldoZXJlIHRvIHN0YXJ0PzwvaDM+XG48cD5EbyBhIHNraWxscyBhc3Nlc3NtZW50LiBJZGVudGlmeSB0aGUgbW9zdCBpbXBhY3RmdWwgZ2FwIGZvciB5b3VyIG5leHQgbmVnb3RpYXRpb24gb3IgY2FyZWVyIG1vdmUuIFByaW9yaXRpc2UgYSBjZXJ0aWZpY2F0aW9uIHlvdSBjYW4gZnVuZCB2aWEgQ1BGLjwvcD4iLCAibGllbiI6ICJodHRwczovL3d3dy5oZWxsb3dvcmsuY29tL2ZyLWZyL3NhbGFpcmVzL2Fzc2lzdGFudC1kZS1kaXJlY3Rpb24uaHRtbCIsICJzb3VyY2UiOiAiSGVsbG93b3JrIC8gSWZvY29wIn0=" style="cursor:pointer;">
+        <span class="actu-cat"><span lang="fr">Formation</span><span lang="en">Training</span></span>
+        <p class="actu-title"><span lang="fr">Les certifications qui font la difference sur un CV</span><span lang="en">Certifications that make a difference on a CV</span></p>
+        <div class="actu-footer"><span class="actu-date"><span lang="fr">Ce mois</span><span lang="en">This month</span></span><span class="actu-source">Hellowork / Ifocop →</span></div>
+      </div>
+    </div><!-- ACTU-GRID-END -->
+  </div>
+</section>
+
+<!-- LEXIQUE -->
+<section class="section section-dark" id="lexique">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr">Le lexique, mis a jour chaque semaine</span><span lang="en">The glossary, updated weekly</span></p>
+    <h2 class="section-title" style="color:var(--white);"><span lang="fr">Les mots du metier.</span><span lang="en">The words of the profession.</span><br><em><span lang="fr">Redefinis.</span><span lang="en">Redefined.</span></em></h2>
+    <div class="lexique-grid" id="lexiqueGrid">
+      <div class="lexique-card" id="lex-0">
+        <p class="lexique-mot" id="lex-mot-0"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-0"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-0"></p>
+      </div>
+      <div class="lexique-card" id="lex-1">
+        <p class="lexique-mot" id="lex-mot-1"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-1"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-1"></p>
+      </div>
+      <div class="lexique-card" id="lex-2">
+        <p class="lexique-mot" id="lex-mot-2"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-2"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-2"></p>
+      </div>
+      <div class="lexique-card" id="lex-3">
+        <p class="lexique-mot" id="lex-mot-3"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-3"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-3"></p>
+      </div>
+      <div class="lexique-card" id="lex-4">
+        <p class="lexique-mot" id="lex-mot-4"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-4"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-4"></p>
+      </div>
+      <div class="lexique-card" id="lex-5">
+        <p class="lexique-mot" id="lex-mot-5"></p>
+        <p class="lexique-def-officielle" id="lex-def-off-5"></p>
+        <p class="lexique-def-vraie" id="lex-def-vraie-5"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTRAITS -->
+<section class="section" id="portraits">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr">Portraits, mis a jour chaque semaine</span><span lang="en">Portraits, updated weekly</span></p>
+    <h2 class="section-title"><span lang="fr">Trois femmes.</span><span lang="en">Three women.</span><br><em><span lang="fr">Trois chemins.</span><span lang="en">Three paths.</span></em></h2>
+    <div class="portraits-grid" id="portraitsGrid">
+      <div class="portrait-card" id="portrait-0" onclick="openPortrait(0)" style="cursor:pointer;">
+        <div class="portrait-initiales" id="portrait-initiales-0"></div>
+        <p class="portrait-prenom" id="portrait-prenom-0"></p>
+        <p class="portrait-metier" id="portrait-metier-0"></p>
+        <p class="portrait-texte" id="portrait-court-0" style="font-size:12px;line-height:1.8;color:var(--brown);margin-bottom:16px;"></p>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div class="audio-btn" id="audio-btn-0" onclick="event.stopPropagation();playQuote(0)" title="Ecouter la citation">
+            <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="none" stroke="var(--terra)" stroke-width="1.5"/><polygon points="12,10 24,16 12,22" fill="var(--terra)"/></svg>
+          </div>
+          <p class="portrait-quote" id="portrait-quote-0" style="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--terra);line-height:1.6;flex:1;"></p>
+        </div>
+        <p class="portrait-lieu" id="portrait-lieu-0" style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);"></p>
+      </div>
+      <div class="portrait-card" id="portrait-1" onclick="openPortrait(1)" style="cursor:pointer;">
+        <div class="portrait-initiales" id="portrait-initiales-1"></div>
+        <p class="portrait-prenom" id="portrait-prenom-1"></p>
+        <p class="portrait-metier" id="portrait-metier-1"></p>
+        <p class="portrait-texte" id="portrait-court-1" style="font-size:12px;line-height:1.8;color:var(--brown);margin-bottom:16px;"></p>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div class="audio-btn" id="audio-btn-1" onclick="event.stopPropagation();playQuote(1)" title="Ecouter la citation">
+            <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="none" stroke="var(--terra)" stroke-width="1.5"/><polygon points="12,10 24,16 12,22" fill="var(--terra)"/></svg>
+          </div>
+          <p class="portrait-quote" id="portrait-quote-1" style="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--terra);line-height:1.6;flex:1;"></p>
+        </div>
+        <p class="portrait-lieu" id="portrait-lieu-1" style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);"></p>
+      </div>
+      <div class="portrait-card" id="portrait-2" onclick="openPortrait(2)" style="cursor:pointer;">
+        <div class="portrait-initiales" id="portrait-initiales-2"></div>
+        <p class="portrait-prenom" id="portrait-prenom-2"></p>
+        <p class="portrait-metier" id="portrait-metier-2"></p>
+        <p class="portrait-texte" id="portrait-court-2" style="font-size:12px;line-height:1.8;color:var(--brown);margin-bottom:16px;"></p>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <div class="audio-btn" id="audio-btn-2" onclick="event.stopPropagation();playQuote(2)" title="Ecouter la citation">
+            <svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="none" stroke="var(--terra)" stroke-width="1.5"/><polygon points="12,10 24,16 12,22" fill="var(--terra)"/></svg>
+          </div>
+          <p class="portrait-quote" id="portrait-quote-2" style="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--terra);line-height:1.6;flex:1;"></p>
+        </div>
+        <p class="portrait-lieu" id="portrait-lieu-2" style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section class="section section-light" id="guide">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr">Guide de survie, mis a jour chaque semaine</span><span lang="en">Survival guide, updated weekly</span></p>
+    <h2 class="section-title"><span lang="fr">Situations reelles.</span><span lang="en">Real situations.</span><br><em><span lang="fr">Reponses concretes.</span><span lang="en">Concrete answers.</span></em></h2>
+    <div class="guide-grid">
+      <div class="guide-card"><div class="guide-num">01</div><p class="guide-situation"><span lang="fr">La priorite impossible</span><span lang="en">The impossible priority</span></p><h3 class="guide-title"><span lang="fr">Tout est urgent en meme temps</span><span lang="en">Everything is urgent at once</span></h3><p class="guide-conseil"><span lang="fr">Nommez-les a voix haute. "J'ai trois urgences simultanees, laquelle est la plus critique pour vous ?" Cela force une decision et vous protege.</span><span lang="en">Name them out loud. "I have three simultaneous urgencies, which is most critical for you?" This forces a decision and protects you.</span></p></div>
+      <div class="guide-card"><div class="guide-num">02</div><p class="guide-situation"><span lang="fr">Le changement d'avis</span><span lang="en">The change of mind</span></p><h3 class="guide-title"><span lang="fr">Il voulait X, maintenant il veut Y</span><span lang="en">He wanted X, now he wants Y</span></h3><p class="guide-conseil"><span lang="fr">Confirmez par ecrit, meme en une ligne. "Comme convenu, je modifie en Y." Pas pour vous couvrir, pour clarifier et eviter la prochaine fois.</span><span lang="en">Confirm in writing, even in one line. "As agreed, I am changing to Y." Not to cover yourself, to clarify and prevent next time.</span></p></div>
+      <div class="guide-card"><div class="guide-num">03</div><p class="guide-situation"><span lang="fr">La reconnaissance absente</span><span lang="en">The absent recognition</span></p><h3 class="guide-title"><span lang="fr">Votre travail disparait dans le resultat</span><span lang="en">Your work disappears into the result</span></h3><p class="guide-conseil"><span lang="fr">Rendez visible ce qui est invisible : un bref point hebdomadaire sur ce que vous avez gere. Pas pour vous vanter, pour ancrer votre valeur.</span><span lang="en">Make visible what is invisible: a brief weekly update on what you have managed. Not to boast, to anchor your value.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHIFFRES -->
+<section class="section" id="chiffres">
+  <div class="section-inner">
+    <p class="section-label"><span lang="fr">Le metier en chiffres</span><span lang="en">The profession in numbers</span></p>
+    <h2 class="section-title"><span lang="fr">Ce que les donnees</span><span lang="en">What the data</span><br><em><span lang="fr">revelent.</span><span lang="en">reveals.</span></em></h2>
+    <div class="chiffres-grid" id="chiffresGrid">
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="28" data-suffix="K" data-prefix="" id="chiffre-0">0</div>
+        <p class="chiffre-label"><span lang="fr">Salaire median junior a Paris</span><span lang="en">Median junior salary in Paris</span></p>
+        <p class="chiffre-source">Apec, 2025 · Paris</p>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="52" data-suffix="K" data-prefix="" id="chiffre-1">0</div>
+        <p class="chiffre-label"><span lang="fr">Salaire median senior, secteur juridique ou financier</span><span lang="en">Median senior salary, legal or financial sector</span></p>
+        <p class="chiffre-source">Cadremploi, 2025 · France</p>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="78" data-suffix="%" data-prefix="" id="chiffre-2">0</div>
+        <p class="chiffre-label"><span lang="fr">Des assistantes estiment leur poste sous-evalue en EMEA</span><span lang="en">Of assistants in EMEA consider their role undervalued</span></p>
+        <p class="chiffre-source">MyRHLine, 2024 · EMEA</p>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="34" data-suffix="%" data-prefix="+" id="chiffre-3">0</div>
+        <p class="chiffre-label"><span lang="fr">D'augmentation lors d'un changement de poste bien negocie</span><span lang="en">Salary increase when changing jobs with good negotiation</span></p>
+        <p class="chiffre-source">Regionsjob, 2025 · Europe</p>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="3" data-suffix=" ans" data-prefix="" id="chiffre-4">0</div>
+        <p class="chiffre-label"><span lang="fr">Avant qu'une assistante confirmee accede a Office Manager</span><span lang="en">Before a confirmed assistant becomes Office Manager</span></p>
+        <p class="chiffre-source">LinkedIn, 2025 · EMEA</p>
+      </div>
+      <div class="chiffre-card">
+        <div class="chiffre-val" data-target="92" data-suffix="%" data-prefix="" id="chiffre-5">0</div>
+        <p class="chiffre-label"><span lang="fr">Des dirigeants en Europe jugent leur assistante indispensable</span><span lang="en">Of executives in Europe consider their assistant indispensable</span></p>
+        <p class="chiffre-source">Focusrh, 2024 · International</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section reveal" id="newsletter">
+  <h2 class="newsletter-title"><span lang="fr">Rejoignez</span><span lang="en">Join</span><br><em><span lang="fr">la communaute.</span><span lang="en">the community.</span></em></h2>
+  <p class="newsletter-sub"><span lang="fr">Portraits, lexique, offres exclusives et actualites, une fois par semaine.</span><span lang="en">Portraits, glossary, exclusive offers and news, once a week.</span></p>
+  <div id="nlForm">
+    <form class="newsletter-form" onsubmit="handleNl(event)">
+      <input type="email" id="nlEmail" placeholder="Votre adresse email" required>
+      <button type="submit"><span lang="fr">S'inscrire</span><span lang="en">Subscribe</span></button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span><span lang="fr">© 2026 Apogee Consulting</span><span lang="en">© 2026 Apogee Consulting</span></span>
+  <div class="footer-links">
+    <a href="recrutement.html">Recrutement</a>
+    <a href="entreprises.html"><span lang="fr">Entreprises</span><span lang="en">Companies</span></a>
+    <a href="index.html"><span lang="fr"><span lang="fr">Accueil</span><span lang="en">Home</span></span><span lang="en">Home</span></a>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*80); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.05});
+  reveals.forEach(el => obs.observe(el));
+
+  function filter(cat,btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.offre-card').forEach(card => {
+      const match = cat==='all'||(cat==='exclusive'&&card.dataset.type==='exclusive')||card.dataset.cat===cat;
+      card.classList.toggle('hidden',!match);
+    });
+  }
+
+  function handleNl(e) {
+    e.preventDefault();
+    document.getElementById('nlForm').innerHTML='<p class="nl-success"><span lang="fr">Bienvenue dans la communaute Apogee.</span><span lang="en">Welcome to the Apogee community.</span></p>';
+  }
+
+  // Ancres actives au scroll
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const ancreLinks = document.querySelectorAll('.ancre-btn');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 160) current = s.id;
+    });
+    ancreLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#'+current);
+    });
+  });
+</script>
+
+<script>
+  // Apply saved language immediately before render
+  (function() {
+    if (localStorage.getItem('lang') === 'en') {
+      document.documentElement.classList.add('en-pending');
+    }
+  })();
+
+  function toggleLang() {
+    const btn = document.getElementById('langBtn');
+    const isEn = document.body.classList.contains('en');
+    if (isEn) {
+      document.body.classList.remove('en');
+      btn.textContent = 'EN';
+      localStorage.setItem('lang', 'fr');
+      updatePlaceholders(false);
+      updateFicheSelects(false);
+    } else {
+      document.body.classList.add('en');
+      btn.textContent = 'FR';
+      localStorage.setItem('lang', 'en');
+      updatePlaceholders(true);
+      updateFicheSelects(true);
+    }
+  }
+
+  function updatePlaceholders(isEn) {
+    const nl = document.getElementById('nlEmail');
+    if (nl) nl.placeholder = isEn ? 'Your email address' : 'Votre adresse email';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const saved = localStorage.getItem('lang');
+    const isEn = saved === 'en';
+    if (isEn) {
+      document.body.classList.add('en');
+      const btn = document.getElementById('langBtn');
+      if (btn) btn.textContent = 'FR';
+      updatePlaceholders(true);
+      // Update fiche selects after modals are in DOM
+      setTimeout(function() { if(typeof updateFicheSelects === 'function') updateFicheSelects(true); }, 100);
+    }
+  });
+</script>
+
+
+
+
+
+
+<div class="fiche-modal" id="fiche-ad">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-ad')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-AD-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">CDD</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Paris, IDF</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">32 a 40K</span></div>
+      
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante de Direction rigoureuse et proactive pour accompagner un dirigeant dans la gestion quotidienne de son activite.</span><span lang="en">Apogee Consulting is recruiting a rigorous and proactive Executive Assistant to support an executive in daily management.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Gestion des agendas complexes et organisation des deplacements</span><span lang="en">Complex diary management and travel organisation</span></li><li><span lang="fr">Preparation des reunions, comptes rendus et suivi des actions</span><span lang="en">Meeting preparation, minutes and action follow-up</span></li><li><span lang="fr">Interface avec les partenaires, clients et equipes internes</span><span lang="en">Interface with partners, clients and internal teams</span></li><li><span lang="fr">Gestion des notes de frais et suivi administratif (Lucca)</span><span lang="en">Expense management and administrative tracking (Lucca)</span></li><li><span lang="fr">Redaction de courriers, emails et documents professionnels</span><span lang="en">Drafting correspondence, emails and professional documents</span></li><li><span lang="fr">Coordination des priorites et anticipation des besoins</span><span lang="en">Priority coordination and anticipation of needs</span></li></ul>
+    </div>
+    <div class="fm-bloc"><p class="fm-bloc-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p><ul><li><span lang="fr">Experience confirmee en assistanat de direction (2 ans minimum)</span><span lang="en">Confirmed executive assistant experience (minimum 2 years)</span></li><li><span lang="fr">Maitrise des outils bureautiques (Pack Office, Notion, Asana)</span><span lang="en">Proficiency in office tools (MS Office, Notion, Asana)</span></li><li><span lang="fr">Aisance redactionnelle en francais, anglais apprecie</span><span lang="en">Strong written French, English appreciated</span></li><li><span lang="fr">Grande discretion et sens de la confidentialite</span><span lang="en">Discretion and confidentiality</span></li><li><span lang="fr">Autonomie, reactivite et esprit d initiative</span><span lang="en">Autonomy, responsiveness and initiative</span></li></ul></div>
+  </div>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante de Direction</span><span lang="en">Executive Assistant</span></p>
+    </div>
+    <div class="fm-form">
+      <form id="form-fiche-ad" onsubmit="submitFiche(event,'fiche-ad')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select class="fm-exp-select">
+            <option data-fr="Selectionnez..." data-en="Select...">Selectionnez...</option>
+            <option data-fr="Moins d 1 an" data-en="Less than 1 year">Moins d 1 an</option>
+            <option data-fr="1 a 3 ans" data-en="1 to 3 years">1 a 3 ans</option>
+            <option data-fr="3 a 7 ans" data-en="3 to 7 years">3 a 7 ans</option>
+            <option data-fr="Plus de 7 ans" data-en="7+ years">Plus de 7 ans</option>
+          </select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
+      </form>
+      <div class="fm-success" id="success-fiche-ad">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-ad">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-ad').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+    </div>
+  </div>
+</div>
+<div class="fiche-modal" id="fiche-fin">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-fin')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-FIN-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">CDD</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Paris, IDF</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">28 a 36K</span></div>
+      
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante en Finance pour accompagner une equipe financiere dans la gestion administrative, comptable et operationnelle.</span><span lang="en">Apogee Consulting is recruiting a Finance Assistant to support a finance team in administrative, accounting and operational management.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Saisie et suivi des factures fournisseurs et clients</span><span lang="en">Invoice entry and tracking (suppliers and clients)</span></li><li><span lang="fr">Gestion des notes de frais et controle de conformite (Lucca, Ciel, Sage)</span><span lang="en">Expense management and compliance control (Lucca, Ciel, Sage)</span></li><li><span lang="fr">Preparation des reportings mensuels et tableaux de bord</span><span lang="en">Monthly reporting and dashboard preparation</span></li><li><span lang="fr">Support a la cloture comptable mensuelle</span><span lang="en">Support for monthly accounting close</span></li><li><span lang="fr">Suivi des contrats et referencement des dossiers</span><span lang="en">Contract tracking and file referencing</span></li><li><span lang="fr">Interface avec les prestataires comptables et auditeurs</span><span lang="en">Interface with accounting providers and auditors</span></li></ul>
+    </div>
+    <div class="fm-bloc"><p class="fm-bloc-label"><span lang="fr">Profil recherche</span><span lang="en">Profile sought</span></p><ul><li><span lang="fr">Formation en comptabilite, gestion ou finance (BTS, Licence)</span><span lang="en">Training in accounting, management or finance</span></li><li><span lang="fr">Maitrise d Excel et outils de gestion (Sage, Ciel, Dolibarr, Lucca)</span><span lang="en">Proficiency in Excel and management tools (Sage, Ciel, Dolibarr, Lucca)</span></li><li><span lang="fr">Rigueur, organisation et sens du detail</span><span lang="en">Rigour, organisation and attention to detail</span></li><li><span lang="fr">Discretion et respect de la confidentialite des donnees</span><span lang="en">Discretion and data confidentiality</span></li><li><span lang="fr">Experience en cabinet comptable ou service financier appreciee</span><span lang="en">Experience in accounting firm or finance department appreciated</span></li></ul></div>
+  </div>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante en Finance</span><span lang="en">Finance Assistant</span></p>
+    </div>
+    <div class="fm-form">
+      <form id="form-fiche-fin" onsubmit="submitFiche(event,'fiche-fin')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select class="fm-exp-select">
+            <option data-fr="Selectionnez..." data-en="Select...">Selectionnez...</option>
+            <option data-fr="Moins d 1 an" data-en="Less than 1 year">Moins d 1 an</option>
+            <option data-fr="1 a 3 ans" data-en="1 to 3 years">1 a 3 ans</option>
+            <option data-fr="3 a 7 ans" data-en="3 to 7 years">3 a 7 ans</option>
+            <option data-fr="Plus de 7 ans" data-en="7+ years">Plus de 7 ans</option>
+          </select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
+      </form>
+      <div class="fm-success" id="success-fiche-fin">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-fin">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-fin').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+    </div>
+  </div>
+</div>
+<div class="fiche-modal" id="fiche-virt">
+  <!-- GAUCHE -->
+  <div class="fm-left">
+    <button class="fm-back" onclick="closeFiche('fiche-virt')">← <span lang="fr">Retour aux offres</span><span lang="en">Back to positions</span></button>
+    <p class="fm-ref">Ref. APG-VIRT-001</p>
+    <h2 class="fm-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></h2>
+    <div class="fm-details">
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Contrat</span><span lang="en">Contract</span></span><span class="fm-detail-val">Freelance</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Lieu</span><span lang="en">Location</span></span><span class="fm-detail-val">Remote</span></div>
+      <div class="fm-detail"><span class="fm-detail-lbl"><span lang="fr">Salaire</span><span lang="en">Salary</span></span><span class="fm-detail-val">A definir</span></div>
+      
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Le poste</span><span lang="en">The role</span></p>
+      <p><span lang="fr">Apogee Consulting recrute une Assistante virtuelle pour accompagner des dirigeants independants a distance. Mission freelance, 100% remote.</span><span lang="en">Apogee Consulting is recruiting a Virtual Assistant to support independent executives remotely. Freelance, 100% remote.</span></p>
+    </div>
+    <div class="fm-bloc">
+      <p class="fm-bloc-label"><span lang="fr">Vos missions</span><span lang="en">Your missions</span></p>
+      <ul><li><span lang="fr">Gestion d agenda et coordination a distance</span><span lang="en">Remote diary management and coordination</span></li><li><span lang="fr">Traitement des emails et redaction de courriers</span><span lang="en">Email management and correspondence drafting</span></li><li><span lang="fr">Suivi de dossiers et organisation administrative</span><span lang="en">File tracking and administrative organisation</span></li><li><span lang="fr">Interface avec les prestataires et partenaires</span><span lang="en">Interface with service providers and partners</span></li></ul>
+    </div>
+    
+  </div>
+
+  <!-- DROITE -->
+  <div class="fm-right">
+    <div class="fm-right-header">
+      <p class="fm-right-title"><span lang="fr">Assistante virtuelle</span><span lang="en">Virtual Assistant</span></p>
+    </div>
+    <div class="fm-form">
+      <form id="form-fiche-virt" onsubmit="submitFiche(event,'fiche-virt')">
+        <div class="fg"><label><span lang="fr">Prenom & Nom *</span><span lang="en">First & Last name *</span></label><input type="text" required placeholder="Marie Dupont"></div>
+        <div class="fg"><label>Email *</label><input type="email" required placeholder="marie@exemple.com"></div>
+        <div class="fg"><label><span lang="fr">Telephone</span><span lang="en">Phone</span></label><input type="tel" placeholder="06 12 34 56 78"></div>
+        <div class="fg"><label><span lang="fr">Experience</span><span lang="en">Experience</span></label>
+          <select class="fm-exp-select">
+            <option data-fr="Selectionnez..." data-en="Select...">Selectionnez...</option>
+            <option data-fr="Moins d 1 an" data-en="Less than 1 year">Moins d 1 an</option>
+            <option data-fr="1 a 3 ans" data-en="1 to 3 years">1 a 3 ans</option>
+            <option data-fr="3 a 7 ans" data-en="3 to 7 years">3 a 7 ans</option>
+            <option data-fr="Plus de 7 ans" data-en="7+ years">Plus de 7 ans</option>
+          </select>
+        </div>
+        <div class="fg"><label><span lang="fr">Quelques mots</span><span lang="en">A few words</span></label><textarea placeholder="Votre parcours, motivations..."></textarea></div>
+      </form>
+      <div class="fm-success" id="success-fiche-virt">
+        <p><span lang="fr">Candidature recue.</span><span lang="en">Application received.</span><br><span lang="fr">Nous vous contacterons tres bientot.</span><span lang="en">We will contact you very soon.</span></p>
+      </div>
+    </div>
+    <div class="fm-footer" id="footer-fiche-virt">
+      <button class="fm-submit" onclick="document.getElementById('form-fiche-virt').requestSubmit()"><span lang="fr">Envoyer ma candidature →</span><span lang="en">Submit my application →</span></button>
+      <p class="fm-consent"><span lang="fr">En soumettant ce formulaire, j accepte que mes donnees soient utilisees par Apogee Consulting conformement a sa politique de confidentialite.</span><span lang="en">By submitting, I agree my data may be used by Apogee Consulting per its privacy policy.</span></p>
+    </div>
+  </div>
+</div>
+<script>
+  function openFiche(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeFiche(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function submitFiche(e, id) {
+    e.preventDefault();
+    document.getElementById('form-' + id).style.display = 'none';
+    document.getElementById('footer-' + id).style.display = 'none';
+    document.getElementById('success-' + id).style.display = 'block';
+  }
+</script>
+
+
+<!-- ARTICLE READER -->
+<div class="reader-overlay" id="readerOverlay" onclick="closeReader()"></div>
+<div class="reader-modal" id="readerModal">
+  <div class="reader-progress" id="readerProgress"></div>
+  <div class="reader-header">
+    <button class="reader-close" onclick="closeReader()">✕</button>
+    <p class="reader-cat" id="readerCat"></p>
+    <p class="reader-title" id="readerTitle"></p>
+    <p class="reader-meta" id="readerMeta"></p>
+    <svg class="reader-illus" id="readerIllus" width="120" height="120" viewBox="0 0 120 120"></svg>
+  </div>
+  <div class="reader-divider"></div>
+  <div class="reader-body" id="readerBody"></div>
+  <div class="reader-footer">
+    <span class="reader-footer-brand">Apogee Consulting</span>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <a id="readerSourceBtn" href="#" target="_blank" class="reader-share" style="text-decoration:none;display:none;">Source →</a>
+      <button class="reader-share" onclick="closeReader()">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Illustrations SVG par categorie
+  const illus = {
+    'default': '<circle cx="60" cy="60" r="50" fill="none" stroke="#000" stroke-width="1.5"/><line x1="30" y1="60" x2="90" y2="60" stroke="#000" stroke-width="1.5"/><line x1="60" y1="30" x2="60" y2="90" stroke="#000" stroke-width="1.5"/>',
+    'Salaires': '<rect x="20" y="70" width="12" height="30" fill="#000"/><rect x="40" y="50" width="12" height="50" fill="#000"/><rect x="60" y="35" width="12" height="65" fill="#000"/><rect x="80" y="55" width="12" height="45" fill="#000"/><line x1="15" y1="25" x2="105" y2="25" stroke="#000" stroke-width="1.5"/>',
+    'Entretien': '<circle cx="60" cy="35" r="18" fill="none" stroke="#000" stroke-width="1.5"/><path d="M30 100 Q30 70 60 70 Q90 70 90 100" fill="none" stroke="#000" stroke-width="1.5"/><circle cx="60" cy="35" r="6" fill="#000"/>',
+    'Evolution': '<path d="M15 90 L35 65 L55 75 L75 40 L95 20" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="95" cy="20" r="5" fill="#000"/><polyline points="75,20 95,20 95,40" fill="none" stroke="#000" stroke-width="1.5"/>',
+    'Formation': '<rect x="20" y="25" width="80" height="55" rx="2" fill="none" stroke="#000" stroke-width="1.5"/><line x1="35" y1="45" x2="85" y2="45" stroke="#000" stroke-width="1.2"/><line x1="35" y1="55" x2="75" y2="55" stroke="#000" stroke-width="1.2"/><line x1="35" y1="65" x2="65" y2="65" stroke="#000" stroke-width="1.2"/><path d="M45 90 L60 100 L75 90" fill="none" stroke="#000" stroke-width="1.5"/>',
+    'Outils': '<rect x="25" y="30" width="70" height="50" rx="3" fill="none" stroke="#000" stroke-width="1.5"/><rect x="25" y="30" width="70" height="12" rx="3" fill="#000" opacity="0.15"/><circle cx="35" cy="36" r="3" fill="#000"/><circle cx="47" cy="36" r="3" fill="#000"/><line x1="40" y1="90" x2="80" y2="90" stroke="#000" stroke-width="1.5"/><line x1="60" y1="80" x2="60" y2="90" stroke="#000" stroke-width="1.5"/>',
+  };
+
+  function getIllus(cat) {
+    if (!cat) return illus['default'];
+    if (cat.includes('Salaire')) return illus['Salaires'];
+    if (cat.includes('Entretien')) return illus['Entretien'];
+    if (cat.includes('Evolution') || cat.includes('carriere')) return illus['Evolution'];
+    if (cat.includes('Formation') || cat.includes('Certif')) return illus['Formation'];
+    if (cat.includes('Outil') || cat.includes('IA')) return illus['Outils'];
+    return illus['default'];
+  }
+
+  function openReader(data) {
+    document.getElementById('readerCat').innerHTML = data.cat || '';
+    document.getElementById('readerTitle').innerHTML = data.title || '';
+    document.getElementById('readerMeta').innerHTML = data.meta || '';
+    document.getElementById('readerBody').innerHTML = data.body || '';
+    document.getElementById('readerIllus').innerHTML = getIllus(data.cat);
+    document.getElementById('readerProgress').style.width = '0%';
+    // Update source link button
+    const srcBtn = document.getElementById('readerSourceBtn');
+    if (srcBtn) {
+      if (data.lien) {
+        srcBtn.href = data.lien;
+        srcBtn.textContent = (data.source || 'Source') + ' →';
+        srcBtn.style.display = 'inline-block';
+      } else {
+        srcBtn.style.display = 'none';
+      }
+    }
+    document.getElementById('readerOverlay').classList.add('open');
+    document.getElementById('readerModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Progress bar on scroll
+    const body = document.getElementById('readerBody');
+    body.scrollTop = 0;
+    body.onscroll = function() {
+      const pct = (body.scrollTop / (body.scrollHeight - body.clientHeight)) * 100;
+      document.getElementById('readerProgress').style.width = Math.min(pct, 100) + '%';
+    };
+  }
+
+  // Update fiche modal selects on lang change
+  function updateFicheSelects(isEn) {
+    document.querySelectorAll('.fm-exp-select option[data-fr]').forEach(opt => {
+      opt.textContent = isEn ? opt.dataset.en : opt.dataset.fr;
+    });
+  }
+  function closeReader() {
+    document.getElementById('readerOverlay').classList.remove('open');
+    document.getElementById('readerModal').classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('readerBody').onscroll = null;
+  }
+  function openReaderB64(el) {
+    try {
+      const encoded = el.getAttribute('data-article');
+      const bytes = Uint8Array.from(atob(encoded), c => c.charCodeAt(0));
+      const json = new TextDecoder('utf-8').decode(bytes);
+      const data = JSON.parse(json);
+      const isEn = document.body.classList.contains('en');
+      openReader({
+        cat: isEn ? (data.catEn || data.cat) : data.cat,
+        title: isEn ? (data.titleEn || data.title) : data.title,
+        meta: isEn ? (data.metaEn || data.meta) : data.meta,
+        body: isEn ? (data.bodyEn || data.body) : data.body,
+        lien: data.lien,
+        source: data.source
+      });
+    } catch(e) { console.error('Reader decode error:', e); }
+  }
+</script>
+
+
+
+
+<script>
+// ── CHIFFRES POOL ─────────────────────────────────────────────────────
+const chiffresPool = [
+  // France / Paris
+  { val:28, prefix:'', suffix:'K', fr:'Salaire median junior assistante a Paris', en:'Median junior EA salary in Paris', source:'Apec, 2025 · Paris' },
+  { val:52, prefix:'', suffix:'K', fr:'Salaire median senior secteur juridique ou financier', en:'Median senior salary, legal or financial sector', source:'Cadremploi, 2025 · France' },
+  { val:78, prefix:'', suffix:'%', fr:'Des assistantes estiment leur poste sous-evalue', en:'Of assistants consider their role undervalued', source:'MyRHLine, 2024 · France' },
+  { val:34, prefix:'+', suffix:'%', fr:'D augmentation en changeant de poste', en:'Salary increase when changing jobs', source:'Regionsjob, 2025 · France' },
+  { val:3, prefix:'', suffix:' ans', fr:'Avant de passer Office Manager en moyenne', en:'Average time before becoming Office Manager', source:'LinkedIn, 2025 · France' },
+  { val:92, prefix:'', suffix:'%', fr:'Des dirigeants jugent leur assistante indispensable', en:'Of executives consider their assistant indispensable', source:'Focusrh, 2024 · France' },
+  // Europe / EMEA
+  { val:41, prefix:'', suffix:'K', fr:'Salaire median assistante executive en Europe', en:'Median executive assistant salary in Europe', source:'Eurostat, 2024 · Europe' },
+  { val:67, prefix:'', suffix:'%', fr:'Des EA europeennes souhaitent davantage de reconnaissance', en:'Of European EAs want more recognition', source:'EUMA, 2024 · EMEA' },
+  { val:2.3, prefix:'', suffix:'M', fr:'D assistantes de direction en Europe', en:'Executive assistants in Europe', source:'LinkedIn Insights, 2024 · Europe' },
+  { val:45, prefix:'+', suffix:'%', fr:'Des offres EA en remote depuis 2020 en EMEA', en:'More remote EA positions since 2020 in EMEA', source:'Indeed, 2024 · EMEA' },
+  { val:58, prefix:'', suffix:'K', fr:'Salaire median EA senior a Londres', en:'Median senior EA salary in London', source:'Reed, 2025 · UK' },
+  { val:38, prefix:'', suffix:'K', fr:'Salaire median EA confirme en Allemagne', en:'Median confirmed EA salary in Germany', source:'Stepstone, 2025 · Germany' },
+  { val:71, prefix:'', suffix:'%', fr:'Des EA en EMEA utilisent des outils IA en 2025', en:'Of EAs in EMEA use AI tools in 2025', source:'IAAP, 2025 · EMEA' },
+  { val:4.2, prefix:'', suffix:'%', fr:'Croissance annuelle des postes EA en Europe', en:'Annual growth of EA positions in Europe', source:'Manpower, 2024 · Europe' },
+  // International
+  { val:95, prefix:'', suffix:'%', fr:'Des C-suite ont une assistante executive dedicee', en:'Of C-suite executives have a dedicated EA', source:'Harvard Business Review · Global' },
+  { val:8, prefix:'', suffix:'h', fr:'De temps libere au dirigeant par son EA chaque semaine', en:'Of time freed up for executives by their EA weekly', source:'McKinsey, 2024 · Global' },
+  { val:6.8, prefix:'', suffix:'M', fr:'D assistantes executives dans le monde', en:'Executive assistants worldwide', source:'ILO, 2024 · Global' },
+  { val:32, prefix:'', suffix:'%', fr:'Des EA mondiales travaillent pour plusieurs dirigeants', en:'Of global EAs support multiple executives', source:'IAAP, 2025 · Global' },
+  { val:89, prefix:'', suffix:'%', fr:'Des entreprises Fortune 500 ont des EA dediees', en:'Of Fortune 500 companies have dedicated EAs', source:'Fortune, 2024 · Global' },
+  { val:55, prefix:'', suffix:'K', fr:'Salaire median EA senior aux Etats-Unis', en:'Median senior EA salary in the United States', source:'BLS, 2025 · USA' },
+];
+
+function animateCounter(el, target, prefix, suffix, duration) {
+  const isDecimal = String(target).includes('.');
+  el.classList.add('animating');
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const current = target * ease;
+    el.querySelector('.cv').textContent = prefix + (isDecimal ? current.toFixed(1) : Math.round(current)) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+    else { el.querySelector('.cv').textContent = prefix + target + suffix; el.classList.remove('animating'); }
+  }
+  requestAnimationFrame(update);
+}
+
+function shufflePool() {
+  // Pick 6 unique random stats from pool
+  const shuffled = [...chiffresPool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 6);
+}
+
+function renderChiffres(stats, animate) {
+  const grid = document.getElementById('chiffresGrid');
+  if (!grid) return;
+  stats.forEach((s, i) => {
+    const card = grid.querySelectorAll('.chiffre-card')[i];
+    if (!card) return;
+    const val = card.querySelector('.chiffre-val');
+    const label = card.querySelector('.chiffre-label');
+    const source = card.querySelector('.chiffre-source');
+    const isEn = document.body.classList.contains('en');
+    // Update label and source
+    label.innerHTML = '<span lang="fr">' + s.fr + '</span><span lang="en">' + s.en + '</span>';
+    source.textContent = s.source;
+    // Animate counter
+    val.dataset.target = s.val;
+    val.dataset.prefix = s.prefix;
+    val.dataset.suffix = s.suffix;
+    if (animate) {
+      setTimeout(() => animateCounter(val, s.val, s.prefix, s.suffix, 1000 + Math.random() * 400), i * 150);
+    } else {
+      val.querySelector('.cv').textContent = s.prefix + s.val + s.suffix;
+    }
+  });
+}
+
+// Init cards with .cv span inside .chiffre-val
+function initCards() {
+  const grid = document.getElementById('chiffresGrid');
+  if (!grid) return;
+  grid.querySelectorAll('.chiffre-val').forEach(val => {
+    if (!val.querySelector('.cv')) {
+      val.innerHTML = '<span class="cv">0</span>';
+    }
+  });
+}
+
+let chiffresInterval = null;
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      initCards();
+      const stats = shufflePool();
+      renderChiffres(stats, true);
+      if (!chiffresInterval) {
+        chiffresInterval = setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            const newStats = shufflePool();
+            // Fade out cards then update
+            document.querySelectorAll('.chiffre-card').forEach(c => c.style.opacity = '0');
+            setTimeout(() => {
+              renderChiffres(newStats, true);
+              document.querySelectorAll('.chiffre-card').forEach(c => c.style.opacity = '1');
+            }, 400);
+          }
+        }, 8000);
+      }
+    }
+  });
+}, { threshold: 0.2 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('chiffresGrid');
+  if (grid) observer.observe(grid);
+});
+</script>
+
+
+<script>
+// ── LEXIQUE POOL ──────────────────────────────────────────────────────
+const lexiquePool = [
+  { mot_fr:'Secretaire', mot_en:'Secretary',
+    off_fr:'"Personne chargee de la correspondance et des taches administratives."',
+    off_en:'"Person responsible for correspondence and administrative tasks."',
+    vrai_fr:'La memoire de l entreprise, le filtre de l information, la gardienne du temps de ceux qui decident.',
+    vrai_en:"The company's memory, the information filter, the guardian of decision-makers' time." },
+  { mot_fr:'Disponible', mot_en:'Available',
+    off_fr:'"Qui peut etre mobilisee a tout moment."',
+    off_en:'"Who can be mobilised at any time."',
+    vrai_fr:'Reactive, oui. Mais avec des limites qui sont la condition meme de votre efficacite.',
+    vrai_en:'Responsive, yes. But with boundaries that are the very condition of your effectiveness.' },
+  { mot_fr:'Support', mot_en:'Support',
+    off_fr:'"Fonction d aide et d assistance."',
+    off_en:'"Support and assistance function."',
+    vrai_fr:'Une fonction strategique sans laquelle aucune decision ne se prend correctement.',
+    vrai_en:'A strategic function without which no decision can be properly made.' },
+  { mot_fr:'Polyvalente', mot_en:'Versatile',
+    off_fr:'"Capable de s adapter a diverses taches."',
+    off_en:'"Able to adapt to various tasks."',
+    vrai_fr:'Une professionnelle qui maitrise des domaines qu il faudrait trois personnes pour couvrir ailleurs.',
+    vrai_en:'A professional who masters domains that would take three people to cover elsewhere.' },
+  { mot_fr:'Discrete', mot_en:'Discreet',
+    off_fr:'"Qui evite de se faire remarquer."',
+    off_en:'"Who avoids drawing attention."',
+    vrai_fr:'Une confidente de haut niveau, depositaire d informations que peu partagent dans l entreprise.',
+    vrai_en:'A high-level confidante, entrusted with information that few in the company share.' },
+  { mot_fr:'Assistante', mot_en:'Assistant',
+    off_fr:'"Celle qui assiste, qui aide."',
+    off_en:'"The one who assists, who helps."',
+    vrai_fr:'Celle sans qui les dirigeants ne pourraient ni avancer vite, ni avancer bien.',
+    vrai_en:'The one without whom executives could neither move fast nor move well.' },
+  { mot_fr:'Flexible', mot_en:'Flexible',
+    off_fr:'"Qui s adapte aux changements de planning."',
+    off_en:'"Who adapts to schedule changes."',
+    vrai_fr:'Une architecte de l organisation, pas une variable d ajustement.',
+    vrai_en:'An architect of organisation, not an adjustment variable.' },
+  { mot_fr:'Efficace', mot_en:'Efficient',
+    off_fr:'"Qui produit un effet maximum avec un minimum de moyens."',
+    off_en:'"Producing maximum effect with minimum means."',
+    vrai_fr:'Une operatrice qui transforme le chaos en lisibilite, le flou en decision.',
+    vrai_en:'An operator who transforms chaos into clarity, ambiguity into decision.' },
+  { mot_fr:'Fiable', mot_en:'Reliable',
+    off_fr:'"Sur qui l on peut compter."',
+    off_en:'"Someone you can count on."',
+    vrai_fr:'Le seul rouage de l entreprise qui ne peut pas se permettre de devoir etre rappele a la raison.',
+    vrai_en:'The only cog in the company that cannot afford to need reminding of what matters.' },
+  { mot_fr:'Organisee', mot_en:'Organised',
+    off_fr:'"Qui sait ordonner ses activites."',
+    off_en:'"Who knows how to order their activities."',
+    vrai_fr:'Une strategiste de l espace, du temps et des priorites — pour deux, parfois pour dix.',
+    vrai_en:'A strategist of space, time and priorities — for two, sometimes for ten.' },
+  { mot_fr:'Proactive', mot_en:'Proactive',
+    off_fr:'"Qui anticipe les situations avant qu elles se produisent."',
+    off_en:'"Who anticipates situations before they occur."',
+    vrai_fr:'Celle qui a deja resolu le probleme que son dirigeant n a pas encore identifie.',
+    vrai_en:'The one who has already solved the problem her executive has not yet identified.' },
+  { mot_fr:'Executive', mot_en:'Executive',
+    off_fr:'"Qui se rapporte a l execution des decisions."',
+    off_en:'"Relating to the execution of decisions."',
+    vrai_fr:'Un titre qui dit enfin la verite : elle est au niveau de ceux qu elle accompagne.',
+    vrai_en:'A title that finally tells the truth: she is at the level of those she supports.' },
+];
+
+function renderLexique(stats, animate) {
+  const isEn = document.body.classList.contains('en');
+  stats.forEach((s, i) => {
+    const card = document.getElementById('lex-' + i);
+    if (!card) return;
+    if (animate) card.classList.add('fading');
+    setTimeout(() => {
+      document.getElementById('lex-mot-' + i).innerHTML = '<span lang="fr">' + s.mot_fr + '</span><span lang="en">' + s.mot_en + '</span>';
+      document.getElementById('lex-def-off-' + i).innerHTML = '<span lang="fr">' + s.off_fr + '</span><span lang="en">' + s.off_en + '</span>';
+      document.getElementById('lex-def-vraie-' + i).innerHTML = '<span lang="fr">' + s.vrai_fr + '</span><span lang="en">' + s.vrai_en + '</span>';
+      if (animate) card.classList.remove('fading');
+    }, animate ? 1200 : 0);
+  });
+}
+
+function shuffleLexique() {
+  return [...lexiquePool].sort(() => Math.random() - 0.5).slice(0, 6);
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', () => {
+  renderLexique(shuffleLexique(), false);
+  // Rotate very slowly — every 30 seconds, one card at a time
+  let lexStats = shuffleLexique();
+  let lexIdx = 0;
+  setInterval(() => {
+    if (document.visibilityState !== 'visible') return;
+    // Pick a new random entry different from current
+    const current = lexStats[lexIdx];
+    const pool = lexiquePool.filter(x => x.mot_fr !== current.mot_fr);
+    const newStat = pool[Math.floor(Math.random() * pool.length)];
+    lexStats[lexIdx] = newStat;
+    // Fade just this one card
+    const card = document.getElementById('lex-' + lexIdx);
+    if (card) {
+      card.classList.add('fading');
+      setTimeout(() => {
+        const isEn = document.body.classList.contains('en');
+        document.getElementById('lex-mot-' + lexIdx).innerHTML = '<span lang="fr">' + newStat.mot_fr + '</span><span lang="en">' + newStat.mot_en + '</span>';
+        document.getElementById('lex-def-off-' + lexIdx).innerHTML = '<span lang="fr">' + newStat.off_fr + '</span><span lang="en">' + newStat.off_en + '</span>';
+        document.getElementById('lex-def-vraie-' + lexIdx).innerHTML = '<span lang="fr">' + newStat.vrai_fr + '</span><span lang="en">' + newStat.vrai_en + '</span>';
+        card.classList.remove('fading');
+      }, 1200);
+    }
+    // Move to next card (cycle through 0-5)
+    lexIdx = (lexIdx + 1) % 6;
+  }, 30000); // one card changes every 30 seconds
+});
+</script>
+
+
+<!-- PORTRAIT OVERLAY -->
+<div class="portrait-overlay" id="portraitOverlay" onclick="closePortrait()"></div>
+<div class="portrait-modal" id="portraitModal">
+  <div class="pm-header">
+    <button class="pm-close" onclick="closePortrait()">✕</button>
+    <div class="pm-initiales" id="pmInitiales"></div>
+    <p class="pm-prenom" id="pmPrenom"></p>
+    <p class="pm-metier" id="pmMetier"></p>
+  </div>
+  <div class="pm-body" id="pmBody"></div>
+  <div class="pm-footer">
+    <a href="recrutement.html" class="pm-cta">Postuler comme elles →</a>
+    <button class="pm-fermer" onclick="closePortrait()">Fermer</button>
+  </div>
+</div>
+
+<script>
+// ── PORTRAITS ─────────────────────────────────────────────────────────
+const portraitsPool = [{"initiales": "SL", "prenom_fr": "Sophie", "prenom_en": "Sophie", "metier_fr": "Assistante de direction, 12 ans", "metier_en": "Executive Assistant, 12 years", "lieu_fr": "Chez un client Apogee, Paris 8e", "lieu_en": "With an Apogee client, Paris 8th", "court_fr": "Elle a commence comme standardiste. Aujourd hui, elle prepare les conseils d administration.", "court_en": "She started as a switchboard operator. Today, she prepares board meetings.", "quote_fr": "\"Je n ai pas attendu qu on me donne un titre. Je me suis imposee par ce que je faisais.\"", "quote_en": "\"I didn't wait for a title. I imposed myself through what I did.\"", "histoire_fr": "<p>Sophie a commence sa carriere comme standardiste dans un cabinet d expertise comptable. Elle avait 22 ans, un BTS en poche, et aucun plan precis.</p>\n<p>En 12 ans, elle a gravi chaque echelon sans changer d entreprise. Aujourd hui, elle gere les deplacements internationaux d un PDG, coordonne trois equipes et prepare les conseils d administration.</p>\n<h3>Ce qu elle a fait differemment</h3>\n<ul><li>Elle a toujours demande plus de responsabilites avant qu on les lui propose</li>\n<li>Elle s est formee en continu — TOSA, anglais, outils de gestion de projet</li>\n<li>Elle a appris a rendre son travail visible sans se vanter</li></ul>\n<blockquote><p>\"Personne ne m a donne un titre a la hauteur. J ai arrete d attendre qu on le fasse.\"</p></blockquote>", "histoire_en": "<p>Sophie started her career as a switchboard operator in an accounting firm. She was 22, had a vocational diploma, and no clear plan.</p>\n<p>Over 12 years, she climbed every rung without changing companies. Today, she manages a CEO's international travel, coordinates three teams and prepares board meetings.</p>\n<h3>What she did differently</h3>\n<ul><li>She always asked for more responsibility before it was offered</li>\n<li>She trained continuously — certifications, English, project management tools</li>\n<li>She learned to make her work visible without boasting</li></ul>\n<blockquote><p>\"No one gave me a title to match. I stopped waiting for someone to do it.\"</p></blockquote>"}, {"initiales": "ML", "prenom_fr": "Myriam", "prenom_en": "Myriam", "metier_fr": "Office Manager, reconvertie", "metier_en": "Office Manager, career changer", "lieu_fr": "Placee par Apogee, en CDI depuis 8 mois", "lieu_en": "Placed by Apogee, permanent contract for 8 months", "court_fr": "Ancienne agent d accueil dans un hotel. Elle a compris que ses competences valaient bien plus.", "court_en": "Former hotel receptionist. She realised her skills were worth far more than her role.", "quote_fr": "\"J ai negocie pour la premiere fois de ma vie. Et ca a marche.\"", "quote_en": "\"I negotiated for the first time in my life. And it worked.\"", "histoire_fr": "<p>Myriam travaillait a l accueil d un hotel 4 etoiles depuis 6 ans. Elle aimait son travail mais savait qu elle stagnait.</p>\n<p>Un jour, en aidant le directeur general sur un dossier administratif complexe, elle a realise quelque chose : elle faisait deja ce qu une assistante de direction fait, sans le titre ni le salaire.</p>\n<h3>Les 6 mois qui ont tout change</h3>\n<ul><li>Elle a suivi une formation assistante de direction financee par le CPF</li>\n<li>Elle a refait son CV pour mettre en valeur ses competences transferables</li>\n<li>Elle a passe deux entretiens — et obtenu une offre CDI la deuxieme fois</li></ul>\n<blockquote><p>\"Ce que j ai change recemment : j ai negocie. Pour la premiere fois. Et ca a marche.\"</p></blockquote>", "histoire_en": "<p>Myriam worked as receptionist at a 4-star hotel for 6 years. She liked her job but knew she was stagnating.</p>\n<p>One day, while helping the general manager with a complex administrative file, she realised something: she was already doing what an executive assistant does, without the title or the salary.</p>\n<h3>The 6 months that changed everything</h3>\n<ul><li>She followed an EA training course funded by CPF</li>\n<li>She rewrote her CV to highlight transferable skills</li>\n<li>She had two interviews — and got a permanent offer the second time</li></ul>\n<blockquote><p>\"What I changed recently: I negotiated. For the first time in my life. And it worked.\"</p></blockquote>"}, {"initiales": "LM", "prenom_fr": "Laura", "prenom_en": "Laura", "metier_fr": "Assistante juridique, cabinet d avocats", "metier_en": "Legal Assistant, law firm", "lieu_fr": "En poste depuis 3 ans, vient de decrocher une promotion", "lieu_en": "In post for 3 years, just landed a promotion", "court_fr": "Elle connait les dossiers mieux que certains associes. Elle vient de decrocher une promotion.", "court_en": "She knows the files better than some partners. She just landed a promotion.", "quote_fr": "\"Dans un cabinet, on ne vous offre rien. Il faut demander, prouver, insister.\"", "quote_en": "\"In a law firm, nothing is offered. You have to ask, prove, insist.\"", "histoire_fr": "<p>Laura voulait etre avocate. Elle a passe le barreau deux fois. La troisieme tentative, elle a decide de chercher autre chose.</p>\n<p>Elle est entree comme assistante juridique dans un petit cabinet. Trois ans plus tard, elle en connait les dossiers mieux que certains associes.</p>\n<h3>Ce qu elle a appris</h3>\n<ul><li>Dans un cabinet, la valeur ne se voit que si on la rend visible</li>\n<li>Anticiper les echeances legales cree une dependance positive du dirigeant envers vous</li>\n<li>La formation continue en droit — meme sans titre d avocate — est un atout decisif</li></ul>\n<blockquote><p>\"Dans un cabinet, on ne vous offre rien. Il faut demander, prouver, insister. Mais quand ca marche, ca dure.\"</p></blockquote>", "histoire_en": "<p>Laura wanted to be a lawyer. She sat the bar exam twice. On the third attempt, she decided to look elsewhere.</p>\n<p>She joined a small firm as a legal assistant. Three years later, she knows the files better than some partners.</p>\n<h3>What she learned</h3>\n<ul><li>In a firm, value is only seen if you make it visible</li>\n<li>Anticipating legal deadlines creates a positive dependency of the executive on you</li>\n<li>Continuing legal education — even without a lawyer title — is a decisive asset</li></ul>\n<blockquote><p>\"In a firm, nothing is offered. You have to ask, prove, insist. But when it works, it lasts.\"</p></blockquote>"}, {"initiales": "AC", "prenom_fr": "Amelie", "prenom_en": "Amelie", "metier_fr": "Assistante virtuelle, 100% remote", "metier_en": "Virtual Assistant, 100% remote", "lieu_fr": "Independante depuis 2 ans, 4 clients actifs", "lieu_en": "Independent for 2 years, 4 active clients", "court_fr": "Elle a quitte son bureau parisien pour travailler de n importe ou. Elle ne reviendrait pas en arriere.", "court_en": "She left her Paris office to work from anywhere. She would not go back.", "quote_fr": "\"Le remote n est pas une facilite. C est une discipline. Et je suis meilleure avec.\"", "quote_en": "\"Remote is not an easy option. It's a discipline. And I'm better for it.\"", "histoire_fr": "<p>Amelie a passe 7 ans comme assistante de direction dans une agence de communication parisienne. Bonne ambiance, bon salaire, mauvais equilibre de vie.</p>\n<p>En 2022, elle a passe 3 mois a construire son offre d assistante virtuelle. Aujourd hui, elle gere 4 clients — un fondateur de startup, un consultant independant, un notaire et une directrice artistique.</p>\n<h3>Ce que le remote change vraiment</h3>\n<ul><li>Vous devez sur-communiquer — par ecrit, clairement, systematiquement</li>\n<li>La confiance se construit par les livrables, pas par la presence</li>\n<li>Les outils de collaboration remplacent le bureau mais pas le lien humain</li></ul>\n<blockquote><p>\"Le remote n est pas une facilite. C est une discipline. Et je suis meilleure avec.\"</p></blockquote>", "histoire_en": "<p>Amelie spent 7 years as an EA at a Paris communications agency. Good atmosphere, good salary, poor work-life balance.</p>\n<p>In 2022, she spent 3 months building her virtual assistant offer. Today she manages 4 clients — a startup founder, an independent consultant, a notary and an art director.</p>\n<h3>What remote really changes</h3>\n<ul><li>You must over-communicate — in writing, clearly, systematically</li>\n<li>Trust is built through deliverables, not presence</li>\n<li>Collaboration tools replace the office but not the human connection</li></ul>\n<blockquote><p>\"Remote is not an easy option. It's a discipline. And I'm better for it.\"</p></blockquote>"}, {"initiales": "NB", "prenom_fr": "Nadia", "prenom_en": "Nadia", "metier_fr": "Assistante financiere, groupe international", "metier_en": "Finance Assistant, international group", "lieu_fr": "Paris La Defense, bilingue FR/EN", "lieu_en": "Paris La Defense, bilingual FR/EN", "court_fr": "Arrivee en France a 28 ans. Elle a refait entierement son parcours. Aujourd hui elle gere les reportings d une equipe de 40 personnes.", "court_en": "She arrived in France at 28. She rebuilt her career from scratch. Today she manages reporting for a team of 40.", "quote_fr": "\"Mon accent a parfois joue contre moi. Mon anglais a toujours joue pour moi.\"", "quote_en": "\"My accent sometimes worked against me. My English always worked for me.\"", "histoire_fr": "<p>Nadia est arrivee en France depuis le Maroc a 28 ans avec un master en comptabilite et aucun reseau professionnel francais.</p>\n<p>Cinq ans de persistence, de formations complementaires et d entretiens difficiles. Aujourd hui, elle gere les reportings mensuels d une equipe de 40 personnes dans un groupe international.</p>\n<h3>Ce qui a fait la difference</h3>\n<ul><li>Le TOEIC lui a ouvert des portes que son diplome marocain ne pouvait pas</li>\n<li>Elle a accepte un poste en dessous de ses qualifications — pour entrer, puis monter</li>\n<li>Elle a trouve un mentor dans l entreprise qui l a aide a rendre son travail visible</li></ul>\n<blockquote><p>\"Mon accent a parfois joue contre moi. Mon anglais a toujours joue pour moi.\"</p></blockquote>", "histoire_en": "<p>Nadia arrived in France from Morocco at 28 with a master's in accounting and no French professional network.</p>\n<p>Five years of persistence, additional training and difficult interviews. Today she manages monthly reporting for a team of 40 in an international group.</p>\n<h3>What made the difference</h3>\n<ul><li>TOEIC opened doors her Moroccan degree could not</li>\n<li>She accepted a position below her qualifications — to get in, then move up</li>\n<li>She found a mentor in the company who helped her make her work visible</li></ul>\n<blockquote><p>\"My accent sometimes worked against me. My English always worked for me.\"</p></blockquote>"}, {"initiales": "CR", "prenom_fr": "Claire", "prenom_en": "Claire", "metier_fr": "Assistante de direction puis Chief of Staff", "metier_en": "EA turned Chief of Staff", "lieu_fr": "Scale-up tech, Paris 11e", "lieu_en": "Tech scale-up, Paris 11th", "court_fr": "Elle a transforme son poste d assistante en role strategique. Aujourd hui elle est Chief of Staff.", "court_en": "She transformed her EA role into a strategic position. Today she is Chief of Staff.", "quote_fr": "\"J ai arrete de faire ce qu on me demandait. J ai commence a proposer ce dont on avait besoin.\"", "quote_en": "\"I stopped doing what I was asked. I started proposing what was needed.\"", "histoire_fr": "<p>Claire a rejoint une startup de 15 personnes comme assistante de direction. Trois ans plus tard, l entreprise est a 120 collaborateurs et elle est Chief of Staff.</p>\n<p>Elle n a pas eu de promotion officielle pendant 18 mois. Elle a juste continue a prendre des sujets que personne ne voulait porter.</p>\n<h3>La trajectoire Chief of Staff</h3>\n<ul><li>Commencer par les projets transverses que le CEO n a pas le temps de suivre</li>\n<li>Creer des rituels de communication interne — standup, OKR, reporting</li>\n<li>Devenir l interface entre le CEO et les equipes, pas seulement son agenda</li></ul>\n<blockquote><p>\"J ai arrete de faire ce qu on me demandait. J ai commence a proposer ce dont on avait besoin.\"</p></blockquote>", "histoire_en": "<p>Claire joined a 15-person startup as an EA. Three years later, the company has 120 employees and she is Chief of Staff.</p>\n<p>She had no official promotion for 18 months. She just kept picking up projects that no one else wanted to own.</p>\n<h3>The Chief of Staff path</h3>\n<ul><li>Start with cross-functional projects the CEO has no time to follow</li>\n<li>Create internal communication rituals — standup, OKR, reporting</li>\n<li>Become the interface between CEO and teams, not just their diary</li></ul>\n<blockquote><p>\"I stopped doing what I was asked. I started proposing what was needed.\"</p></blockquote>"}];
+
+let currentPortraits = [0, 1, 2];
+let portraitTimers = [];
+
+function renderPortraits(indices, animate) {
+  const isEn = document.body.classList.contains('en');
+  indices.forEach((pi, cardIdx) => {
+    const p = portraitsPool[pi];
+    const card = document.getElementById('portrait-' + cardIdx);
+    if (!card) return;
+    if (animate) card.classList.add('fading');
+    setTimeout(() => {
+      document.getElementById('portrait-initiales-' + cardIdx).textContent = p.initiales;
+      document.getElementById('portrait-prenom-' + cardIdx).textContent = isEn ? p.prenom_en : p.prenom_fr;
+      document.getElementById('portrait-metier-' + cardIdx).textContent = isEn ? p.metier_en : p.metier_fr;
+      document.getElementById('portrait-court-' + cardIdx).textContent = isEn ? p.court_en : p.court_fr;
+      document.getElementById('portrait-quote-' + cardIdx).textContent = isEn ? p.quote_en : p.quote_fr;
+      document.getElementById('portrait-lieu-' + cardIdx).textContent = isEn ? p.lieu_en : p.lieu_fr;
+      if (animate) card.classList.remove('fading');
+    }, animate ? 600 : 0);
+  });
+}
+
+function shufflePortraits() {
+  const shuffled = [...Array(portraitsPool.length).keys()].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, 3);
+}
+
+// Rotate one portrait at a time — every 20 seconds
+let portraitIdx = 0;
+function rotateOnePortrait() {
+  const current = currentPortraits[portraitIdx];
+  const used = new Set(currentPortraits);
+  const pool = [...Array(portraitsPool.length).keys()].filter(i => !used.has(i));
+  if (pool.length === 0) return;
+  const newIdx = pool[Math.floor(Math.random() * pool.length)];
+  currentPortraits[portraitIdx] = newIdx;
+  
+  const card = document.getElementById('portrait-' + portraitIdx);
+  const p = portraitsPool[newIdx];
+  const isEn = document.body.classList.contains('en');
+  card.classList.add('fading');
+  setTimeout(() => {
+    document.getElementById('portrait-initiales-' + portraitIdx).textContent = p.initiales;
+    document.getElementById('portrait-prenom-' + portraitIdx).textContent = isEn ? p.prenom_en : p.prenom_fr;
+    document.getElementById('portrait-metier-' + portraitIdx).textContent = isEn ? p.metier_en : p.metier_fr;
+    document.getElementById('portrait-court-' + portraitIdx).textContent = isEn ? p.court_en : p.court_fr;
+    document.getElementById('portrait-quote-' + portraitIdx).textContent = isEn ? p.quote_en : p.quote_fr;
+    document.getElementById('portrait-lieu-' + portraitIdx).textContent = isEn ? p.lieu_en : p.lieu_fr;
+    card.classList.remove('fading');
+  }, 600);
+  portraitIdx = (portraitIdx + 1) % 3;
+}
+
+// ── AUDIO SIMULE ──────────────────────────────────────────────────────
+let audioTimers = {};
+function playQuote(cardIdx) {
+  const btn = document.getElementById('audio-btn-' + cardIdx);
+  const quoteEl = document.getElementById('portrait-quote-' + cardIdx);
+  if (!btn || !quoteEl) return;
+  
+  // Stop if already playing
+  if (audioTimers[cardIdx]) {
+    clearTimeout(audioTimers[cardIdx]);
+    delete audioTimers[cardIdx];
+    btn.classList.remove('playing');
+    const wave = btn.parentElement.querySelector('.audio-wave');
+    if (wave) wave.remove();
+    return;
+  }
+  
+  // Add wave animation
+  const wave = document.createElement('div');
+  wave.className = 'audio-wave';
+  wave.innerHTML = '<span></span><span></span><span></span>';
+  btn.parentElement.insertBefore(wave, quoteEl);
+  btn.classList.add('playing');
+  
+  // Animate quote text — reveal word by word
+  const isEn = document.body.classList.contains('en');
+  const p = portraitsPool[currentPortraits[cardIdx]];
+  const fullText = isEn ? p.quote_en : p.quote_fr;
+  const words = fullText.split(' ');
+  quoteEl.textContent = '';
+  
+  let wordIdx = 0;
+  function revealWord() {
+    if (wordIdx < words.length) {
+      quoteEl.textContent += (wordIdx > 0 ? ' ' : '') + words[wordIdx];
+      wordIdx++;
+      audioTimers[cardIdx] = setTimeout(revealWord, 80 + Math.random() * 60);
+    } else {
+      // Done
+      setTimeout(() => {
+        btn.classList.remove('playing');
+        wave.remove();
+        delete audioTimers[cardIdx];
+      }, 1500);
+    }
+  }
+  revealWord();
+}
+
+// ── MODALE PORTRAIT ────────────────────────────────────────────────────
+function openPortrait(cardIdx) {
+  const pi = currentPortraits[cardIdx];
+  const p = portraitsPool[pi];
+  const isEn = document.body.classList.contains('en');
+  
+  document.getElementById('pmInitiales').textContent = p.initiales;
+  document.getElementById('pmPrenom').textContent = isEn ? p.prenom_en : p.prenom_fr;
+  document.getElementById('pmMetier').textContent = isEn ? p.metier_en : p.metier_fr;
+  document.getElementById('pmBody').innerHTML = isEn ? p.histoire_en : p.histoire_fr;
+  
+  document.getElementById('portraitOverlay').classList.add('open');
+  document.getElementById('portraitModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePortrait() {
+  document.getElementById('portraitOverlay').classList.remove('open');
+  document.getElementById('portraitModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  currentPortraits = shufflePortraits();
+  renderPortraits(currentPortraits, false);
+  // Rotate one card every 20 seconds
+  setInterval(() => {
+    if (document.visibilityState === 'visible') rotateOnePortrait();
+  }, 20000);
+});
+</script>
+
+</body>
+</html>
